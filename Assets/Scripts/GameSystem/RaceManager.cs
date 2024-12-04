@@ -170,7 +170,8 @@ namespace BoatAttack
                     Debug.LogError("Not Implemented");
                     break;
                 case GameType.Multiplayer:
-                    Debug.LogError("Not Implemented");
+
+                    //Debug.LogError("Not Implemented");
                     break;
                 case GameType.Benchmark:
                     Debug.LogError("Not Implemented");
