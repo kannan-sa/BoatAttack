@@ -149,7 +149,7 @@ namespace BoatAttack
         {
             RaceData = new Race {game = gameType,
                 boats = new List<BoatData>(),
-                boatCount = 4,
+                boatCount = 2,
                 laps = 3,
                 type = RaceType.Race
             };
@@ -170,6 +170,7 @@ namespace BoatAttack
                     Debug.LogError("Not Implemented");
                     break;
                 case GameType.Multiplayer:
+                    GenerateRandomBoats(RaceData.boatCount);
 
                     //Debug.LogError("Not Implemented");
                     break;
@@ -274,6 +275,9 @@ namespace BoatAttack
 
         public static void LoadGame()
         {
+            if (RaceData.game == GameType.Multiplayer)
+                return;
+            
             AppSettings.LoadScene(RaceData.level);
             SceneManager.sceneLoaded += Setup;
         }

@@ -1,12 +1,12 @@
 using System;
+using TMPro;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerView : MonoBehaviour, IView<Player>
 {
     [SerializeField]
-    private Text playerName;
+    private TextMeshProUGUI playerName;
 
     public Action KickPlayer;
 

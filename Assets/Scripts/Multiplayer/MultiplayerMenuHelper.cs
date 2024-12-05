@@ -9,6 +9,9 @@ using Unity.Services.Lobbies.Models;
 using System.Collections.Concurrent;
 using Unity.Netcode;
 using TMPro;
+using UnityEngine.InputSystem;
+using System.Linq;
+using BoatAttack;
 
 public class MultiplayerMenuHelper : MonoBehaviour
 {
@@ -17,29 +20,49 @@ public class MultiplayerMenuHelper : MonoBehaviour
     [SerializeField]
     private string lobbyName;
 
-    public Animator menuAnimator;
-
     [Header("Labels")]
     public TextMeshProUGUI playerNameLabel;
-
-
+    public TextMeshProUGUI lobbyNameLabel;
+    public TextMeshProUGUI boatTitleLabel;
+    public TextMeshProUGUI status;
+    public TextMeshProUGUI caption;
     [Header("Panels")]
+    public GameObject statusPanel;
     public Transform lobbyContent;
     public Transform playerContent;
+    public LobbyView lobbyView;
     public PlayerView playerView;
+    [Header("Events")]
+    public StringEvent selectLobby;
+    public StringEvent kickPlayer;
+    [Header("Controls")]
+    public Animator menuAnimator;
+    public ProjectSceneManager projectSceneManager;
+    public GameObject boatPlayerName;
+    public GameObject playerInputControl;
+    public TMP_Dropdown inputControlOptions;
 
     private bool isServer;
+    private bool canPollLobbies;
     private string lobbyID;
     private Lobby currentLobby;
-
-    public ProjectSceneManager projectSceneManager;
-
     private ConcurrentQueue<string> createdLobbyIds = new ConcurrentQueue<string>();
 
     public string PlayerName { get => playerName; set { playerName = value; } }
     public string LobbyName { get => lobbyName; set { lobbyName = value; } }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void OnEnable()
+    {
+        selectLobby.AddListener(OnSelectLobby);
+        kickPlayer.AddListener(OnKickPlayer);
+    }
+
+    private void OnDisable()
+    {
+        selectLobby.RemoveListener(OnSelectLobby);
+        kickPlayer.RemoveListener(OnKickPlayer);
+    }
+
     async void Start()
     {
         await SignInAnonymouslyAsync();
@@ -72,6 +95,59 @@ public class MultiplayerMenuHelper : MonoBehaviour
         }
     }
 
+    private void SetStatus(string text, float duration)
+    {
+        status.text = text;
+        StartCoroutine(StatusRoutine(duration));
+    }
+
+    private IEnumerator StatusRoutine(float duration)
+    {
+        statusPanel.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        statusPanel.SetActive(false);
+    }
+
+    private void SwitchToBoatSelection()
+    {
+        //Switch to BoatSelection
+        boatTitleLabel.text = "MULTIPLAYER";
+        boatPlayerName.SetActive(false);
+        playerInputControl.SetActive(true);
+        menuAnimator.SetTrigger("Next");
+        canPollLobbies = false;
+        inputControlOptions.ClearOptions();
+
+        //List<string> gamePadNames = new List<string> { "Gamepad 1", "Gamepad 2" };
+        List<string> gamePadNames = Gamepad.all.Select(g => g.name).ToList();
+
+        if (gamePadNames.Any())
+            inputControlOptions.AddOptions(gamePadNames.Select(g => new TMP_Dropdown.OptionData(g)).ToList());
+        else
+            StartCoroutine(SetCaption("No Gamepads"));
+    }
+
+    private IEnumerator SetCaption(string text)
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        inputControlOptions.interactable = false;
+        inputControlOptions.captionText.text = text;
+    }    
+
+    #region Events
+    private void OnSelectLobby(string lobby)
+    {
+        Debug.Log($"Selected Lobby is {lobby}");
+        lobbyID = lobby;
+    }
+
+    private void OnKickPlayer(string playerID)
+    {
+
+    }
+    #endregion
+
     #region Multiplayer Services - Netcode
     public void StartGame()
     {
@@ -86,14 +162,34 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     public void CreateGame()
     {
+        if (RaceManager.RaceData.game != RaceManager.GameType.Multiplayer)
+            return;
+
+        if(!isServer)
+        {
+            SetStatus("Only Server can start race", 4f);
+            return;
+        }
+
         NetworkManager.Singleton.StartHost();
-        UpdateJoiningCode("TEST");
+        UpdateLobbyData("TEST");
         StartCoroutine(StatusRoutine());
     }
 
     public void JoinGame()
     {
         NetworkManager.Singleton.StartClient();
+    }
+
+    public void PollLobbies()
+    {
+        canPollLobbies = true;
+        StartCoroutine(PollLobbies(1.5f));
+    }
+
+    public void PollPlayers()
+    {
+
     }
 
     private IEnumerator StatusRoutine()
@@ -113,9 +209,20 @@ public class MultiplayerMenuHelper : MonoBehaviour
     #endregion
 
     #region Multiplayer Services - Lobby 
-
     public async void CreateLobby()
     {
+        if (string.IsNullOrEmpty(playerName))
+        {
+            SetStatus("Enter Player Name", 6f);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(lobbyName))
+        {
+            SetStatus("Enter Lobby Name", 6f);
+            return;
+        }
+
         CreateLobbyOptions options = new CreateLobbyOptions()
         {
             IsPrivate = false,
@@ -130,6 +237,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, 4, options);
         currentLobby = lobby;
         lobbyID = lobby.Id;
+        isServer = true;
         Debug.Log("Lobby created " + lobby.Name);
 
         // Heartbeat the lobby every 15 seconds.
@@ -137,12 +245,23 @@ public class MultiplayerMenuHelper : MonoBehaviour
         StartCoroutine(PollLobbyForUpdates(lobby.Id, 1.1f));
         createdLobbyIds.Enqueue(lobby.Id);
 
-        //Switch to BoatSelection
-        menuAnimator.SetTrigger("Next");
+        SwitchToBoatSelection();
     }
 
     public async void JoinLobby()
     {
+        if (string.IsNullOrEmpty(playerName))
+        {
+            SetStatus("Enter Player Name", 6f);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(lobbyID))
+        {
+            SetStatus("Select Any Lobby", 6f);
+            return;
+        }
+
         try
         {
             JoinLobbyByIdOptions options = new JoinLobbyByIdOptions()
@@ -157,7 +276,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             lobbyName = joinedLobby.Name;
 
             StartCoroutine(PollLobbyForUpdates(lobbyID, 1.1f));
-            menuAnimator.SetTrigger("Next");
+            SwitchToBoatSelection();
         }
         catch (LobbyServiceException e)
         {
@@ -165,7 +284,44 @@ public class MultiplayerMenuHelper : MonoBehaviour
         }
     }
 
-    private async void UpdateJoiningCode(string joinCode)
+    public async void SearchLobby()
+    {
+        try
+        {
+            QueryLobbiesOptions options = new QueryLobbiesOptions();
+            options.Count = 25;
+
+            // Filter for open lobbies only
+            options.Filters = new List<QueryFilter>()
+            {
+                new QueryFilter(
+                    field: QueryFilter.FieldOptions.AvailableSlots,
+                    op: QueryFilter.OpOptions.GT,
+                    value: "0")
+            };
+
+            // Order by newest lobbies first
+            options.Order = new List<QueryOrder>()
+            {
+                new QueryOrder(
+                    asc: false,
+                    field: QueryOrder.FieldOptions.Created)
+            };
+
+            QueryResponse lobbies = await LobbyService.Instance.QueryLobbiesAsync(options);
+            lobbyContent.DestroyChildren();
+            LobbyView[] lobbyViews = lobbyContent.Populate(lobbyView, lobbies.Results);
+            foreach (var view in lobbyViews)
+                view.selectionToggle.isOn = view.lobbyID == lobbyID;
+            //...
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private async void UpdateLobbyData(string joinCode)
     {
         UpdateLobbyOptions options = new UpdateLobbyOptions()
         {
@@ -175,7 +331,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
             }
         };
         Lobby lobby = await LobbyService.Instance.UpdateLobbyAsync(lobbyID, options);
-
     }
 
     void OnApplicationQuit()
@@ -185,7 +340,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
             LobbyService.Instance.DeleteLobbyAsync(lobbyId);
         }
     }
-
     #endregion
 
     private Player GetPlayer()
@@ -200,7 +354,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     private void ShowPlayers(Lobby lobby, bool forServer = false)
     {
-        playerNameLabel.text = lobbyName;
+        //playerNameLabel.text = playerName;
+        lobbyNameLabel.text = lobbyName;
         playerContent.DestroyChildren();
         playerContent.Populate(playerView, lobby.Players);
     }
@@ -237,5 +392,14 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (!isServer)
             StartGame();
         //JoinRelay(joinCode);
+    }
+
+    IEnumerator PollLobbies(float waitTimeSeconds)
+    {
+        while(canPollLobbies)
+        {
+            SearchLobby();
+            yield return new WaitForSecondsRealtime(waitTimeSeconds);
+        }
     }
 }

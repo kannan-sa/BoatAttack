@@ -47,8 +47,8 @@ public class ProjectSceneManager : NetworkBehaviour
         Debug.Log($"OnSceneEvent {OwnerClientId}, isOwner {IsOwner}");
         Debug.Log($"Scene Name = {sceneEvent.SceneName} ,Event Type = {sceneEvent.SceneEventType}");
 
-        if (canStart)
-            UIPanel.SetActive(false);
+        //if (canStart)
+            //UIPanel.SetActive(false);
 
         if (!IsHost)
             return;
