@@ -1,6 +1,8 @@
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using UnityEngine.AddressableAssets;
 
 public class ProjectSceneManager : NetworkBehaviour
 {
@@ -9,6 +11,11 @@ public class ProjectSceneManager : NetworkBehaviour
 
     public GameObject playerPrefab;
     public GameObject UIPanel;
+
+    [Header("Asset References")]
+    public AssetReference loadingScreen;
+
+    private GameObject loadingScreenObject;
 
 #if UNITY_EDITOR
     public UnityEditor.SceneAsset SceneAsset;
@@ -20,6 +27,17 @@ public class ProjectSceneManager : NetworkBehaviour
         }
     }
 #endif
+
+    private IEnumerator Start()
+    {
+        var loadingScreenLoading = loadingScreen.InstantiateAsync();
+        yield return loadingScreenLoading;
+        loadingScreenObject = loadingScreenLoading.Result;
+        loadingScreenObject.SendMessage("SetLoad", 0.0001f);
+        DontDestroyOnLoad(loadingScreenObject);
+
+        loadingScreenObject.SetActive(false);
+    }
 
     public override void OnNetworkSpawn()
     {
@@ -40,15 +58,30 @@ public class ProjectSceneManager : NetworkBehaviour
 
     private void SceneManager_OnSceneEvent(SceneEvent sceneEvent)
     {
-        bool isLevel = string.Equals("Level", sceneEvent.SceneName, System.StringComparison.OrdinalIgnoreCase); //sceneEvent.SceneName.Equals("Level", System.StringComparison.OrdinalIgnoreCase);
-        
-        bool canStart = isLevel && sceneEvent.SceneEventType == SceneEventType.LoadEventCompleted;
+        bool isLevel = m_SceneName.Equals(sceneEvent.SceneName, System.StringComparison.OrdinalIgnoreCase); //sceneEvent.SceneName.Equals("Level", System.StringComparison.OrdinalIgnoreCase);
+        bool canStart = false;
 
         Debug.Log($"OnSceneEvent {OwnerClientId}, isOwner {IsOwner}");
         Debug.Log($"Scene Name = {sceneEvent.SceneName} ,Event Type = {sceneEvent.SceneEventType}");
 
         //if (canStart)
             //UIPanel.SetActive(false);
+        
+        switch(sceneEvent.SceneEventType)
+        {
+            case SceneEventType.Load:
+                //Show loading..
+                if(isLevel)
+                    loadingScreenObject.SetActive(true);
+                break;
+            case SceneEventType.LoadEventCompleted:
+                if (isLevel)
+                    loadingScreenObject.SetActive(false);
+                canStart = isLevel;
+                //Hide loading..
+                break;
+        }
+
 
         if (!IsHost)
             return;
