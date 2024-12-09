@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace BoatAttack
@@ -27,6 +28,14 @@ namespace BoatAttack
 
             _controls.BoatControls.Reset.performed += ResetBoat;
             _controls.BoatControls.Pause.performed += FreezeBoat;
+
+
+            int controlIndex = MultiplayerMenuHelper.ControlIndex;
+            if (Gamepad.all.Count > controlIndex)
+            {
+                InputDevice[] devices = new InputDevice[] { Gamepad.all[controlIndex] };
+                _controls.devices = new UnityEngine.InputSystem.Utilities.ReadOnlyArray<InputDevice>(devices);
+            }
 
             _controls.DebugControls.TimeOfDay.performed += SelectTime;
         }

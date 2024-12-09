@@ -51,6 +51,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public string PlayerName { get => playerName; set { playerName = value; } }
     public string LobbyName { get => lobbyName; set { lobbyName = value; } }
 
+    public static int ControlIndex = 0;
+
     private void OnEnable()
     {
         selectLobby.AddListener(OnSelectLobby);
@@ -133,6 +135,11 @@ public class MultiplayerMenuHelper : MonoBehaviour
         yield return new WaitForEndOfFrame();
         inputControlOptions.interactable = false;
         inputControlOptions.captionText.text = text;
+    }    
+
+    public void SetControlIndex(int index)
+    {
+        ControlIndex = index;
     }    
 
     #region Events
