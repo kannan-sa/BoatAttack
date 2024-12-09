@@ -1,10 +1,14 @@
+using BoatAttack;
 using UnityEngine;
+using BoatAttack.UI;
 using Unity.Netcode;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class ProjectSceneManager : NetworkBehaviour
+public class NetworkRaceManager : NetworkBehaviour
 {
     [SerializeField]
     private string m_SceneName;
@@ -17,6 +21,10 @@ public class ProjectSceneManager : NetworkBehaviour
 
     private GameObject loadingScreenObject;
 
+    public MainMenuHelper mainMenuHelper;
+
+    private RaceManager raceManager;
+
 #if UNITY_EDITOR
     public UnityEditor.SceneAsset SceneAsset;
     private void OnValidate()
@@ -27,6 +35,13 @@ public class ProjectSceneManager : NetworkBehaviour
         }
     }
 #endif
+
+    public static List<PlayerStatus> playerStats = new List<PlayerStatus>();
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     private IEnumerator Start()
     {
@@ -39,10 +54,20 @@ public class ProjectSceneManager : NetworkBehaviour
         loadingScreenObject.SetActive(false);
     }
 
+    protected override void OnOwnershipChanged(ulong previous, ulong current)
+    {
+        base.OnOwnershipChanged(previous, current);
+
+        Debug.Log($"Owner Ship Changed {current}, previous {previous}");
+    }
+
     public override void OnNetworkSpawn()
     {
         Debug.Log($"OnNetworkSpawn {OwnerClientId}, isOwner {IsOwner} ");
+        
         NetworkManager.SceneManager.OnSceneEvent += SceneManager_OnSceneEvent;
+
+        raceManager = RaceManager.Instance;
     }
 
     public void LoadGameScene()
@@ -86,19 +111,36 @@ public class ProjectSceneManager : NetworkBehaviour
         if (!IsHost)
             return;
 
-        if(canStart)
-            SpawnPlayerForAllClients();
+        if (canStart)
+            StartCoroutine(SetupRace());
     }
 
-    private void SpawnPlayerForAllClients()
+    private IEnumerator SetupRace()
     {
-        Debug.Log($"SpawnPlayerForAllClients {OwnerClientId}, IsHost {IsHost}");
+        while (WaypointGroup.Instance == null) // TODO need to re-write whole game loading/race setup logic as it is dirty
+        {
+            yield return null;
+        }
+        WaypointGroup.Instance.Setup(RaceManager.RaceData.reversed);
+        yield return StartCoroutine(CreateBoats()); // spawn boats;
+    }
 
-        if (!IsHost)
-            return;
-
+    private IEnumerator CreateBoats()
+    {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
-            SpawnPlayer(clientId);
+        {
+            int i = (int)clientId;
+            var boat = RaceManager.RaceData.boats[i]; // boat to setup
+
+            // Load prefab
+            var startingPosition = WaypointGroup.Instance.StartingPositions[i];
+            AsyncOperationHandle<GameObject> boatLoading = Addressables.InstantiateAsync(boat.boatPrefab, startingPosition.GetColumn(3),
+                    Quaternion.LookRotation(startingPosition.GetColumn(2)));
+            yield return boatLoading; // wait for boat asset to load
+            GameObject newBoat = boatLoading.Result;
+            NetworkObject boatObject = newBoat.GetComponent<NetworkObject>();
+            boatObject.SpawnAsPlayerObject(clientId);
+        }
     }
 
     public void SpawnPlayer(ulong clientId)

@@ -12,6 +12,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using System.Linq;
 using BoatAttack;
+using BoatAttack.UI;
 
 public class MultiplayerMenuHelper : MonoBehaviour
 {
@@ -35,28 +36,50 @@ public class MultiplayerMenuHelper : MonoBehaviour
     [Header("Events")]
     public StringEvent selectLobby;
     public StringEvent kickPlayer;
+    public StringEvent setPlayerName;
+    public IntegerEvent setBoatType;
+    public IntegerEvent setPrimaryColor;
+    public IntegerEvent setTrimColor;
     [Header("Controls")]
     public Animator menuAnimator;
-    public ProjectSceneManager projectSceneManager;
+    public NetworkRaceManager projectSceneManager;
     public GameObject boatPlayerName;
     public GameObject playerInputControl;
     public TMP_Dropdown inputControlOptions;
 
+    [Space]
+    public EnumSelector boatHullSelector;
+    public ColorSelector boatPrimaryColorSelector;
+    public ColorSelector boatTrimColorSelector;
+
     private bool isServer;
     private bool canPollLobbies;
+    private bool keepLobby = true;
     private string lobbyID;
     private Lobby currentLobby;
     private ConcurrentQueue<string> createdLobbyIds = new ConcurrentQueue<string>();
-
-    public string PlayerName { get => playerName; set { playerName = value; } }
+    public static MultiplayerMenuHelper Instance;
+    public string PlayerName { get => playerName; 
+        set 
+        { 
+            playerName = value;
+            setPlayerName.Invoke(value);
+        } 
+    }
     public string LobbyName { get => lobbyName; set { lobbyName = value; } }
 
     public static int ControlIndex = 0;
 
     private void OnEnable()
     {
+        Instance = this;
         selectLobby.AddListener(OnSelectLobby);
         kickPlayer.AddListener(OnKickPlayer);
+
+        // boat stuff
+        boatHullSelector.updateVal += setBoatType.Invoke;
+        boatPrimaryColorSelector.updateVal += setPrimaryColor.Invoke;
+        boatTrimColorSelector.updateVal += setTrimColor.Invoke;
     }
 
     private void OnDisable()
@@ -67,6 +90,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     async void Start()
     {
+        InitializeGameControlOptions();
         await SignInAnonymouslyAsync();
     }
 
@@ -118,6 +142,11 @@ public class MultiplayerMenuHelper : MonoBehaviour
         playerInputControl.SetActive(true);
         menuAnimator.SetTrigger("Next");
         canPollLobbies = false;
+        InitializeGameControlOptions();
+    }
+
+    private void InitializeGameControlOptions()
+    {
         inputControlOptions.ClearOptions();
 
         //List<string> gamePadNames = new List<string> { "Gamepad 1", "Gamepad 2" };
@@ -156,8 +185,17 @@ public class MultiplayerMenuHelper : MonoBehaviour
     #endregion
 
     #region Multiplayer Services - Netcode
-    public void StartGame()
+    public void StartRace()
     {
+        if (!isServer)
+        {
+            SetStatus("Only Server can start race", 4f);
+            return;
+        }
+
+        projectSceneManager.LoadGameScene();
+        keepLobby = false;
+/*        
         Debug.Log(isServer ? "Creating Game" : "Joining Game");
 
         if (isServer)
@@ -165,6 +203,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             //CreateRelay();
         else
             JoinGame();
+*/
     }
 
     public void CreateGame()
@@ -178,14 +217,31 @@ public class MultiplayerMenuHelper : MonoBehaviour
             return;
         }
 
-        NetworkManager.Singleton.StartHost();
-        UpdateLobbyData("TEST");
-        StartCoroutine(StatusRoutine());
+        try
+        {
+
+            NetworkManager.Singleton.StartHost();
+            SwitchToBoatSelection();
+        }
+        catch (System.Exception e)
+        {
+            SetStatus(e.Message, 4f);
+        }
+
+        //UpdateLobbyData("TEST");
+        //StartCoroutine(StatusRoutine());
     }
 
     public void JoinGame()
     {
-        NetworkManager.Singleton.StartClient();
+        try
+        {
+            NetworkManager.Singleton.StartClient();
+            SwitchToBoatSelection();
+        }
+        catch(System.Exception e) {
+            SetStatus(e.Message, 4f);
+        }
     }
 
     public void PollLobbies()
@@ -252,7 +308,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
         StartCoroutine(PollLobbyForUpdates(lobby.Id, 1.1f));
         createdLobbyIds.Enqueue(lobby.Id);
 
-        SwitchToBoatSelection();
+        //SwitchToBoatSelection();
+        CreateGame();
     }
 
     public async void JoinLobby()
@@ -283,7 +340,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
             lobbyName = joinedLobby.Name;
 
             StartCoroutine(PollLobbyForUpdates(lobbyID, 1.1f));
-            SwitchToBoatSelection();
+            //SwitchToBoatSelection();
+            JoinGame();
         }
         catch (LobbyServiceException e)
         {
@@ -371,7 +429,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     {
         var delay = new WaitForSecondsRealtime(waitTimeSeconds);
 
-        while (enabled)
+        while (keepLobby)
         {
             LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
             yield return delay;
@@ -383,7 +441,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         var delay = new WaitForSecondsRealtime(waitTimeSeconds);
         bool gamestarted = false;
         string joinCode = string.Empty;
-        while (!gamestarted)
+        while (keepLobby)
         {
             LobbyService.Instance.GetLobbyAsync(lobbyId);
             yield return delay;
@@ -396,8 +454,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
             }
         }
 
-        if (!isServer)
-            StartGame();
+        //if (!isServer)
+        //    StartGame();
         //JoinRelay(joinCode);
     }
 

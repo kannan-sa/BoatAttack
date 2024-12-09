@@ -15,6 +15,8 @@ namespace BoatAttack.UI
         public ColorSelector boatPrimaryColorSelector;
         public ColorSelector boatTrimColorSelector;
 
+        public int playerIndex = 0;
+
         private void OnEnable()
         {
             // level stuff
@@ -35,14 +37,14 @@ namespace BoatAttack.UI
             SetReverse(reverseSelector.CurrentOption);
             // boat stuff
             SetSinglePlayerName(boatName.text);
-            UpdateBoat(0);
+            UpdateBoat(playerIndex);
             UpdateBoatColor(boatPrimaryColorSelector.CurrentOption, true);
             UpdateBoatColor(boatTrimColorSelector.CurrentOption, false);
         }
 
         private void UpdateBoat(int index)
         {
-            RaceManager.SetHull(0, index);
+            RaceManager.SetHull(playerIndex, index);
             for (var i = 0; i < boatMeshes.Length; i++)
             {
                 boatMeshes[i].SetActive(i == index);
@@ -64,7 +66,7 @@ namespace BoatAttack.UI
         public void SetupMultiplayerGame()
         {
             RaceManager.SetGameType(RaceManager.GameType.Multiplayer);
-            SetupDefaults();
+            //SetupDefaults();
         }
 
         private static void SetLevel(int index) => RaceManager.SetLevel(index);
@@ -75,7 +77,7 @@ namespace BoatAttack.UI
 
         public void StartRace() => RaceManager.LoadGame();
 
-        public void SetSinglePlayerName(string playerName) => RaceManager.RaceData.boats[0].boatName = playerName;
+        public void SetSinglePlayerName(string playerName) => RaceManager.RaceData.boats[playerIndex].boatName = playerName;
 
         private void UpdatePrimaryColor(int index) => UpdateBoatColor(index, true);
 
@@ -86,11 +88,11 @@ namespace BoatAttack.UI
             // update racedata
             if (primary)
             {
-                RaceManager.RaceData.boats[0].livery.primaryColor = ConstantData.GetPaletteColor(index);
+                RaceManager.RaceData.boats[playerIndex].livery.primaryColor = ConstantData.GetPaletteColor(index);
             }
             else
             {
-                RaceManager.RaceData.boats[0].livery.trimColor = ConstantData.GetPaletteColor(index);
+                RaceManager.RaceData.boats[playerIndex].livery.trimColor = ConstantData.GetPaletteColor(index);
             }
             
             // update menu boats

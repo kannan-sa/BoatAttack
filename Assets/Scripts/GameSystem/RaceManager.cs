@@ -8,7 +8,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using BoatAttack.UI;
 using UnityEngine.Playables;
-using UnityEngine.Rendering.Universal;
 using Random = UnityEngine.Random;
 
 namespace BoatAttack
@@ -59,11 +58,12 @@ namespace BoatAttack
         [NonSerialized] public static Race RaceData;
         public Race demoRaceData = new Race();
         [NonSerialized] public static float RaceTime;
-        private readonly Dictionary<int, float> _boatTimes = new Dictionary<int, float>();
+        internal readonly Dictionary<int, float> _boatTimes = new Dictionary<int, float>();
 
         public static Action<bool> raceStarted;
 
         [Header("Assets")] public AssetReference[] boats;
+        [Header("Assets")] public AssetReference[] boats_Network;
         public AssetReference raceUiPrefab;
         public AssetReference raceUiTouchPrefab;
         
@@ -149,8 +149,8 @@ namespace BoatAttack
         {
             RaceData = new Race {game = gameType,
                 boats = new List<BoatData>(),
-                boatCount = 2,
-                laps = 3,
+                boatCount = 3,
+                laps = 1,
                 type = RaceType.Race
             };
 
@@ -170,7 +170,7 @@ namespace BoatAttack
                     Debug.LogError("Not Implemented");
                     break;
                 case GameType.Multiplayer:
-                    GenerateRandomBoats(RaceData.boatCount);
+                    //GenerateRandomBoats(RaceData.boatCount);
 
                     //Debug.LogError("Not Implemented");
                     break;
@@ -192,7 +192,7 @@ namespace BoatAttack
         /// Triggered to begin the race
         /// </summary>
         /// <returns></returns>
-        private static IEnumerator BeginRace()
+        internal static IEnumerator BeginRace()
         {
             var introCams = GameObject.FindWithTag("introCameras");
             introCams.TryGetComponent<PlayableDirector>(out var introDirector);
@@ -294,7 +294,7 @@ namespace BoatAttack
             AppSettings.LoadScene(0, LoadSceneMode.Single);
         }
         
-        public static void SetHull(int player, int hull) => RaceData.boats[player].boatPrefab = Instance.boats[hull];
+        public static void SetHull(int player, int hull) => RaceData.boats[player].boatPrefab = RaceData.game == GameType.Multiplayer ? Instance.boats_Network[hull] : Instance.boats[hull];
         
         private static IEnumerator CreateBoats()
         {
@@ -340,11 +340,12 @@ namespace BoatAttack
             }
         }
 
-        private static IEnumerator CreatePlayerUi(int player)
+        internal static IEnumerator CreatePlayerUi(int player)
         {
-            var touch = Input.touchSupported && Input.multiTouchEnabled &&
-                        (Application.platform == RuntimePlatform.Android ||
-                         Application.platform == RuntimePlatform.IPhonePlayer);
+            //var touch = Input.touchSupported && Input.multiTouchEnabled &&
+            //            (Application.platform == RuntimePlatform.Android ||
+            //             Application.platform == RuntimePlatform.IPhonePlayer);
+            var touch = true;
             var uiAsset = touch ? Instance.raceUiTouchPrefab : Instance.raceUiPrefab;
             var uiLoading = uiAsset.InstantiateAsync();
             yield return uiLoading;
@@ -356,7 +357,7 @@ namespace BoatAttack
             }
         }
 
-        private static void SetupCamera(int player, bool remove = false)
+        internal static void SetupCamera(int player, bool remove = false)
         {
             // Setup race camera
             if(remove)
