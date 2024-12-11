@@ -170,9 +170,9 @@ namespace BoatAttack
                     Debug.LogError("Not Implemented");
                     break;
                 case GameType.Multiplayer:
-                    //GenerateRandomBoats(RaceData.boatCount);
-
-                    //Debug.LogError("Not Implemented");
+                    b = new BoatData();
+                    b.human = true; // single player is human
+                    RaceData.boats.Add(b);
                     break;
                 case GameType.Benchmark:
                     Debug.LogError("Not Implemented");

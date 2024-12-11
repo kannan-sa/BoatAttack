@@ -17,7 +17,7 @@ public class BoatControl : NetworkBehaviour
         gameObject.name = boat.boatName;
         Boat boatController = GetComponent<Boat>();
         boat.SetController(gameObject, boatController);
-        boatController.Setup(index + 1, boat.human, boat.livery);
+        boatController.Setup(index + 1, boat.human, boat.livery, IsClient);
 
         if (!IsOwner)
             return;

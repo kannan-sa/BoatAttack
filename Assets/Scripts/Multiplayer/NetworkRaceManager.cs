@@ -48,7 +48,7 @@ public class NetworkRaceManager : NetworkBehaviour
         var loadingScreenLoading = loadingScreen.InstantiateAsync();
         yield return loadingScreenLoading;
         loadingScreenObject = loadingScreenLoading.Result;
-        loadingScreenObject.SendMessage("SetLoad", 0.0001f);
+        loadingScreenObject.SendMessage("SetLoad", .95f);
         DontDestroyOnLoad(loadingScreenObject);
 
         loadingScreenObject.SetActive(false);

@@ -54,11 +54,12 @@ namespace BoatAttack
             TryGetComponent(out engine.RB);
         }
 
-        public void Setup(int player = 1, bool isHuman = true, BoatLivery livery = new BoatLivery())
+        public void Setup(int player = 1, bool isHuman = true, BoatLivery livery = new BoatLivery(), bool addController = false)
         {
             _playerIndex = player - 1;
             cam.gameObject.layer = LayerMask.NameToLayer("Player" + player); // assign player layer
-            SetupController(isHuman); // create or change controller
+            if(addController)
+                SetupController(isHuman); // create or change controller
             Colorize(livery);
         }
 

@@ -66,7 +66,8 @@ namespace BoatAttack.UI
         public void SetupMultiplayerGame()
         {
             RaceManager.SetGameType(RaceManager.GameType.Multiplayer);
-            //SetupDefaults();
+            SetupDefaults();
+            RaceManager.RaceData.boats.Clear();
         }
 
         private static void SetLevel(int index) => RaceManager.SetLevel(index);

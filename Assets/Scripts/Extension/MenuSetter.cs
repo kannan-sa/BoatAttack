@@ -1,11 +1,21 @@
 using UnityEditor;
 using UnityEngine;
+using TMPro;
+#if UNITY_EDITOR
+using Unity.Multiplayer.Playmode;
+#endif
 
 [ExecuteInEditMode]
 public class MenuSetter : MonoBehaviour
 {
+    public bool setInputTexts;
+    public TMP_InputField playerName;
+    public TMP_InputField[] inputFields;
+    public string[] values;
+
     public GameObject[] ActiveObjects;
     public GameObject[] NonActiveObjects;
+
 
 #if UNITY_EDITOR
     private void OnEnable()
@@ -29,6 +39,19 @@ public class MenuSetter : MonoBehaviour
             case PlayModeStateChange.EnteredEditMode:
                 Setup();
                 break;
+        }
+    }
+
+    private void Start()
+    {
+        if (setInputTexts)
+        {
+            for (int i = 0; i < inputFields.Length && i < values.Length; i++)
+                inputFields[i].text = values[i];
+
+
+            if (playerName)
+                playerName.text = string.Join(",", CurrentPlayer.ReadOnlyTags());
         }
     }
 #endif

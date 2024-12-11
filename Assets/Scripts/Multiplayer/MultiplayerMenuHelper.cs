@@ -151,19 +151,11 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         //List<string> gamePadNames = new List<string> { "Gamepad 1", "Gamepad 2" };
         List<string> gamePadNames = Gamepad.all.Select(g => g.name).ToList();
-
-        if (gamePadNames.Any())
-            inputControlOptions.AddOptions(gamePadNames.Select(g => new TMP_Dropdown.OptionData(g)).ToList());
-        else
-            StartCoroutine(SetCaption("No Gamepads"));
-    }
-
-    private IEnumerator SetCaption(string text)
-    {
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
+        bool hasGamePads = gamePadNames.Any();
+        List<TMP_Dropdown.OptionData> options = hasGamePads ? gamePadNames.Select(g => new TMP_Dropdown.OptionData(g)).ToList()
+            : new List<TMP_Dropdown.OptionData> () { new TMP_Dropdown.OptionData("No Gamepads") };
         inputControlOptions.interactable = false;
-        inputControlOptions.captionText.text = text;
+        inputControlOptions.AddOptions(options);
     }    
 
     public void SetControlIndex(int index)
@@ -450,7 +442,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             if (!isServer)
             {
                 gamestarted = !string.IsNullOrEmpty(joinCode = currentLobby.Data["JoinCode"].Value);
-                Debug.Log($"Join Code - {joinCode}");
+                //Debug.Log($"Join Code - {joinCode}");
             }
         }
 

@@ -27,6 +27,11 @@ public class PlayerStatus : NetworkBehaviour
         RaceManager.RaceData.boats.Add(boat);
         RaceManager.RaceData.boatCount = RaceManager.RaceData.boats.Count;
 
+        //SetDefaults
+        OnBoatTypeSet(0, 0);
+        //
+
+
         boatName.OnValueChanged += OnBoatNameSet;
         boatType.OnValueChanged += OnBoatTypeSet;
         primaryColor.OnValueChanged += OnPrimaryColorSet;
@@ -65,18 +70,21 @@ public class PlayerStatus : NetworkBehaviour
     {
         int index = (int)OwnerClientId;
         RaceManager.SetHull(index, newValue);
+        Debug.Log($"Setting Boat hull {newValue.ToString()} ,on {OwnerClientId}");
     }
 
     private void OnPrimaryColorSet(int previousValue, int newValue)
     {
         int index = (int)OwnerClientId;
-        RaceManager.RaceData.boats[index].livery.primaryColor = ConstantData.GetPaletteColor(index);
+        var c = RaceManager.RaceData.boats[index].livery.primaryColor = ConstantData.GetPaletteColor(newValue);
+        Debug.Log($"Setting Primary Color {newValue.ToString()} ,on {OwnerClientId}, {c}");
     }
 
     private void OnTrimColorSet(int previousValue, int newValue)
     {
         int index = (int)OwnerClientId;
-        RaceManager.RaceData.boats[index].livery.trimColor = ConstantData.GetPaletteColor(index);
+        var c = RaceManager.RaceData.boats[index].livery.trimColor = ConstantData.GetPaletteColor(newValue);
+        Debug.Log($"Setting Trim Color {newValue.ToString()} ,on {OwnerClientId}, {c}");
     }
 
     private void OnSetPlayerName(string playerName)
