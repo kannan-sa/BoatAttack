@@ -19,8 +19,9 @@ public static class Utility
         var curLevel = QualitySettings.GetQualityLevel();
         if (lastQualityLevel == curLevel) return;
 
-        if(Debug.isDebugBuild)
+        #if DEBUG_ENABLED
             Debug.Log($"Quality level changed:{lastQualityLevel} to {curLevel}");
+        #endif
         var realIndex = GetTrueQualityLevel(curLevel);
         QualityLevelChange?.Invoke(curLevel, realIndex);
         lastQualityLevel = curLevel;
@@ -105,8 +106,10 @@ internal class UtilityScheduler
     static UtilityScheduler()
     {
         // setup the things
-        if(Debug.isDebugBuild)
+        #if DEBUG_ENABLED
             Debug.Log("Setting up some utilities");
+        #endif
+
         EditorApplication.update += Utility.CheckQualityLevel;
     }
 }

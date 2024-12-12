@@ -31,8 +31,10 @@ namespace WaterSystem
 
         public static void Init()
         {
-            if(Debug.isDebugBuild)
+            #if DEBUG_ENABLED
                 Debug.Log("Initializing Gerstner Waves Jobs");
+            #endif
+
             //Wave data
             _waveCount = Water.Instance._waves.Length;
             _waveData = new NativeArray<Wave>(_waveCount, Allocator.Persistent);
@@ -50,8 +52,9 @@ namespace WaterSystem
 
         public static void Cleanup()
         {
-            if(Debug.isDebugBuild)
+            #if DEBUG_ENABLED
                 Debug.Log("Cleaning up Gerstner Wave Jobs");
+            #endif
             _waterHeightHandle.Complete();
 
             //Cleanup native arrays

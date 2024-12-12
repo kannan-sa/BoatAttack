@@ -6,6 +6,7 @@ using UnityEngine.AddressableAssets;
 using Cinemachine;
 using BoatAttack.UI;
 using Object = UnityEngine.Object;
+using UnityEngine.InputSystem;
 
 namespace BoatAttack
 {
@@ -54,7 +55,7 @@ namespace BoatAttack
             TryGetComponent(out engine.RB);
         }
 
-        public void Setup(int player = 1, bool isHuman = true, BoatLivery livery = new BoatLivery(), bool addController = false)
+        public void Setup(int player = 1, bool isHuman = true, BoatLivery livery = new BoatLivery(), bool addController = true)
         {
             _playerIndex = player - 1;
             cam.gameObject.layer = LayerMask.NameToLayer("Player" + player); // assign player layer
@@ -167,8 +168,10 @@ namespace BoatAttack
             SplitTimes.Add(RaceManager.RaceTime);
 
             if (LapCount <= RaceManager.GetLapCount()) return;
-            
+
+#if DEBUG_ENABLED
             Debug.Log($"Boat {name} finished {RaceUI.OrdinalNumber(Place)} with time:{RaceUI.FormatRaceTime(SplitTimes.Last())}");
+#endif
             RaceManager.BoatFinished(_playerIndex);
             MatchComplete = true;
 
@@ -206,6 +209,10 @@ namespace BoatAttack
             if (WaypointGroup.Instance)
             {
                 var resetMatrix = WaypointGroup.Instance.GetClosestPointOnWaypoint(transform.position);
+
+                if (Keyboard.current.shiftKey.isPressed)
+                    resetMatrix = WaypointGroup.Instance.StartingPositions[_playerIndex];
+
                 var resetPoint = resetMatrix.GetColumn(3);
                 resetPoint.y = _spawnPosition.GetColumn(3).y;
                 engine.RB.linearVelocity = Vector3.zero;

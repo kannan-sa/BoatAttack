@@ -58,12 +58,16 @@ public class NetworkRaceManager : NetworkBehaviour
     {
         base.OnOwnershipChanged(previous, current);
 
-        Debug.Log($"Owner Ship Changed {current}, previous {previous}");
+        #if DEBUG_ENABLED
+            Debug.Log($"Owner Ship Changed {current}, previous {previous}");
+        #endif
     }
 
     public override void OnNetworkSpawn()
     {
-        Debug.Log($"OnNetworkSpawn {OwnerClientId}, isOwner {IsOwner} ");
+        #if DEBUG_ENABLED
+            Debug.Log($"OnNetworkSpawn {OwnerClientId}, isOwner {IsOwner} ");
+        #endif
         
         NetworkManager.SceneManager.OnSceneEvent += SceneManager_OnSceneEvent;
 
@@ -86,12 +90,13 @@ public class NetworkRaceManager : NetworkBehaviour
         bool isLevel = m_SceneName.Equals(sceneEvent.SceneName, System.StringComparison.OrdinalIgnoreCase); //sceneEvent.SceneName.Equals("Level", System.StringComparison.OrdinalIgnoreCase);
         bool canStart = false;
 
-        Debug.Log($"OnSceneEvent {OwnerClientId}, isOwner {IsOwner}");
-        Debug.Log($"Scene Name = {sceneEvent.SceneName} ,Event Type = {sceneEvent.SceneEventType}");
+        #if DEBUG_ENABLED
+            Debug.Log($"Scene Name = {sceneEvent.SceneName} ,Event Type = {sceneEvent.SceneEventType}");
+        #endif
 
         //if (canStart)
-            //UIPanel.SetActive(false);
-        
+        //UIPanel.SetActive(false);
+
         switch(sceneEvent.SceneEventType)
         {
             case SceneEventType.Load:
@@ -134,7 +139,9 @@ public class NetworkRaceManager : NetworkBehaviour
 
             // Load prefab
             var startingPosition = WaypointGroup.Instance.StartingPositions[i];
-            AsyncOperationHandle<GameObject> boatLoading = Addressables.InstantiateAsync(boat.boatPrefab, startingPosition.GetColumn(3),
+            var startPosition = startingPosition.GetColumn(3);
+            Debug.Log($" boat {i} @position {startPosition}");
+            AsyncOperationHandle<GameObject> boatLoading = Addressables.InstantiateAsync(boat.boatPrefab, startPosition,
                     Quaternion.LookRotation(startingPosition.GetColumn(2)));
             yield return boatLoading; // wait for boat asset to load
             GameObject newBoat = boatLoading.Result;

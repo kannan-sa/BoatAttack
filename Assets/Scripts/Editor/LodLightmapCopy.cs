@@ -28,8 +28,9 @@ class LodLightmapCopy : IProcessSceneWithReport
     
     private static void Execute()
     {
-        if(Debug.isDebugBuild)
+        #if DEBUG_ENABLED
             Debug.Log("Baking LOD Lightmap values");
+        #endif
         var lodGroups= Object.FindObjectsOfType<LODGroup>();
         foreach (var lodGroup in lodGroups)
         {

@@ -62,8 +62,9 @@ namespace BoatAttack
         // Use this for initialization
         private void Awake()
         {
-            if(Debug.isDebugBuild)
+            #if DEBUG_ENABLED
                 Debug.Log("AppManager initializing");
+            #endif
             Initialize();
             CmdArgs();
             SetRenderScale();
@@ -123,8 +124,9 @@ namespace BoatAttack
             };
             var renderScale = Mathf.Clamp(res / Screen.width, 0.1f, 1.0f);
 
-            if(Debug.isDebugBuild)
+            #if DEBUG_ENABLED
                 Debug.Log($"Settings render scale to {renderScale * 100}% based on {maxRenderSize.ToString()}");
+            #endif
 
             maxScale = renderScale;
 #if !UNITY_EDITOR
@@ -204,8 +206,9 @@ namespace BoatAttack
             DontDestroyOnLoad(Instance.loadingScreenObject);
 
             var buildIndex = SceneUtility.GetBuildIndexByScenePath(scenePath);
-            if(Debug.isDebugBuild)
+            #if DEBUG_ENABLED
                 Debug.Log($"loading scene {scenePath} at build index {buildIndex}");
+            #endif
 
             // get current scene and set a loading scene as active
             var currentScene = SceneManager.GetActiveScene();
@@ -363,7 +366,9 @@ namespace BoatAttack
                 _colorPaletteRaw = Resources.Load<Texture2D>("textures/colorSwatch");
 
             ColorPalette = _colorPaletteRaw.GetPixels();
-            Debug.Log($"Found {ColorPalette.Length} colors.");
+            #if DEBUG_ENABLED
+                Debug.Log($"Found {ColorPalette.Length} colors.");
+            #endif
         }
 
     }

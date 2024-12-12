@@ -101,10 +101,11 @@ public class MultiplayerMenuHelper : MonoBehaviour
             await UnityServices.InitializeAsync();
 
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log("Sign in anonymously succeeded!");
 
+#if DEBUG_ENABLED
             // Shows how to get the playerID
             Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}, {AuthenticationService.Instance.PlayerName}");
+#endif
 
         }
         catch (AuthenticationException ex)
@@ -166,7 +167,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
     #region Events
     private void OnSelectLobby(string lobby)
     {
+#if DEBUG_ENABLED
         Debug.Log($"Selected Lobby is {lobby}");
+#endif
         lobbyID = lobby;
     }
 
@@ -174,7 +177,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     {
 
     }
-    #endregion
+#endregion
 
     #region Multiplayer Services - Netcode
     public void StartRace()
@@ -258,10 +261,12 @@ public class MultiplayerMenuHelper : MonoBehaviour
             yield return new WaitForSeconds(.5f);
         }
 
+#if DEBUG_ENABLED
         Debug.Log($"All clients connected lets start the game..");
+#endif
         projectSceneManager.LoadGameScene();
     }
-    #endregion
+#endregion
 
     #region Multiplayer Services - Lobby 
     public async void CreateLobby()
@@ -293,7 +298,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
         currentLobby = lobby;
         lobbyID = lobby.Id;
         isServer = true;
-        Debug.Log("Lobby created " + lobby.Name);
+#if DEBUG_ENABLED
+            Debug.Log("Lobby created " + lobby.Name);
+#endif
 
         // Heartbeat the lobby every 15 seconds.
         StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 15));
@@ -328,7 +335,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
             Lobby joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyID, options);
             currentLobby = joinedLobby;
             lobbyID = joinedLobby.Id;
+#if DEBUG_ENABLED
             Debug.Log($"Joined lobby id :{joinedLobby.Id}");
+#endif
             lobbyName = joinedLobby.Name;
 
             StartCoroutine(PollLobbyForUpdates(lobbyID, 1.1f));
@@ -397,7 +406,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             LobbyService.Instance.DeleteLobbyAsync(lobbyId);
         }
     }
-    #endregion
+#endregion
 
     private Player GetPlayer()
     {

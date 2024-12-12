@@ -47,7 +47,7 @@ namespace BoatAttack.UI
 
         private void UpdatePosition(ScriptableRenderContext context, Camera[] cameras)
         {
-            if (_boatData == null || Camera.main == null) return; // if no boat or camera, the player marker cannot work
+            if (_boatData == null || Camera.main == null || _boatTransform == null) return; // if no boat or camera, the player marker cannot work
 
             var position = _boatTransform.position;
             _rect.anchorMin = _rect.anchorMax = Vector2.one * 0.5f + new Vector2(position.x, position.z) * _scale;

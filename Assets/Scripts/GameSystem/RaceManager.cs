@@ -55,7 +55,11 @@ namespace BoatAttack
 
         public static RaceManager Instance;
         [NonSerialized] public static bool RaceStarted;
-        [NonSerialized] public static Race RaceData;
+        public static Race RaceData 
+        {
+            get => Instance.raceData; 
+            set => Instance.raceData = value;
+        }
         public Race demoRaceData = new Race();
         [NonSerialized] public static float RaceTime;
         internal readonly Dictionary<int, float> _boatTimes = new Dictionary<int, float>();
@@ -66,7 +70,9 @@ namespace BoatAttack
         [Header("Assets")] public AssetReference[] boats_Network;
         public AssetReference raceUiPrefab;
         public AssetReference raceUiTouchPrefab;
-        
+
+        public Race raceData;
+
         public static void BoatFinished(int player)
         {
             switch (RaceData.game)
@@ -94,8 +100,9 @@ namespace BoatAttack
         
         private void Awake()
         {
-            if(Debug.isDebugBuild)
+            #if DEBUG_ENABLED
                 Debug.Log("RaceManager Loaded");
+            #endif
             Instance = this;
         }
 
@@ -154,7 +161,9 @@ namespace BoatAttack
                 type = RaceType.Race
             };
 
-            Debug.Log($"Game type set to:{RaceData.game}");
+            #if DEBUG_ENABLED
+                Debug.Log($"Game type set to:{RaceData.game}");
+            #endif
             switch (RaceData.game)
             {
                 case GameType.Singleplayer:
@@ -185,7 +194,10 @@ namespace BoatAttack
         public static void SetLevel(int levelIndex)
         {
             RaceData.level = ConstantData.GetLevelName(levelIndex);
-            Debug.Log($"Level set to:{levelIndex} with path:{RaceData.level}");
+            
+            #if DEBUG_ENABLED
+                Debug.Log($"Level set to:{levelIndex} with path:{RaceData.level}");
+            #endif
         }
 
         /// <summary>

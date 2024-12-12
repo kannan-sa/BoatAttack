@@ -46,7 +46,7 @@ namespace BoatAttack.UI
 
         private void UpdatePosition(ScriptableRenderContext context, Camera[] cameras)
         {
-            if (_boatData == null || Camera.main == null) return; // if no boat or camera, the player marker cannot work
+            if (_boatData == null || Camera.main == null || _boatData.BoatObject == null) return; // if no boat or camera, the player marker cannot work
             
             var screenPos = Camera.main.WorldToViewportPoint(_boatData.BoatObject.transform.position + Vector3.up * 3f);
             if (screenPos.z < 0)
