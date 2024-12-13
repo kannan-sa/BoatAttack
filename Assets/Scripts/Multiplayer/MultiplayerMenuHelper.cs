@@ -99,7 +99,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
         try
         {
             await UnityServices.InitializeAsync();
-
+            string validProfileName = System.Guid.NewGuid().ToString("N").Substring(0, 30);
+            AuthenticationService.Instance.SwitchProfile(validProfileName);
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
 #if DEBUG_ENABLED
@@ -155,7 +156,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         bool hasGamePads = gamePadNames.Any();
         List<TMP_Dropdown.OptionData> options = hasGamePads ? gamePadNames.Select(g => new TMP_Dropdown.OptionData(g)).ToList()
             : new List<TMP_Dropdown.OptionData> () { new TMP_Dropdown.OptionData("No Gamepads") };
-        inputControlOptions.interactable = false;
+        inputControlOptions.interactable = hasGamePads;
         inputControlOptions.AddOptions(options);
     }    
 
@@ -266,7 +267,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 #endif
         projectSceneManager.LoadGameScene();
     }
-#endregion
+    #endregion
 
     #region Multiplayer Services - Lobby 
     public async void CreateLobby()
@@ -283,32 +284,40 @@ public class MultiplayerMenuHelper : MonoBehaviour
             return;
         }
 
-        CreateLobbyOptions options = new CreateLobbyOptions()
+        try
         {
-            IsPrivate = false,
-            Player = GetPlayer(),
-            Data = new Dictionary<string, DataObject>()
+            CreateLobbyOptions options = new CreateLobbyOptions()
+            {
+                IsPrivate = false,
+                Player = GetPlayer(),
+                Data = new Dictionary<string, DataObject>()
             {
                 {"JoinCode", new DataObject(DataObject.VisibilityOptions.Public, string.Empty) }
             }
-        };
-        options.IsPrivate = false;
+            };
+            options.IsPrivate = false;
 
-        Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, 4, options);
-        currentLobby = lobby;
-        lobbyID = lobby.Id;
-        isServer = true;
+            Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, 4, options);
+            currentLobby = lobby;
+            lobbyID = lobby.Id;
+            isServer = true;
 #if DEBUG_ENABLED
             Debug.Log("Lobby created " + lobby.Name);
 #endif
 
-        // Heartbeat the lobby every 15 seconds.
-        StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 15));
-        StartCoroutine(PollLobbyForUpdates(lobby.Id, 1.1f));
-        createdLobbyIds.Enqueue(lobby.Id);
+            // Heartbeat the lobby every 15 seconds.
+            StartCoroutine(HeartbeatLobbyCoroutine(lobby.Id, 15));
+            StartCoroutine(PollLobbyForUpdates(lobby.Id, 1.1f));
+            createdLobbyIds.Enqueue(lobby.Id);
 
-        //SwitchToBoatSelection();
-        CreateGame();
+            //SwitchToBoatSelection();
+            CreateGame();
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+            SetStatus(e.Message, 4f);
+        }
     }
 
     public async void JoinLobby()
@@ -347,6 +356,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         catch (LobbyServiceException e)
         {
             Debug.Log(e);
+            SetStatus(e.Message, 4f);
         }
     }
 

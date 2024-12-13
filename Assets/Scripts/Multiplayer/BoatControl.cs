@@ -59,7 +59,10 @@ public class BoatControl : NetworkBehaviour
         if (IsOwner)
         {
             Debug.Log($"client {index} @ {transform.position}");
+
+#if UNITY_EDITOR
             UnityEditor.Selection.activeGameObject = gameObject;
+#endif
         }
     }
 
