@@ -215,7 +215,11 @@ namespace BoatAttack
 
                 var resetPoint = resetMatrix.GetColumn(3);
                 resetPoint.y = _spawnPosition.GetColumn(3).y;
+#if UNITY_6000_0_OR_NEWER
                 engine.RB.linearVelocity = Vector3.zero;
+#else
+                engine.RB.velocity = Vector3.zero;
+#endif
                 engine.RB.angularVelocity = Vector3.zero;
                 engine.RB.position = resetPoint;
                 engine.RB.rotation = resetMatrix.rotation;

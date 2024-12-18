@@ -304,27 +304,38 @@ namespace UnityEngine.AI
             {
                 if (m_CollectObjects == CollectObjects.All)
                 {
+#if UNITY_6000_0_OR_NEWER
                     UnityEditor.AI.NavMeshEditorHelpers.CollectSourcesInStage(
+#else
+                    UnityEditor.AI.NavMeshBuilder.CollectSourcesInStage(
+#endif
                         null, m_LayerMask, m_UseGeometry, m_DefaultArea, markups, gameObject.scene, sources);
                 }
                 else if (m_CollectObjects == CollectObjects.Children)
                 {
+#if UNITY_6000_0_OR_NEWER
                     UnityEditor.AI.NavMeshEditorHelpers.CollectSourcesInStage(
+#else
+                    UnityEditor.AI.NavMeshBuilder.CollectSourcesInStage(
+#endif
                         transform, m_LayerMask, m_UseGeometry, m_DefaultArea, markups, gameObject.scene, sources);
                 }
                 else if (m_CollectObjects == CollectObjects.Volume)
                 {
                     Matrix4x4 localToWorld = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
                     var worldBounds = GetWorldBounds(localToWorld, new Bounds(m_Center, m_Size));
-
+#if UNITY_6000_0_OR_NEWER
                     UnityEditor.AI.NavMeshEditorHelpers.CollectSourcesInStage(
+#else
+                    UnityEditor.AI.NavMeshBuilder.CollectSourcesInStage(
+#endif
                         worldBounds, m_LayerMask, m_UseGeometry, m_DefaultArea, markups, gameObject.scene, sources);
                 }
             }
             else
 #endif
-            {
-                if (m_CollectObjects == CollectObjects.All)
+                    {
+                        if (m_CollectObjects == CollectObjects.All)
                 {
                     NavMeshBuilder.CollectSources(null, m_LayerMask, m_UseGeometry, m_DefaultArea, markups, sources);
                 }

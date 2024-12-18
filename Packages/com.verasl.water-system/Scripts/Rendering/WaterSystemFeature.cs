@@ -17,18 +17,27 @@ namespace WaterSystem
             private readonly Color m_ClearColor = new Color(0.0f, 0.5f, 0.5f, 0.5f); //r = foam mask, g = normal.x, b = normal.z, a = displacement
             private FilteringSettings m_FilteringSettings;
 
+#if UNITY_6000_0_OR_NEWER
             private RTHandle m_WaterFXHandle;
+#else
+            private RenderTargetHandle m_WaterFX = RenderTargetHandle.CameraTarget;
+#endif
 
             public WaterFxPass()
             {
+#if !UNITY_6000_0_OR_NEWER
+                m_WaterFX.Init("_WaterFXMap");
+#endif
                 // only wanting to render transparent objects
                 m_FilteringSettings = new FilteringSettings(RenderQueueRange.transparent);
             }
 
+#if UNITY_6000_0_OR_NEWER
             void Dispose()
             {
                 m_WaterFXHandle?.Release();
             }
+#endif
 
             // Calling Configure since we are wanting to render into a RenderTexture and control cleat
             public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
@@ -40,17 +49,25 @@ namespace WaterSystem
                 cameraTextureDescriptor.height /= 2;
                 // default format TODO research usefulness of HDR format
                 cameraTextureDescriptor.colorFormat = RenderTextureFormat.Default;
+#if UNITY_6000_0_OR_NEWER
                 ConfigureTarget(m_WaterFXHandle);
+#else
+                // get a temp RT for rendering into
+                cmd.GetTemporaryRT(m_WaterFX.id, cameraTextureDescriptor, FilterMode.Bilinear);
+                ConfigureTarget(m_WaterFX.Identifier());
+#endif
                 // clear the screen with a specific color for the packed data
                 ConfigureClear(ClearFlag.Color, m_ClearColor);
             }
 
+#if UNITY_6000_0_OR_NEWER
             public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
             {
                 var desc = renderingData.cameraData.cameraTargetDescriptor;
                 desc.depthBufferBits = 0; // Color and depth cannot be combined in RTHandles
                 RenderingUtils.ReAllocateIfNeeded(ref m_WaterFXHandle, desc, FilterMode.Point, TextureWrapMode.Clamp, name: "_WaterFXMap");
             }
+#endif
 
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
@@ -70,6 +87,14 @@ namespace WaterSystem
                 context.ExecuteCommandBuffer(cmd);
                 CommandBufferPool.Release(cmd);
             }
+
+#if !UNITY_6000_0_OR_NEWER
+            public override void OnCameraCleanup(CommandBuffer cmd) 
+            {
+                // since the texture is used within the single cameras use we need to cleanup the RT afterwards
+                cmd.ReleaseTemporaryRT(m_WaterFX.id);
+            }
+#endif
         }
 
         #endregion
