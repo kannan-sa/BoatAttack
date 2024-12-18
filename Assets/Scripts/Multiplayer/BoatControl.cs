@@ -1,20 +1,27 @@
 using BoatAttack;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.Netcode;
 using UnityEngine;
+using Unity.Netcode;
+using System.Collections;
 
 public class BoatControl : NetworkBehaviour
 {
     private bool endCheck;
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
+        int index = (int)OwnerClientId;
+        StartCoroutine(SetupRoutine(index));
+    }
+
+    //Need to find exact fix for clients position reseting to zero..
+    private IEnumerator SetupRoutine(int index)
+    {
+        Debug.Log($"spawned {OwnerClientId} @ {transform.position}");
+
+        if(IsOwner)
             StartCoroutine(FixRoutine(transform.position, transform.rotation));
 
-            int index = (int)OwnerClientId;
-        //LogAndSelect(index);
+        //if(!IsHost && IsOwner) 
+        //     yield return StartCoroutine(SetupWaypoints());
 
         PlayerStatus playerStatus = NetworkRaceManager.playerStats[index];
 
@@ -28,18 +35,29 @@ public class BoatControl : NetworkBehaviour
 
         Boat boatController = GetComponent<Boat>();
         boat.SetController(gameObject, boatController);
-        boatController.Setup(index + 1, boat.human, boat.livery);
-            RaceManager.Instance._boatTimes.Add(index, 0f);
+        boatController.Setup(index + 1, boat.human, boat.livery, IsOwner);
+        RaceManager.Instance._boatTimes.Add(index, 0f);
 
-        //LogAndSelect(index);
+        if (!IsOwner)
+            yield break;
 
-        if (IsOwner)
-        {
-            StartCoroutine(SetupRoutine(index));
-        }
+        yield return RaceManager.Instance.StartCoroutine(RaceManager.CreatePlayerUi(index));
+        RaceManager.SetupCamera(index); // setup camera for player 1
+        yield return StartCoroutine(RaceManager.BeginRace());
+        endCheck = true;
     }
 
-    //Need to find exact fix for clients position reseting to zero..
+    private IEnumerator SetupWaypoints()
+    {
+        while (WaypointGroup.Instance == null) // TODO need to re-write whole game loading/race setup logic as it is dirty
+        {
+            yield return null;
+        }
+        WaypointGroup.Instance.Setup(RaceManager.RaceData.reversed);
+
+        yield return new WaitForSeconds(3);
+    }
+
     IEnumerator FixRoutine(Vector3 pos, Quaternion rot)
     {
         while (Mathf.FloorToInt(pos.x) == Mathf.FloorToInt(transform.position.x) && !endCheck)
@@ -49,28 +67,12 @@ public class BoatControl : NetworkBehaviour
 #endif
             yield return null;
         }
-        transform.position = pos;
-        transform.rotation = rot;
-    }
 
-
-    private void LogAndSelect(int index)
-    {
-        if (IsOwner)
+        if (!endCheck)
         {
-            Debug.Log($"client {index} @ {transform.position}");
-
-#if UNITY_EDITOR
-            UnityEditor.Selection.activeGameObject = gameObject;
-#endif
+            transform.position = pos;
+            transform.rotation = rot;
         }
     }
 
-    private IEnumerator SetupRoutine(int index)
-    {
-        yield return RaceManager.Instance.StartCoroutine(RaceManager.CreatePlayerUi(index));
-        RaceManager.SetupCamera(index); // setup camera for player 1
-        yield return StartCoroutine(RaceManager.BeginRace());
-        endCheck = true;
-    }
 }

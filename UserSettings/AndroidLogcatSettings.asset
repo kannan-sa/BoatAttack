@@ -1,5 +1,5 @@
 {
-    "m_SelectedDeviceId": "",
+    "m_SelectedDeviceId": "GMKJAUU46DUCLVJJ",
     "m_SelectedProcess": {
         "deviceId": "",
         "name": "",
@@ -7,7 +7,14 @@
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownProcessesForSerialization": [],
+    "m_KnownProcessesForSerialization": [
+        {
+            "deviceId": "GMKJAUU46DUCLVJJ",
+            "name": "com.linkedin.android",
+            "processId": 32030,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {

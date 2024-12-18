@@ -544,6 +544,7 @@ MonoBehaviour:
   gameplayUi: {fileID: 3434570421581432212}
   raceStat: {fileID: 7329524447042817119}
   matchEnd: {fileID: 5737845674937706806}
+  FinishGame: {fileID: 11400000, guid: e72ba056f5c4893419da29334f885a12, type: 2}
   playerMarker:
     m_AssetGUID: 34b5c45ac411341838c26dd7e127563e
     m_SubObjectName: 

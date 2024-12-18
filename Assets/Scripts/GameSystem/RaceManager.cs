@@ -88,6 +88,15 @@ namespace BoatAttack
                 case GameType.LocalMultiplayer:
                     break;
                 case GameType.Multiplayer:
+                    //var racemUi = RaceData.boats[player].Boat.RaceUi;
+                    foreach (var boat in RaceData.boats)
+                    {
+                        var racemUi =boat.Boat.RaceUi;
+                        if(racemUi)
+                            racemUi.MatchEnd();
+                    }
+                    ReplayCamera.Instance.EnableSpectatorMode();
+                    RaceData.boats[player].Boat.MatchComplete = true;
                     break;
                 case GameType.Spectator:
                     break;
@@ -106,7 +115,7 @@ namespace BoatAttack
             Instance = this;
         }
 
-        private void Reset()
+        public void Reset()
         {
             RaceStarted = false;
             RaceData.boats.Clear();

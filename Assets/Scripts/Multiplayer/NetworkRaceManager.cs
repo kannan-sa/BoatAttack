@@ -10,11 +10,12 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class NetworkRaceManager : NetworkBehaviour
 {
+    //[Header("Scenes")]
     [SerializeField]
-    private string m_SceneName;
+    private string m_SceneName, m_MenuScene;
 
-    public GameObject playerPrefab;
-    public GameObject UIPanel;
+    [Header("Events")]
+    public GameEvent finishGame;
 
     [Header("Asset References")]
     public AssetReference loadingScreen;
@@ -25,13 +26,22 @@ public class NetworkRaceManager : NetworkBehaviour
 
     private RaceManager raceManager;
 
+    private int loadedCount;
+
+    private List<NetworkObject> networkObjects = new List<NetworkObject>();
+
 #if UNITY_EDITOR
-    public UnityEditor.SceneAsset SceneAsset;
+    public UnityEditor.SceneAsset SceneAsset, MenuScene;
     private void OnValidate()
     {
         if (SceneAsset != null)
         {
             m_SceneName = SceneAsset.name;
+        }
+
+        if (MenuScene != null)
+        {
+            m_MenuScene = MenuScene.name;
         }
     }
 #endif
@@ -41,6 +51,16 @@ public class NetworkRaceManager : NetworkBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        finishGame.AddListener(LoadMenuScene);
+    }
+
+    private void OnDisable()
+    {
+        finishGame.RemoveListener(LoadMenuScene);
     }
 
     private IEnumerator Start()
@@ -85,9 +105,22 @@ public class NetworkRaceManager : NetworkBehaviour
         }
     }
 
+    public void LoadMenuScene()
+    {
+        DestroyBoats();
+        var status = NetworkManager.Singleton.SceneManager.LoadScene(m_MenuScene, LoadSceneMode.Single);
+
+        if (status != SceneEventProgressStatus.Started)
+        {
+            Debug.LogWarning($"Failed to load {m_SceneName} " +
+                  $"with a {nameof(SceneEventProgressStatus)}: {status}");
+        }
+    }
+
     private void SceneManager_OnSceneEvent(SceneEvent sceneEvent)
     {
         bool isLevel = m_SceneName.Equals(sceneEvent.SceneName, System.StringComparison.OrdinalIgnoreCase); //sceneEvent.SceneName.Equals("Level", System.StringComparison.OrdinalIgnoreCase);
+        bool isMenu = m_MenuScene.Equals(sceneEvent.SceneName, System.StringComparison.OrdinalIgnoreCase);
         bool canStart = false;
 
         #if DEBUG_ENABLED
@@ -101,32 +134,57 @@ public class NetworkRaceManager : NetworkBehaviour
         {
             case SceneEventType.Load:
                 //Show loading..
-                if(isLevel)
+                if(isLevel || isMenu)
                     loadingScreenObject.SetActive(true);
                 break;
             case SceneEventType.LoadEventCompleted:
-                if (isLevel)
-                    loadingScreenObject.SetActive(false);
-                canStart = isLevel;
                 //Hide loading..
+                if (isLevel || isMenu)
+                    loadingScreenObject.SetActive(false);
+
+                if (isMenu)
+                    RaceManager.Instance.Reset();
+
+                canStart = isLevel;
                 break;
         }
 
 
-        if (!IsHost)
-            return;
-
         if (canStart)
-            StartCoroutine(SetupRace());
+        {
+            StartCoroutine(SetupWaypoints());
+        }
+
+        //if (!IsHost)
+        //    return;
+
+        //if (canStart)
+        //    StartCoroutine(SetupRace());
     }
 
-    private IEnumerator SetupRace()
+    private IEnumerator SetupWaypoints()
     {
         while (WaypointGroup.Instance == null) // TODO need to re-write whole game loading/race setup logic as it is dirty
         {
             yield return null;
         }
         WaypointGroup.Instance.Setup(RaceManager.RaceData.reversed);
+        WayPointInitializedRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    private void WayPointInitializedRpc()
+    {
+        bool canSpawn = loadedCount == (NetworkManager.Singleton.ConnectedClients.Count -1);
+        Debug.Log($"Loaded {loadedCount++}, client id {OwnerClientId}, canSpawn = {canSpawn}");
+
+        if(canSpawn)
+            StartCoroutine(SetupRace());
+    }
+
+    private IEnumerator SetupRace()
+    {
+        //yield return StartCoroutine(SetupWaypoints());
         yield return StartCoroutine(CreateBoats()); // spawn boats;
     }
 
@@ -147,16 +205,15 @@ public class NetworkRaceManager : NetworkBehaviour
             GameObject newBoat = boatLoading.Result;
             NetworkObject boatObject = newBoat.GetComponent<NetworkObject>();
             boatObject.SpawnAsPlayerObject(clientId);
+            networkObjects.Add(boatObject);
         }
     }
 
-    public void SpawnPlayer(ulong clientId)
+    private void DestroyBoats()
     {
-        // Instantiate the player object (only on the server).
-        GameObject playerInstance = Instantiate(playerPrefab);
-
-        // Get the NetworkObject component and spawn it.
-        NetworkObject networkObject = playerInstance.GetComponent<NetworkObject>();
-        networkObject.SpawnAsPlayerObject(clientId); // Assigns ownership to the client.
+        foreach (var item in networkObjects)
+        {
+            item.Despawn();
+        }
     }
 }

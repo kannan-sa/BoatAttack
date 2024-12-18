@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using TMPro;
-#if UNITY_EDITOR
+#if UNITY_EDITOR && UNITY_6000_0_OR_NEWER
 using Unity.Multiplayer.Playmode;
 #endif
 
@@ -49,9 +49,10 @@ public class MenuSetter : MonoBehaviour
             for (int i = 0; i < inputFields.Length && i < values.Length; i++)
                 inputFields[i].text = values[i];
 
-
+#if UNITY_EDITOR && UNITY_6000_0_OR_NEWER
             if (playerName)
                 playerName.text = string.Join(",", CurrentPlayer.ReadOnlyTags());
+#endif
         }
     }
 #endif

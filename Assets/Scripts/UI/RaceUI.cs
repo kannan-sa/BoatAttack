@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
+using static BoatAttack.RaceManager;
 
 namespace BoatAttack.UI
 {
@@ -22,6 +23,11 @@ namespace BoatAttack.UI
         public GameObject gameplayUi;
         public GameObject raceStat;
         public GameObject matchEnd;
+
+
+
+        [Header("Events")]
+        public GameEvent FinishGame;
 
         [Header("Assets")]
         public AssetReference playerMarker;
@@ -166,6 +172,11 @@ namespace BoatAttack.UI
 
         public void FinishMatch()
         {
+            if (RaceData.game == GameType.Multiplayer)
+            {
+                FinishGame.Invoke();
+                return;
+            }
             RaceManager.UnloadRace();
         }
 
