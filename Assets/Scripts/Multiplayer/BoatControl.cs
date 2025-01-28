@@ -17,8 +17,8 @@ public class BoatControl : NetworkBehaviour
     {
         Debug.Log($"spawned {OwnerClientId} @ {transform.position}");
 
-        if(IsOwner)
-            StartCoroutine(FixRoutine(transform.position, transform.rotation));
+        //if(IsOwner)
+        //    StartCoroutine(FixRoutine(transform.position, transform.rotation));
 
         //if(!IsHost && IsOwner) 
         //     yield return StartCoroutine(SetupWaypoints());

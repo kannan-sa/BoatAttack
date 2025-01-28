@@ -115,10 +115,11 @@ namespace BoatAttack
             Instance = this;
         }
 
-        public void Reset()
+        public void ResetGame(bool resetStart = false)
         {
             RaceStarted = false;
-            RaceData.boats.Clear();
+            if(!resetStart) 
+                RaceData.boats.Clear();
             RaceTime = 0f;
             _boatTimes.Clear();
             raceStarted = null;
@@ -165,7 +166,7 @@ namespace BoatAttack
         {
             RaceData = new Race {game = gameType,
                 boats = new List<BoatData>(),
-                boatCount = 3,
+                boatCount = 4,
                 laps = 1,
                 type = RaceType.Race
             };
@@ -311,7 +312,7 @@ namespace BoatAttack
                 Instance.raceUiPrefab.ReleaseAsset();
             }
 
-            Instance.Reset();
+            Instance.ResetGame();
             AppSettings.LoadScene(0, LoadSceneMode.Single);
         }
         
@@ -336,7 +337,6 @@ namespace BoatAttack
                 boatController.Setup(i + 1, boat.human, boat.livery);
                 Instance._boatTimes.Add(i, 0f);
             }
-
         }
         
         private static void GenerateRandomBoats(int count, bool ai = true)

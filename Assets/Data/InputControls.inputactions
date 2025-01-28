@@ -11,7 +11,8 @@
                     "id": "591093b7-743c-42e6-b71e-bab02d178bd1",
                     "expectedControlType": "Axis",
                     "processors": "AxisDeadzone(min=0.1,max=1)",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Steering",
@@ -19,7 +20,8 @@
                     "id": "67e3403a-b3e8-43af-ab52-4575ba23afef",
                     "expectedControlType": "Axis",
                     "processors": "AxisDeadzone(min=0.1,max=1)",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Reset",
@@ -27,7 +29,8 @@
                     "id": "218640d2-e6dc-4136-842e-4621c0883e15",
                     "expectedControlType": "",
                     "processors": "AxisDeadzone(min=0.1,max=1)",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Pause",
@@ -35,7 +38,8 @@
                     "id": "097a2ec8-8df3-4d48-96e5-fbf096270878",
                     "expectedControlType": "",
                     "processors": "AxisDeadzone(min=0.1,max=1)",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -172,6 +176,39 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "1D Axis",
+                    "id": "c076346c-2bf2-4062-84a0-b0a1f74f1fea",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trottle",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "93b46802-0115-4eac-9019-fc4493c01098",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trottle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "be065333-ae34-41b0-a1d9-26cf9d1eea2d",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trottle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "LeftThumbstick",
                     "id": "01df8425-ce9a-4024-bad4-0f5e8002094f",
                     "path": "1DAxis",
@@ -260,6 +297,39 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "1D Axis",
+                    "id": "2b1b22a2-30dd-4471-bd7c-d2d509e7bd79",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steering",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "e9e50047-1dfe-4eb4-a1f4-c38639e25f83",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steering",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "88789a1a-0a70-40e3-b5e9-115dca0b573b",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steering",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "7a7ffffc-09c1-403a-b879-7a91dfb5b29d",
                     "path": "<Gamepad>/select",
@@ -326,7 +396,8 @@
                     "id": "c57759c4-f215-4fe9-bd6c-1c835c6074bd",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "TimeOfDay",
@@ -334,7 +405,8 @@
                     "id": "bfb079cd-5e64-4031-b061-eb65384dacba",
                     "expectedControlType": "",
                     "processors": "AxisDeadzone(min=0.1,max=1)",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

@@ -1,5 +1,7 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BoatAttack.UI
 {
@@ -17,8 +19,16 @@ namespace BoatAttack.UI
 
         public int playerIndex = 0;
 
+        [Header("Event Selection")]
+        public GameObject raceButton;
+        public GameObject singlePlayerButton;
+        //public GameObject singlePlayerButton;
+
         private void OnEnable()
         {
+            Application.runInBackground = true;
+            Screen.fullScreen = true; // Force fullscreen
+
             // level stuff
             levelSelector.updateVal += SetLevel;
             lapSelector.updateVal += SetLaps;
@@ -28,6 +38,19 @@ namespace BoatAttack.UI
             boatPrimaryColorSelector.updateVal += UpdatePrimaryColor;
             boatTrimColorSelector.updateVal += UpdateTrimColor;
         }
+
+        private IEnumerator Start()
+        {
+            yield return new WaitForSeconds(.5f);
+            EventSystem.current.SetSelectedGameObject(raceButton);
+        }
+
+        public void SelectGameObject(GameObject go)
+        {
+            if (go != null)
+            EventSystem.current.SetSelectedGameObject(go);
+        }
+
 
         private void SetupDefaults()
         {

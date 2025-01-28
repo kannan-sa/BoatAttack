@@ -13,6 +13,7 @@ using UnityEngine.InputSystem;
 using System.Linq;
 using BoatAttack;
 using BoatAttack.UI;
+using UnityEngine.InputSystem.DualShock;
 
 public class MultiplayerMenuHelper : MonoBehaviour
 {
@@ -69,7 +70,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public string LobbyName { get => lobbyName; set { lobbyName = value; } }
 
     public static int ControlIndex = 0;
-
+    public static bool alreadySigned = false;
     private void OnEnable()
     {
         Instance = this;
@@ -80,18 +81,27 @@ public class MultiplayerMenuHelper : MonoBehaviour
         boatHullSelector.updateVal += setBoatType.Invoke;
         boatPrimaryColorSelector.updateVal += setPrimaryColor.Invoke;
         boatTrimColorSelector.updateVal += setTrimColor.Invoke;
+
+        InputSystem.onDeviceChange += OnDeviceConnected;
     }
 
     private void OnDisable()
     {
         selectLobby.RemoveListener(OnSelectLobby);
         kickPlayer.RemoveListener(OnKickPlayer);
+        InputSystem.onDeviceChange -= OnDeviceConnected;
     }
 
     async void Start()
     {
         InitializeGameControlOptions();
-        await SignInAnonymouslyAsync();
+        if(!alreadySigned)
+            await SignInAnonymouslyAsync();
+    }
+
+    private void OnDeviceConnected(InputDevice device, InputDeviceChange change)
+    {
+        InitializeGameControlOptions();
     }
 
     private async Task SignInAnonymouslyAsync()
@@ -102,7 +112,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             string validProfileName = System.Guid.NewGuid().ToString("N").Substring(0, 30);
             AuthenticationService.Instance.SwitchProfile(validProfileName);
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
+            alreadySigned = true;
 #if DEBUG_ENABLED
             // Shows how to get the playerID
             Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}, {AuthenticationService.Instance.PlayerName}");
@@ -144,7 +154,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
         playerInputControl.SetActive(true);
         menuAnimator.SetTrigger("Next");
         canPollLobbies = false;
-        InitializeGameControlOptions();
     }
 
     private void InitializeGameControlOptions()

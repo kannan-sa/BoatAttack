@@ -143,7 +143,7 @@ public class NetworkRaceManager : NetworkBehaviour
                     loadingScreenObject.SetActive(false);
 
                 if (isMenu)
-                    RaceManager.Instance.Reset();
+                    RaceManager.Instance.ResetGame();
 
                 canStart = isLevel;
                 break;

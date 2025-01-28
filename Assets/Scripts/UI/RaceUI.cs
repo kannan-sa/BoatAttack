@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using static BoatAttack.RaceManager;
 
@@ -23,6 +24,7 @@ namespace BoatAttack.UI
         public GameObject gameplayUi;
         public GameObject raceStat;
         public GameObject matchEnd;
+        public GameObject finishButton;
 
 
 
@@ -46,6 +48,11 @@ namespace BoatAttack.UI
         private void OnEnable()
         {
             RaceManager.raceStarted += SetGameplayUi;
+        }
+
+        private void OnDisable()
+        {
+            RaceManager.raceStarted -= SetGameplayUi;
         }
 
         public void Setup(int player)
@@ -100,6 +107,8 @@ namespace BoatAttack.UI
             matchEnd.SetActive(true);
             SetGameStats(true);
             SetGameplayUi(false);
+
+            EventSystem.current.SetSelectedGameObject(finishButton);
         }
 
         private IEnumerator CreateGameStats()
@@ -178,6 +187,12 @@ namespace BoatAttack.UI
                 return;
             }
             RaceManager.UnloadRace();
+        }
+
+        public void RestartMatch()
+        {
+            RaceManager.Instance.ResetGame(true);
+            RaceManager.LoadGame();
         }
 
         public void LateUpdate()
