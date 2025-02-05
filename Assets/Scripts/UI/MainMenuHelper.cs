@@ -42,7 +42,7 @@ namespace BoatAttack.UI
         private IEnumerator Start()
         {
             yield return new WaitForSeconds(.5f);
-            EventSystem.current.SetSelectedGameObject(raceButton);
+            EventSystem.current.SetSelectedGameObject(singlePlayerButton);
         }
 
         public void SelectGameObject(GameObject go)
