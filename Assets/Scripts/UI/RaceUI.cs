@@ -43,6 +43,8 @@ namespace BoatAttack.UI
         private float _smoothedSpeed;
         private float _smoothSpeedVel;
         private AppSettings.SpeedFormat _speedFormat;
+        
+        [SerializeField]
         private RaceStatsPlayer[] _raceStats;
 
         private void OnEnable()
@@ -113,13 +115,16 @@ namespace BoatAttack.UI
 
         private IEnumerator CreateGameStats()
         {
-            _raceStats = new RaceStatsPlayer[RaceManager.RaceData.boatCount];
-            for(var i = 0; i < RaceManager.RaceData.boatCount; i++)
+            //_raceStats = new RaceStatsPlayer[RaceManager.RaceData.boatCount];
+            for(var i = 0; i < RaceManager.RaceData.boatCount && i < _raceStats.Length; i++)
             {
-                var raceStatLoading = raceStatsPlayer.InstantiateAsync(raceStat.transform);
-                yield return raceStatLoading;
-                raceStatLoading.Result.name += RaceManager.RaceData.boats[i].boatName;
-                raceStatLoading.Result.TryGetComponent(out _raceStats[i]);
+                //var raceStatLoading = raceStatsPlayer.InstantiateAsync(raceStat.transform);
+                //yield return raceStatLoading;
+                yield return 0;
+                var raceStatLoading = _raceStats[i];
+                raceStatLoading.gameObject.SetActive(true);
+                raceStatLoading.name += RaceManager.RaceData.boats[i].boatName;
+                raceStatLoading.TryGetComponent(out _raceStats[i]);
                 _raceStats[i].Setup(RaceManager.RaceData.boats[i].Boat);
             }
         }

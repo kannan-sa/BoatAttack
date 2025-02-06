@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
 {
     public TextMeshProUGUI loadingText;
+    public Slider progress;
 
     private void OnEnable()
     {
@@ -24,5 +26,8 @@ public class LoadingScreen : MonoBehaviour
         {
             loadingText.text = $"{load * 100f}% Loading...";
         }
+
+        if(progress)
+            progress.value = load;
     }
 }

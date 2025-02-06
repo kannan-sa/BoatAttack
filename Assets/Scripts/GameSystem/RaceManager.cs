@@ -239,6 +239,15 @@ namespace BoatAttack
         /// <summary>
         /// Triggered when the race has finished
         /// </summary>
+
+        [ContextMenu("End Race")]
+
+        private void endRace()
+        {
+            BoatFinished(0);
+            //EndRace();
+        }
+
         private static void EndRace()
         {
             RaceStarted = false;
@@ -366,7 +375,7 @@ namespace BoatAttack
             //var touch = Input.touchSupported && Input.multiTouchEnabled &&
             //            (Application.platform == RuntimePlatform.Android ||
             //             Application.platform == RuntimePlatform.IPhonePlayer);
-            var touch = true;
+            var touch = false;
             var uiAsset = touch ? Instance.raceUiTouchPrefab : Instance.raceUiPrefab;
             var uiLoading = uiAsset.InstantiateAsync();
             yield return uiLoading;
