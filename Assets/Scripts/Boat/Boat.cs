@@ -15,6 +15,7 @@ namespace BoatAttack
     /// </summary>
     public class Boat : MonoBehaviour
     {
+        public string displayName = string.Empty;
         // Boat stats
         public Renderer boatRenderer; // The renderer for the boat mesh
         public Renderer engineRenderer; // The renderer for the boat mesh

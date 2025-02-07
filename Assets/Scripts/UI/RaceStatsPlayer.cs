@@ -22,16 +22,17 @@ namespace BoatAttack.UI
         {
             _boat = boat;
             playerName.text = _boat.name;
-            boatType.text = "TODO"; // TODO - need to implement
+            boatType.text = boat.displayName; // TODO - need to implement
+            place.text = RaceUI.OrdinalNumber(boat.Place);
         }
 
-        private void Update()
+        private void Updatex()
         {
             if (!_update) return;
             UpdateStats();
         }
 
-        private void LateUpdate()
+        private void LateUpdatex()
         {
             _update = !_boat.MatchComplete;
         }

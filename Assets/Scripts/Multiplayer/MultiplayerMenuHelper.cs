@@ -46,7 +46,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public NetworkRaceManager projectSceneManager;
     public GameObject boatPlayerName;
     public GameObject playerInputControl;
-    public TMP_Dropdown inputControlOptions;
 
     [Space]
     public EnumSelector boatHullSelector;
@@ -69,7 +68,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
     }
     public string LobbyName { get => lobbyName; set { lobbyName = value; } }
 
-    public static int ControlIndex = 0;
     public static bool alreadySigned = false;
     private void OnEnable()
     {
@@ -79,29 +77,20 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         // boat stuff
         boatHullSelector.updateVal += setBoatType.Invoke;
-        boatPrimaryColorSelector.updateVal += setPrimaryColor.Invoke;
-        boatTrimColorSelector.updateVal += setTrimColor.Invoke;
-
-        InputSystem.onDeviceChange += OnDeviceConnected;
+        //boatPrimaryColorSelector.updateVal += setPrimaryColor.Invoke;
+        //boatTrimColorSelector.updateVal += setTrimColor.Invoke;
     }
 
     private void OnDisable()
     {
         selectLobby.RemoveListener(OnSelectLobby);
         kickPlayer.RemoveListener(OnKickPlayer);
-        InputSystem.onDeviceChange -= OnDeviceConnected;
     }
 
     async void Start()
     {
-        InitializeGameControlOptions();
         if(!alreadySigned)
             await SignInAnonymouslyAsync();
-    }
-
-    private void OnDeviceConnected(InputDevice device, InputDeviceChange change)
-    {
-        InitializeGameControlOptions();
     }
 
     private async Task SignInAnonymouslyAsync()
@@ -155,24 +144,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         menuAnimator.SetTrigger("Next");
         canPollLobbies = false;
     }
-
-    private void InitializeGameControlOptions()
-    {
-        inputControlOptions.ClearOptions();
-
-        //List<string> gamePadNames = new List<string> { "Gamepad 1", "Gamepad 2" };
-        List<string> gamePadNames = Gamepad.all.Select(g => g.name).ToList();
-        bool hasGamePads = gamePadNames.Any();
-        List<TMP_Dropdown.OptionData> options = hasGamePads ? gamePadNames.Select(g => new TMP_Dropdown.OptionData(g)).ToList()
-            : new List<TMP_Dropdown.OptionData> () { new TMP_Dropdown.OptionData("No Gamepads") };
-        inputControlOptions.interactable = hasGamePads;
-        inputControlOptions.AddOptions(options);
-    }    
-
-    public void SetControlIndex(int index)
-    {
-        ControlIndex = index;
-    }    
+ 
 
     #region Events
     private void OnSelectLobby(string lobby)

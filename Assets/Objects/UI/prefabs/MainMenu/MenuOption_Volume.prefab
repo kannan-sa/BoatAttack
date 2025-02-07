@@ -147,7 +147,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9990e594ae162d140ba99f3cb98d23eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1ed280b1d9294549b680db8761ffafa, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -176,7 +176,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -186,9 +186,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 0ecc20ad012043444a4b20e8ef914e23,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: cfe3b0e18e5925c4982e1c1f5015e2ac, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 0ecc20ad012043444a4b20e8ef914e23, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -201,9 +202,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: PreviousOption
+      - m_Target: {fileID: 4821030179797286763}
+        m_TargetAssemblyTypeName: VolumeControl, Assembly-CSharp
+        m_MethodName: IncreaseVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -280,7 +281,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d7d0606b395ff77448ed0c4d146d45fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c81f8ae81c87b1147972ff9b4cc7d042, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -309,7 +310,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -319,9 +320,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: b10c506eb0910d94198dfb22d582f7e1,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: aee1132eab6636049bed314877d39bf6, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: b10c506eb0910d94198dfb22d582f7e1, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -334,9 +336,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: NextOption
+      - m_Target: {fileID: 4821030179797286763}
+        m_TargetAssemblyTypeName: VolumeControl, Assembly-CSharp
+        m_MethodName: DecreaseVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -438,7 +440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1938957516184058086
 RectTransform:
   m_ObjectHideFlags: 0
@@ -589,8 +591,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 39.8, y: 0}
+  m_AnchoredPosition: {x: 3.8596191, y: -5.200001}
+  m_SizeDelta: {x: 47.5194, y: 12.6996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5226837694845590509
 CanvasRenderer:
@@ -620,7 +622,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4e411c2462673264394562a5d6a50fe8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eca013909bdb24647af0f5db874aba2e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -640,6 +642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5550766793783300208}
   - component: {fileID: 7729901881609013723}
+  - component: {fileID: 7508407116140177958}
   m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
@@ -688,7 +691,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -698,9 +701,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 3e9ae387bd377d34c81e1fe54da3fa0c,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 39e9b5f3006901a4c996e0c67f6ec669, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 3e9ae387bd377d34c81e1fe54da3fa0c, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -719,7 +723,49 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: a4105bc9b1e370e47b1fe13ff855ce7a, type: 2}
+        m_TargetAssemblyTypeName: GameEvent`1[[System.Single, mscorlib
+        m_MethodName: Invoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7508407116140177958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723894828766612912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d93835bcc9e53643bd2bd1ad41f7b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Log: 0
+  InitializeOnStart: 1
+  eventObject: {fileID: 11400000, guid: a4105bc9b1e370e47b1fe13ff855ce7a, type: 2}
+  OnEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7729901881609013723}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+        m_MethodName: set_value
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6767652774731741634
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,6 +1044,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8775675996436902911}
+  - component: {fileID: 4821030179797286763}
   m_Layer: 5
   m_Name: MenuOption_Volume
   m_TagString: Untagged
@@ -1026,6 +1073,20 @@ RectTransform:
   m_AnchoredPosition: {x: -26.1551, y: -67.39697}
   m_SizeDelta: {x: 1223.9788, y: 127.7939}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4821030179797286763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7741146400298903167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff7050d368889348b2f80390be0721e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 7729901881609013723}
+  increament: 0.1
 --- !u!1 &8174035046969028566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,8 +1154,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6420431066618604180}
-  - {fileID: 5550766793783300208}
   - {fileID: 6242691845286592740}
+  - {fileID: 5550766793783300208}
   m_Father: {fileID: 8775675996436902911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

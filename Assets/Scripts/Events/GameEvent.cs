@@ -25,6 +25,9 @@ public class GameEvent : ScriptableObject
 
 public abstract class GameEvent<T> : ScriptableObject {
     [SerializeField]
+    protected T value;
+
+    [SerializeField]
     private UnityEvent<T> m_Event;
 
     public void AddListener(UnityAction<T> action) {
@@ -36,6 +39,12 @@ public abstract class GameEvent<T> : ScriptableObject {
     }
 
     public void Invoke(T value) {
+        this.value = value;
         m_Event.Invoke(value);
+    }
+
+    public static implicit operator T(GameEvent<T> gameEvent)
+    {
+        return gameEvent.value;
     }
 }

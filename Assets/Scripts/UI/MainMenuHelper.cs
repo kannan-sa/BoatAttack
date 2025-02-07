@@ -19,11 +19,6 @@ namespace BoatAttack.UI
 
         public int playerIndex = 0;
 
-        [Header("Event Selection")]
-        public GameObject raceButton;
-        public GameObject singlePlayerButton;
-        //public GameObject singlePlayerButton;
-
         private void OnEnable()
         {
             Application.runInBackground = true;
@@ -35,22 +30,9 @@ namespace BoatAttack.UI
             reverseSelector.updateVal += SetReverse;
             // boat stuff
             boatHullSelector.updateVal += UpdateBoat;
-            boatPrimaryColorSelector.updateVal += UpdatePrimaryColor;
-            boatTrimColorSelector.updateVal += UpdateTrimColor;
+            boatPrimaryColorSelector.updateColor += UpdatePrimaryColor;
+            boatTrimColorSelector.updateColor += UpdateTrimColor;
         }
-
-        private IEnumerator Start()
-        {
-            yield return new WaitForSeconds(.5f);
-            EventSystem.current.SetSelectedGameObject(singlePlayerButton);
-        }
-
-        public void SelectGameObject(GameObject go)
-        {
-            if (go != null)
-            EventSystem.current.SetSelectedGameObject(go);
-        }
-
 
         private void SetupDefaults()
         {
@@ -61,8 +43,10 @@ namespace BoatAttack.UI
             // boat stuff
             SetSinglePlayerName(boatName.text);
             UpdateBoat(playerIndex);
-            UpdateBoatColor(boatPrimaryColorSelector.CurrentOption, true);
-            UpdateBoatColor(boatTrimColorSelector.CurrentOption, false);
+            UpdateBoatColor(boatPrimaryColorSelector.value, true);
+            UpdateBoatColor(boatTrimColorSelector.value, false);
+            //UpdateBoatColor(boatPrimaryColorSelector.CurrentOption, true);
+            //UpdateBoatColor(boatTrimColorSelector.CurrentOption, false);
         }
 
         private void UpdateBoat(int index)
@@ -126,6 +110,33 @@ namespace BoatAttack.UI
                 foreach (var rend in renderers)
                 {
                     rend.material.SetColor(primary ? "_Color1" : "_Color2", ConstantData.GetPaletteColor(index));
+                }
+            }
+        }
+
+        private void UpdatePrimaryColor(Color color) => UpdateBoatColor(color, true);
+
+        private void UpdateTrimColor(Color color) => UpdateBoatColor(color, false);
+
+        private void UpdateBoatColor(Color color, bool primary)
+        {
+            // update racedata
+            if (primary)
+            {
+                RaceManager.RaceData.boats[playerIndex].livery.primaryColor = color;
+            }
+            else
+            {
+                RaceManager.RaceData.boats[playerIndex].livery.trimColor = color;
+            }
+
+            // update menu boats
+            foreach (var t in boatMeshes)
+            {
+                var renderers = t.GetComponentsInChildren<MeshRenderer>(true);
+                foreach (var rend in renderers)
+                {
+                    rend.material.SetColor(primary ? "_Color1" : "_Color2", color);
                 }
             }
         }

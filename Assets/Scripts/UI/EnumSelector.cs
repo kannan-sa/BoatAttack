@@ -1,15 +1,18 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BoatAttack.UI
 {
     public class EnumSelector : MonoBehaviour
     {
         public string[] options;
+        public Sprite[] images;
         public TextMeshProUGUI text;
         public bool loop;
         public int startOption;
         private int _currentOption;
+        public Image image;
 
         public delegate void UpdateValue(int index);
 
@@ -54,6 +57,9 @@ namespace BoatAttack.UI
         private void UpdateText()
         {
             text.text = options[_currentOption];
+
+            if(image && images.Length > _currentOption)
+                image.sprite = images[_currentOption];
         }
 
         private int ValidateIndex(int index)

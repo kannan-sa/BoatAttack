@@ -1,5 +1,6 @@
 ﻿using BoatAttack;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BoatAttack.UI
 {
@@ -10,9 +11,38 @@ namespace BoatAttack.UI
         public int startOption;
         private int _currentOption;
 
+
+
         public delegate void UpdateValue(int index);
 
         public UpdateValue updateVal;
+
+        public delegate void UpdateColor2(Color color);
+
+        public UpdateColor2 updateColor;
+
+        public Slider slider;
+
+        //
+
+        public float hue, saturation, val;
+        public Image image;
+
+        public float HUE
+        {
+            get => hue;
+            set
+            {
+                hue = value;
+                this.value = Color.HSVToRGB(hue, saturation, val);
+                updateColor?.Invoke(this.value);
+                if (image)
+                    image.color = this.value;
+                if (slider)
+                    slider.value = hue;
+            }
+        } 
+
 
         private void ValueUpdate(int i)
         {
@@ -28,6 +58,7 @@ namespace BoatAttack.UI
         public void NextOption()
         {
             _currentOption = ValidateIndex(_currentOption + 1);
+            HUE = ValidateValue(hue + .1f); 
             UpdateColor();
             ValueUpdate(_currentOption);
         }
@@ -35,6 +66,7 @@ namespace BoatAttack.UI
         public void PreviousOption()
         {
             _currentOption = ValidateIndex(_currentOption - 1);
+            HUE = ValidateValue(hue - .1f);
             UpdateColor();
             ValueUpdate(_currentOption);
         }
@@ -59,10 +91,20 @@ namespace BoatAttack.UI
         {
             if (loop)
             {
-                return (int) Mathf.Repeat(index, ConstantData.ColorPalette.Length);
+                return (int)Mathf.Repeat(index, ConstantData.ColorPalette.Length);
             }
 
             return Mathf.Clamp(index, 0, ConstantData.ColorPalette.Length);
+        }
+
+        private float ValidateValue(float value)
+        {
+            if (loop)
+            {
+                return Mathf.Repeat(value, 1f);
+            }
+
+            return Mathf.Clamp(value, 0f, 1f);
         }
     }
 }

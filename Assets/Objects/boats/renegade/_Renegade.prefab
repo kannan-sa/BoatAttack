@@ -97,6 +97,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8247320481306587565, guid: 97ad03fc42a849a41a183025cc835e80,
         type: 3}
+    - target: {fileID: 114129291822198474, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: displayName
+      value: Renegade
+      objectReference: {fileID: 0}
     - target: {fileID: 114571606569623246, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
         type: 3}
       propertyPath: volume
@@ -4351,6 +4356,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 765033773711158965}
+    - targetCorrespondingSourceObject: {fileID: 1166671449864886, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5399934677295317301}
+    - targetCorrespondingSourceObject: {fileID: 1301012688254950, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6012384129826483504}
   m_SourcePrefab: {fileID: 100100000, guid: fc3ffb83d6eafb1489a5b23bc82d25b6, type: 3}
 --- !u!1 &8572136798535523618 stripped
 GameObject:
@@ -4370,3 +4383,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2465946cb16a76b4081a960852e0c401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8572394043948777798 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1301012688254950, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8571438287273359008}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6012384129826483504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8572394043948777798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d93835bcc9e53643bd2bd1ad41f7b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Log: 0
+  InitializeOnStart: 0
+  eventObject: {fileID: 11400000, guid: a4105bc9b1e370e47b1fe13ff855ce7a, type: 2}
+  OnEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8635176488320801374}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: set_volume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &8572593788953480214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1166671449864886, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8571438287273359008}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5399934677295317301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8572593788953480214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d93835bcc9e53643bd2bd1ad41f7b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Log: 0
+  InitializeOnStart: 0
+  eventObject: {fileID: 11400000, guid: a4105bc9b1e370e47b1fe13ff855ce7a, type: 2}
+  OnEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8634892592486089340}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: set_volume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!82 &8634892592486089340 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 82912682702107868, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8571438287273359008}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8635176488320801374 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 82633756123786494, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8571438287273359008}
+  m_PrefabAsset: {fileID: 0}

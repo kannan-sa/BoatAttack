@@ -8,10 +8,27 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3206783763973054864, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_text
+      value: Music
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508407116140177958, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: eventObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 059e962593926614082d0051c7b674f8,
+        type: 2}
+    - target: {fileID: 7729901881609013723, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: 059e962593926614082d0051c7b674f8,
+        type: 2}
     - target: {fileID: 7741146400298903167, guid: 2e071b02441815042b1b36f9e038ab85,
         type: 3}
       propertyPath: m_Name
-      value: MenuOption_Volume
+      value: MenuOption_Music
       objectReference: {fileID: 0}
     - target: {fileID: 8775675996436902911, guid: 2e071b02441815042b1b36f9e038ab85,
         type: 3}
@@ -91,12 +108,12 @@ PrefabInstance:
     - target: {fileID: 8775675996436902911, guid: 2e071b02441815042b1b36f9e038ab85,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -26.1551
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 8775675996436902911, guid: 2e071b02441815042b1b36f9e038ab85,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -67.39697
+      value: -204.2
       objectReference: {fileID: 0}
     - target: {fileID: 8775675996436902911, guid: 2e071b02441815042b1b36f9e038ab85,
         type: 3}

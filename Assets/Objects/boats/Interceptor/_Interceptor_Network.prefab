@@ -56,6 +56,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114129291822198474, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      propertyPath: displayName
+      value: Interceptor
+      objectReference: {fileID: 0}
     - target: {fileID: 114135153223430406, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
         type: 3}
       propertyPath: wakes.Array.size
@@ -106,6 +111,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 788950871870998174}
+    - targetCorrespondingSourceObject: {fileID: 1166671449864886, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1660001604643314904}
+    - targetCorrespondingSourceObject: {fileID: 1301012688254950, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2735441154899383513}
   m_SourcePrefab: {fileID: 100100000, guid: fc3ffb83d6eafb1489a5b23bc82d25b6, type: 3}
 --- !u!1 &9083998436884223129 stripped
 GameObject:
@@ -127,8 +140,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 1689696640
   InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -136,8 +147,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &-6217551156737809377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,10 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d2fe7bf100f64c9a169ff565e2130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  NetworkTransformExpanded: 0
-  AuthorityMode: 0
-  TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
@@ -171,7 +176,6 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
-  SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
 --- !u!114 &-3644157178391456459
@@ -186,11 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  NetworkRigidbodyBaseExpanded: 0
-  UseRigidBodyForMotion: 0
-  AutoUpdateKinematicState: 1
-  AutoSetKinematicOnDespawn: 1
 --- !u!114 &788950871870998174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,4 +202,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddf08d43f5cd594989095912667734f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
+--- !u!1 &9084175870028498349 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1166671449864886, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 9085269829827428123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1660001604643314904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9084175870028498349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d93835bcc9e53643bd2bd1ad41f7b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Log: 0
+  InitializeOnStart: 0
+  eventObject: {fileID: 11400000, guid: a4105bc9b1e370e47b1fe13ff855ce7a, type: 2}
+  OnEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9165894394228411335}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: set_volume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &9084256902070552829 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1301012688254950, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 9085269829827428123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2735441154899383513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9084256902070552829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d93835bcc9e53643bd2bd1ad41f7b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Log: 0
+  InitializeOnStart: 0
+  eventObject: {fileID: 11400000, guid: a4105bc9b1e370e47b1fe13ff855ce7a, type: 2}
+  OnEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9165051949926126565}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: set_volume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!82 &9165051949926126565 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 82633756123786494, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 9085269829827428123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &9165894394228411335 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 82912682702107868, guid: fc3ffb83d6eafb1489a5b23bc82d25b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 9085269829827428123}
+  m_PrefabAsset: {fileID: 0}

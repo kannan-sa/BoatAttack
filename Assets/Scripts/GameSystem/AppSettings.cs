@@ -202,6 +202,7 @@ namespace BoatAttack
             var loadingScreenLoading = Instance.loadingScreen.InstantiateAsync();
             yield return loadingScreenLoading;
             Instance.loadingScreenObject = loadingScreenLoading.Result;
+            Instance.loadingScreenObject.SendMessage("SetActive", true);
             Instance.loadingScreenObject.SendMessage("SetLoad", 0.0001f);
             DontDestroyOnLoad(Instance.loadingScreenObject);
 

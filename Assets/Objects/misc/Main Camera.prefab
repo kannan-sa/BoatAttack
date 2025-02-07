@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4183878424377371461}
   - component: {fileID: 6819905078565009515}
+  - component: {fileID: 1416362846996623141}
   m_Layer: 0
   m_Name: BGMusic
   m_TagString: Untagged
@@ -128,6 +129,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1416362846996623141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2367332312235840768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d93835bcc9e53643bd2bd1ad41f7b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Log: 0
+  InitializeOnStart: 1
+  eventObject: {fileID: 11400000, guid: 059e962593926614082d0051c7b674f8, type: 2}
+  OnEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6819905078565009515}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: set_volume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7003470173341666308
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,14 +189,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7003470173341666308}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.06732913, y: 0.49547574, z: 0.03855975, w: 0.86514956}
+  m_LocalRotation: {x: 0.06732912, y: -0.4954759, z: -0.03855976, w: -0.8651495}
   m_LocalPosition: {x: 13.33, y: 2, z: 56.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4183878424377371461}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -8.9, y: -302.5, z: 0}
+  m_LocalEulerAnglesHint: {x: -8.9, y: -300.4, z: 0}
 --- !u!20 &7003470173341666315
 Camera:
   m_ObjectHideFlags: 0
@@ -184,7 +215,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 24.068275
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25

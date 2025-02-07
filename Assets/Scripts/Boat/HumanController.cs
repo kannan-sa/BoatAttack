@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,7 +16,9 @@ namespace BoatAttack
         private float _steering;
 
         private bool _paused;
-        
+
+        public BoolEvent pauseEvent;
+
         private void Awake()
         {
             _controls = new InputControls();
@@ -29,8 +32,9 @@ namespace BoatAttack
             _controls.BoatControls.Reset.performed += ResetBoat;
             _controls.BoatControls.Pause.performed += FreezeBoat;
 
+            pauseEvent = Resources.Load<BoolEvent>("PauseEvent");
 
-            int controlIndex = MultiplayerMenuHelper.ControlIndex;
+            int controlIndex = GameControl.index;
             if (Gamepad.all.Count > controlIndex)
             {
                 InputDevice[] devices = new InputDevice[] { Gamepad.all[controlIndex] };
@@ -44,11 +48,19 @@ namespace BoatAttack
         {
             base.OnEnable();
             _controls.BoatControls.Enable();
+            pauseEvent.AddListener(OnPause);
         }
 
         private void OnDisable()
         {
             _controls.BoatControls.Disable();
+            pauseEvent.RemoveListener(OnPause);
+        }
+
+        private void OnPause(bool pause)
+        {
+            _paused = pause;
+           Time.timeScale = _paused ? 0f : 1f;
         }
 
         private void ResetBoat(InputAction.CallbackContext context)
@@ -59,6 +71,7 @@ namespace BoatAttack
         private void FreezeBoat(InputAction.CallbackContext context)
         {
             _paused = !_paused;
+            pauseEvent?.Invoke(_paused);
             if(_paused)
             {
                 Time.timeScale = 0f;
