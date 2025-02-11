@@ -10,6 +10,15 @@ public class GameControl : MonoBehaviour
     public TMP_Dropdown inputControlOptions;
     public static int index = 0;
 
+
+
+    private void Awake()
+    {
+#if !UNITY_EDITOR || !UNITY_STANDALONE_WIN
+        Destroy(gameObject);
+#endif
+    }
+
     private void OnEnable()
     {
         InputSystem.onDeviceChange += OnDeviceConnected;

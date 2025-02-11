@@ -32,16 +32,8 @@ namespace BoatAttack
             _controls.BoatControls.Reset.performed += ResetBoat;
             _controls.BoatControls.Pause.performed += FreezeBoat;
 
-            pauseEvent = Resources.Load<BoolEvent>("PauseEvent");
-
-            int controlIndex = GameControl.index;
-            if (Gamepad.all.Count > controlIndex)
-            {
-                InputDevice[] devices = new InputDevice[] { Gamepad.all[controlIndex] };
-                _controls.devices = new UnityEngine.InputSystem.Utilities.ReadOnlyArray<InputDevice>(devices);
-            }
-
             _controls.DebugControls.TimeOfDay.performed += SelectTime;
+            pauseEvent = Resources.Load<BoolEvent>("PauseEvent");
         }
 
         public override void OnEnable()

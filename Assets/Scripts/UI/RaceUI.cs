@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LeTai.Asset.TranslucentImage;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,12 @@ namespace BoatAttack.UI
         public GameObject optionMenu;
         public GameObject victoryPanel;
 
+        [Header("Property")]
+        public TranslucentImage pauseImagePanel;
+        public TranslucentImage optionImagePanel;
+        public Canvas UICanvas;
+        public GameObject optionBG;
+
 
         [Header("Events")]
         public GameEvent FinishGame;
@@ -60,6 +67,10 @@ namespace BoatAttack.UI
         {
             RaceManager.raceStarted += SetGameplayUi;
             PauseGame.AddListener(OnPause);
+
+            pauseImagePanel.source = CameraReference.ImageSource;
+            optionImagePanel.source = CameraReference.ImageSource;
+            UICanvas.worldCamera = CameraReference.CanvasCamera;
         }
 
         private void OnDisable()
@@ -71,6 +82,7 @@ namespace BoatAttack.UI
         private void OnPause(bool paused)
         {
             pauseMenu.SetActive(paused);
+            optionBG.SetActive(paused); 
         }
 
         public void Setup(int player)

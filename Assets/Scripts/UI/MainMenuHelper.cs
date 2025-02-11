@@ -52,6 +52,7 @@ namespace BoatAttack.UI
         private void UpdateBoat(int index)
         {
             RaceManager.SetHull(playerIndex, index);
+            return;
             for (var i = 0; i < boatMeshes.Length; i++)
             {
                 boatMeshes[i].SetActive(i == index);
@@ -102,7 +103,8 @@ namespace BoatAttack.UI
             {
                 RaceManager.RaceData.boats[playerIndex].livery.trimColor = ConstantData.GetPaletteColor(index);
             }
-            
+
+            return;
             // update menu boats
             foreach (var t in boatMeshes)
             {
@@ -129,7 +131,7 @@ namespace BoatAttack.UI
             {
                 RaceManager.RaceData.boats[playerIndex].livery.trimColor = color;
             }
-
+            return;
             // update menu boats
             foreach (var t in boatMeshes)
             {

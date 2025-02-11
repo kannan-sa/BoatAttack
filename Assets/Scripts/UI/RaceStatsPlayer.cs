@@ -39,6 +39,9 @@ namespace BoatAttack.UI
 
         public void UpdateStats()
         {
+            if(_boat == null)
+                return;
+
             _place = _boat.Place;
             transform.SetSiblingIndex(_place + 1);
             place.text = RaceUI.OrdinalNumber(_boat.Place);
