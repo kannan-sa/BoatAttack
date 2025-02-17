@@ -48,3 +48,7 @@ Assets/ActualImages*
 Packages/packages-lock.json
 Assets/TextMesh Pro/
 .utmp/
+Assets/Textures/UI_Visteon/
+Assets/Packages/
+Assets/Packages.meta
+UserSettings/

@@ -1,18 +1,36 @@
 {
     "m_SelectedDeviceId": "GMKJAUU46DUCLVJJ",
-    "m_SelectedProcess": {
+    "m_SelectedPackage": {
         "deviceId": "",
         "name": "",
         "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownProcessesForSerialization": [
+    "m_KnownPackagesForSerialization": [
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
-            "name": "com.linkedin.android",
-            "processId": 32030,
-            "exited": false
+            "name": "com.Elxsi.BoatAttack2",
+            "processId": 25252,
+            "exited": true
+        },
+        {
+            "deviceId": "GMKJAUU46DUCLVJJ",
+            "name": "com.Elxsi.BoatAttack2",
+            "processId": 26384,
+            "exited": true
+        },
+        {
+            "deviceId": "GMKJAUU46DUCLVJJ",
+            "name": "com.feature.activity1",
+            "processId": 15147,
+            "exited": true
+        },
+        {
+            "deviceId": "GMKJAUU46DUCLVJJ",
+            "name": "com.Elxsi.BoatAttack1",
+            "processId": 19185,
+            "exited": true
         }
     ],
     "m_Tags": {
@@ -23,7 +41,7 @@
             },
             {
                 "m_Name": "No Filter",
-                "m_Selected": true
+                "m_Selected": false
             },
             {
                 "m_Name": "",
@@ -39,19 +57,20 @@
             },
             {
                 "m_Name": "Unity",
-                "m_Selected": false
+                "m_Selected": true
             },
             {
                 "m_Name": "CRASH",
                 "m_Selected": false
+            },
+            {
+                "m_Name": "AudioRoutingPlugin",
+                "m_Selected": true
             }
         ]
     },
-    "m_ExtraWindowState": {
-        "Type": 0,
-        "Height": 0.0
-    },
     "m_MemoryViewerState": {
+        "MemoryWindowHeight": 300.0,
         "MemoryWindowWidth": 170.0,
         "MemoryTypeEnabled": [
             true,
@@ -66,7 +85,7 @@
             true
         ],
         "MemoryGroup": 2,
-        "AutoCapture": true
+        "Behavior": 0
     },
     "m_FilterOptions": {
         "m_Filter": "",
@@ -84,24 +103,5 @@
         "BitRateK": 20000,
         "DisplayIdEnabled": false,
         "DisplayId": ""
-    },
-    "m_ScreenCaptureSettings": {
-        "Mode": 0,
-        "m_LastSaveLocation": [
-            "D:\\Projects\\BoatAttack",
-            "D:\\Projects\\BoatAttack"
-        ]
-    },
-    "m_InputSettings": {
-        "ShiftModifier": false,
-        "SendText": "",
-        "PosixKillSignal": 0,
-        "TargetProcess": {
-            "deviceId": "",
-            "name": "",
-            "processId": 0,
-            "exited": false
-        }
-    },
-    "m_AutoScroll": 0
+    }
 }
