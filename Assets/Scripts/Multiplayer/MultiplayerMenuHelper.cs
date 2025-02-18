@@ -9,11 +9,9 @@ using Unity.Services.Lobbies.Models;
 using System.Collections.Concurrent;
 using Unity.Netcode;
 using TMPro;
-using UnityEngine.InputSystem;
-using System.Linq;
 using BoatAttack;
 using BoatAttack.UI;
-using UnityEngine.InputSystem.DualShock;
+using UnityEngine.UI;
 
 public class MultiplayerMenuHelper : MonoBehaviour
 {
@@ -46,6 +44,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public NetworkRaceManager projectSceneManager;
     public GameObject boatPlayerName;
     public GameObject playerInputControl;
+    public Button raceButton;
 
     public LobbyView[] lobbies;
     public PlayerView[] players;
@@ -106,8 +105,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
         InitializeLobbies(new List<Lobby>());
         InitializePlayers(new List<Player>());
 
-        //if (isOffline)
-        //    return;
+        if (isOffline)
+            return;
 
         if (!alreadySigned)
             await SignInAnonymouslyAsync();
@@ -242,6 +241,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
             if(isOffline)
                 StartCoroutine(UpdatePlayersRoutine());
+
+            raceButton.interactable = false;
         }
         catch (System.Exception e) {
             SetStatus(e.Message, 4f);
@@ -545,7 +546,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     IEnumerator PollLobbies(float waitTimeSeconds)
     {
-        while(canPollLobbies)
+        while(canPollLobbies || enabled)
         {
             SearchLobby();
             yield return new WaitForSecondsRealtime(waitTimeSeconds);

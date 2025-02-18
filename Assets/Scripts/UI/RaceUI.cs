@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static BoatAttack.RaceManager;
@@ -63,6 +64,14 @@ namespace BoatAttack.UI
         [SerializeField]
         private string[] victoryDetails = new string[0];
 
+        private InputControls _controls;
+
+
+        private void Awake()
+        {
+            _controls = new InputControls();
+        }
+
         private void OnEnable()
         {
             RaceManager.raceStarted += SetGameplayUi;
@@ -71,12 +80,26 @@ namespace BoatAttack.UI
             pauseImagePanel.source = CameraReference.ImageSource;
             optionImagePanel.source = CameraReference.ImageSource;
             UICanvas.worldCamera = CameraReference.CanvasCamera;
+
+            _controls.BoatControls.Enable();
+            _controls.BoatControls.Back.performed += OnBackKey;
         }
 
         private void OnDisable()
         {
             RaceManager.raceStarted -= SetGameplayUi;
             PauseGame.RemoveListener(OnPause);
+
+            _controls.BoatControls.Disable();
+            _controls.BoatControls.Back.performed -= OnBackKey;
+        }
+
+        private void OnBackKey(InputAction.CallbackContext context)
+        {
+            if(optionMenu.activeSelf)
+                optionMenu.SetActive(false);
+            else if(pauseMenu.activeSelf)
+                PauseGame.Invoke(false);
         }
 
         private void OnPause(bool paused)

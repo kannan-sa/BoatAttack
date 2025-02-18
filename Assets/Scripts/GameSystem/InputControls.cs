@@ -62,6 +62,15 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": ""AxisDeadzone(min=0.1,max=1)"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""f2466496-33f4-4bd2-b2de-62807b93ddd7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,39 +205,6 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""action"": ""Trottle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""c076346c-2bf2-4062-84a0-b0a1f74f1fea"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Trottle"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""93b46802-0115-4eac-9019-fc4493c01098"",
-                    ""path"": ""<Gamepad>/dpad/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Trottle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""be065333-ae34-41b0-a1d9-26cf9d1eea2d"",
-                    ""path"": ""<Gamepad>/dpad/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Trottle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""LeftThumbstick"",
@@ -403,6 +379,28 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8012a183-67b1-4179-a837-7a413a4f4af2"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a829a7d0-415e-477a-ab4b-36c1e519f3a6"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -581,6 +579,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_BoatControls_Steering = m_BoatControls.FindAction("Steering", throwIfNotFound: true);
         m_BoatControls_Reset = m_BoatControls.FindAction("Reset", throwIfNotFound: true);
         m_BoatControls_Pause = m_BoatControls.FindAction("Pause", throwIfNotFound: true);
+        m_BoatControls_Back = m_BoatControls.FindAction("Back", throwIfNotFound: true);
         // DebugControls
         m_DebugControls = asset.FindActionMap("DebugControls", throwIfNotFound: true);
         m_DebugControls_PauseTime = m_DebugControls.FindAction("PauseTime", throwIfNotFound: true);
@@ -650,6 +649,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_BoatControls_Steering;
     private readonly InputAction m_BoatControls_Reset;
     private readonly InputAction m_BoatControls_Pause;
+    private readonly InputAction m_BoatControls_Back;
     public struct BoatControlsActions
     {
         private @InputControls m_Wrapper;
@@ -658,6 +658,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         public InputAction @Steering => m_Wrapper.m_BoatControls_Steering;
         public InputAction @Reset => m_Wrapper.m_BoatControls_Reset;
         public InputAction @Pause => m_Wrapper.m_BoatControls_Pause;
+        public InputAction @Back => m_Wrapper.m_BoatControls_Back;
         public InputActionMap Get() { return m_Wrapper.m_BoatControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -679,6 +680,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Back.started += instance.OnBack;
+            @Back.performed += instance.OnBack;
+            @Back.canceled += instance.OnBack;
         }
 
         private void UnregisterCallbacks(IBoatControlsActions instance)
@@ -695,6 +699,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Back.started -= instance.OnBack;
+            @Back.performed -= instance.OnBack;
+            @Back.canceled -= instance.OnBack;
         }
 
         public void RemoveCallbacks(IBoatControlsActions instance)
@@ -799,6 +806,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         void OnSteering(InputAction.CallbackContext context);
         void OnReset(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
     }
     public interface IDebugControlsActions
     {

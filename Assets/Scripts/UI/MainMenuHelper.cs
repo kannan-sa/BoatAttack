@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace BoatAttack.UI
 {
@@ -17,7 +16,19 @@ namespace BoatAttack.UI
         public ColorSelector boatPrimaryColorSelector;
         public ColorSelector boatTrimColorSelector;
 
+        public GameObject TypePanel;
+        public GameObject OptionPanel;
+
+        public Animator menuAnimator;
         public int playerIndex = 0;
+        
+        private InputControls _controls;
+
+
+        private void Awake()
+        {
+            _controls = new InputControls();
+        }
 
         private void OnEnable()
         {
@@ -32,6 +43,22 @@ namespace BoatAttack.UI
             boatHullSelector.updateVal += UpdateBoat;
             boatPrimaryColorSelector.updateColor += UpdatePrimaryColor;
             boatTrimColorSelector.updateColor += UpdateTrimColor;
+            _controls.BoatControls.Enable();
+            _controls.BoatControls.Back.performed += OnBackKey;
+        }
+
+        private void OnDisable()
+        {
+            _controls.BoatControls.Disable();
+            _controls.BoatControls.Back.performed -= OnBackKey;
+        }
+
+        private void OnBackKey(InputAction.CallbackContext context)
+        {
+            Debug.Log("On Back");
+            if(!TypePanel.activeSelf)
+                menuAnimator.SetTrigger("Back");
+            OptionPanel.SetActive(false);
         }
 
         private void SetupDefaults()

@@ -3384,7 +3384,7 @@ MonoBehaviour:
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 3945ce5ffe899e04b8f79caa06e0aff5, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 8a1b937fceea5ad48bac36a7db2cdab3, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: 66826649ad6498b4e92a482dba6f9015, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -7159,6 +7159,9 @@ MonoBehaviour:
   boatHullSelector: {fileID: 6986721006967331224}
   boatPrimaryColorSelector: {fileID: 845302771883566743}
   boatTrimColorSelector: {fileID: 2298344930740223530}
+  TypePanel: {fileID: 7951200662553551537}
+  OptionPanel: {fileID: 509996392137310139}
+  menuAnimator: {fileID: 3300335164659556536}
   playerIndex: 0
 --- !u!114 &5085794017186567176
 MonoBehaviour:
@@ -7196,6 +7199,7 @@ MonoBehaviour:
   projectSceneManager: {fileID: 0}
   boatPlayerName: {fileID: 1479008396765401371}
   playerInputControl: {fileID: 0}
+  raceButton: {fileID: 1836817025332412059}
   lobbies:
   - {fileID: 3675416623096205175}
   - {fileID: 3901539834458278685}
@@ -13915,7 +13919,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2092560056219976457}
+      objectReference: {fileID: 0}
     - target: {fileID: 1116005466297711690, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -14162,18 +14166,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5789430752381793919}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2092560056219976457 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5571644128688190838, guid: 960f1f94a20b50e4daad2fe6842d5272,
-    type: 3}
-  m_PrefabInstance: {fileID: 5789430752381793919}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86e40bdf79ff7804bab433fa661aef45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7683243655034940792 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4249267186017884935, guid: 960f1f94a20b50e4daad2fe6842d5272,
