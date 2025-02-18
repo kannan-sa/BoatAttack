@@ -24,6 +24,14 @@ public class PlayerView : MonoBehaviour, IView<Player>
         //KickOption.SetActive(playerDetails.IsHost);
     }
 
+    public void Initialize(PlayerStatus player) {
+        playerName.text = player.boatName.Value.ToString();
+        //playerID = player.Id;
+        //KickOption.SetActive(playerDetails.IsHost);
+    }
+
+    
+
     public void Kick()
     {
         kickEvent?.Invoke(playerID);

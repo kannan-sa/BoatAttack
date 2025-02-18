@@ -72,8 +72,13 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public string LobbyName { get => lobbyName; set { lobbyName = value; } }
 
     public static bool alreadySigned = false;
+
+    private bool isOffline = false;
+
     private void OnEnable()
     {
+        isOffline = Application.internetReachability == NetworkReachability.NotReachable;
+        Debug.Log($"is Offline {isOffline}");
         Instance = this;
         selectLobby.AddListener(OnSelectLobby);
         kickPlayer.AddListener(OnKickPlayer);
@@ -97,8 +102,12 @@ public class MultiplayerMenuHelper : MonoBehaviour
         playerName = "Player " + deviceIndex;
         lobbyName = "Game " + ((deviceIndex * 10 ) + Random.Range(0, 10));
 
+
         InitializeLobbies(new List<Lobby>());
         InitializePlayers(new List<Player>());
+
+        //if (isOffline)
+        //    return;
 
         if (!alreadySigned)
             await SignInAnonymouslyAsync();
@@ -199,6 +208,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (RaceManager.RaceData.game != RaceManager.GameType.Multiplayer)
             return;
 
+        if(isOffline)
+            isServer = true;
+
         if(!isServer)
         {
             SetStatus("Only Server can start race", 4f);
@@ -209,6 +221,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
         {
             NetworkManager.Singleton.StartHost();
             SwitchToBoatSelection();
+            if (isOffline)
+                StartCoroutine(UpdatePlayersRoutine());
         }
         catch (System.Exception e)
         {
@@ -225,14 +239,27 @@ public class MultiplayerMenuHelper : MonoBehaviour
         {
             NetworkManager.Singleton.StartClient();
             SwitchToBoatSelection();
+
+            if(isOffline)
+                StartCoroutine(UpdatePlayersRoutine());
         }
-        catch(System.Exception e) {
+        catch (System.Exception e) {
             SetStatus(e.Message, 4f);
+        }
+    }
+
+    private IEnumerator UpdatePlayersRoutine() {
+        while(enabled) {
+            InitializePlayers(NetworkRaceManager.playerStats);
+            yield return new WaitForSeconds(.5f);
         }
     }
 
     public void PollLobbies()
     {
+        if (isOffline)
+            return;
+
         canPollLobbies = true;
         StartCoroutine(PollLobbies(1.5f));
     }
@@ -263,6 +290,11 @@ public class MultiplayerMenuHelper : MonoBehaviour
     #region Multiplayer Services - Lobby 
     public async void CreateLobby()
     {
+        if (isOffline) {
+            CreateGame();
+            return;
+        }
+
         if (string.IsNullOrEmpty(playerName))
         {
             SetStatus("Enter Player Name", 6f);
@@ -313,6 +345,11 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     public async void JoinLobby()
     {
+        if (isOffline) {
+            JoinGame();
+            return;
+        }
+
         if (string.IsNullOrEmpty(playerName))
         {
             SetStatus("Enter Player Name", 6f);
@@ -455,6 +492,18 @@ public class MultiplayerMenuHelper : MonoBehaviour
             }
             else
             {
+                players[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void InitializePlayers(List<PlayerStatus> results) {
+        for (int i = 0; i < players.Length; i++) {
+            if (i < results.Count) {
+                players[i].gameObject.SetActive(true);
+                players[i].Initialize(results[i]);
+            }
+            else {
                 players[i].gameObject.SetActive(false);
             }
         }
