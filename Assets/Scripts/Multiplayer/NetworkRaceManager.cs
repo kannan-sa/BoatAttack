@@ -107,6 +107,24 @@ public class NetworkRaceManager : NetworkBehaviour
 
     public void LoadMenuScene()
     {
+        if (IsHost)
+        {
+            LoadMenuSceneGeneral();
+        }
+        else
+        {
+            LoadMenuSceneRpc();
+        }
+    }
+
+    [Rpc(SendTo.Server)]
+    private void LoadMenuSceneRpc()
+    {
+        LoadMenuSceneGeneral();
+    }
+
+    private void LoadMenuSceneGeneral()
+    {
         DestroyBoats();
         var status = NetworkManager.Singleton.SceneManager.LoadScene(m_MenuScene, LoadSceneMode.Single);
 

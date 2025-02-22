@@ -16,6 +16,8 @@ public class PlayerStatus : NetworkBehaviour
     public NetworkVariable<int> primaryColor = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> trimColor = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
 
+    public static int index = 0;
+
     public override void OnNetworkSpawn()
     {
         name = $"player stat {OwnerClientId}";
@@ -38,6 +40,8 @@ public class PlayerStatus : NetworkBehaviour
         
         if (IsOwner)
         {
+            index = (int)OwnerClientId;
+
             boatName.Value = MultiplayerMenuHelper.Instance.PlayerName;
 
             onSetPlayerName.AddListener(OnSetPlayerName);
@@ -53,6 +57,7 @@ public class PlayerStatus : NetworkBehaviour
         boatType.OnValueChanged -= OnBoatTypeSet;
         primaryColor.OnValueChanged -= OnPrimaryColorSet;
         trimColor.OnValueChanged -= OnTrimColorSet;
+        NetworkRaceManager.playerStats.Remove(this);
 
         if (IsOwner)
         {

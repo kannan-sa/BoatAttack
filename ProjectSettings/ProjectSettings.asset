@@ -1015,11 +1015,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: fb671ecb-3a50-412d-8620-4c0b0542a0fd
   framebufferDepthMemorylessMode: 2
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: COPPA
+  organizationId: kannan_tataelxsi
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

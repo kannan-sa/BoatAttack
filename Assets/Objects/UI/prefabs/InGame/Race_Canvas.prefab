@@ -685,6 +685,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 5675154350468542391}
+    - target: {fileID: 4896033369601494348, guid: 0482dcbdb79ee4d7eb43a774a90bda4e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FinishMatch
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896033369601494348, guid: 0482dcbdb79ee4d7eb43a774a90bda4e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BoatAttack.UI.RaceUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5347790855530666824, guid: 0482dcbdb79ee4d7eb43a774a90bda4e,
         type: 3}
