@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/scenes/_levels/level_Island.unity
     guid: e49366a21c3d84388bfb33016c0e77e2
   - enabled: 0
+    path: Assets/scenes/IntroScene.unity
+    guid: 6b7d939893ac5ee4da47d264bae45277
+  - enabled: 0
     path: Assets/scenes/demo_Island.unity
     guid: b3bf1324da98a41e796a5881dd3812eb
   - enabled: 0

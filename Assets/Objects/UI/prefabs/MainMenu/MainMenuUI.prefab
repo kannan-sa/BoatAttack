@@ -3384,7 +3384,7 @@ MonoBehaviour:
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 3945ce5ffe899e04b8f79caa06e0aff5, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 8a1b937fceea5ad48bac36a7db2cdab3, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 66826649ad6498b4e92a482dba6f9015, type: 3}
+    m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -7199,7 +7199,7 @@ MonoBehaviour:
   projectSceneManager: {fileID: 0}
   boatPlayerName: {fileID: 1479008396765401371}
   playerInputControl: {fileID: 0}
-  raceButton: {fileID: 1836817025332412059}
+  raceButton: {fileID: 8450743389908791407}
   lobbies:
   - {fileID: 3675416623096205175}
   - {fileID: 3901539834458278685}
@@ -10502,6 +10502,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2488952460665423967}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8450743389908791407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
+    type: 3}
+  m_PrefabInstance: {fileID: 2488952460665423967}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560599954599807816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2789535625198439568
 PrefabInstance:
   m_ObjectHideFlags: 0
