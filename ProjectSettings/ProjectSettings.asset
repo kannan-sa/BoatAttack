@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 0
   companyName: Elxsi
-  productName: BoatAttack3
+  productName: BoatAttack2
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
@@ -141,6 +141,7 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 11400000, guid: 5167e20df4ba74848af10ddf1849e464, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -160,7 +161,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.Elxsi.BoatAttack3
+    Android: com.Elxsi.BoatAttack2
     Lumin: com.DefaultCompany.BoatAttack
     Standalone: com.Elxsi.BoatAttack2
     iPhone: com.Unity3D.BoatAttack
@@ -1014,11 +1015,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: fb671ecb-3a50-412d-8620-4c0b0542a0fd
+  cloudProjectId: 
   framebufferDepthMemorylessMode: 2
   qualitySettingsNames: []
-  projectName: COPPA
-  organizationId: kannan_tataelxsi
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

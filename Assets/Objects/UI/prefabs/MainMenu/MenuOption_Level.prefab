@@ -8,6 +8,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4426974721752824126, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426974721752824126, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426974721752824126, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137888035373209674, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 14.600067
+      objectReference: {fileID: 0}
     - target: {fileID: 7504817807149001553, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
         type: 3}
       propertyPath: m_Pivot.x
@@ -41,12 +61,12 @@ PrefabInstance:
     - target: {fileID: 7504817807149001553, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1436.0889
+      value: 1273.5479
       objectReference: {fileID: 0}
     - target: {fileID: 7504817807149001553, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 190
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7504817807149001553, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
         type: 3}
@@ -86,7 +106,7 @@ PrefabInstance:
     - target: {fileID: 7504817807149001553, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -83.74341
+      value: -96.96948
       objectReference: {fileID: 0}
     - target: {fileID: 7504817807149001553, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
         type: 3}
@@ -112,6 +132,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MenuOption_Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 9043995148757067112, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9043995148757067112, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9043995148757067112, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

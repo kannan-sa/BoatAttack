@@ -13,6 +13,16 @@ PrefabInstance:
       propertyPath: m_text
       value: Music
       objectReference: {fileID: 0}
+    - target: {fileID: 3206783763973054864, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3206783763973054864, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 7508407116140177958, guid: 2e071b02441815042b1b36f9e038ab85,
         type: 3}
       propertyPath: eventObject
@@ -69,6 +79,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 127.7939
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775675996436902911, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775675996436902911, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775675996436902911, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8775675996436902911, guid: 2e071b02441815042b1b36f9e038ab85,
         type: 3}
@@ -129,6 +154,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775675996436902911, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
