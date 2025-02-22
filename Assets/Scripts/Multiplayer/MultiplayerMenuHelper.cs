@@ -54,7 +54,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public ColorSelector boatPrimaryColorSelector;
     public ColorSelector boatTrimColorSelector;
 
-    private bool isServer;
+    public static bool isServer;
     private bool canPollLobbies;
     private bool keepLobby = true;
     private string lobbyID;
@@ -86,6 +86,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         boatHullSelector.updateVal += setBoatType.Invoke;
         //boatPrimaryColorSelector.updateVal += setPrimaryColor.Invoke;
         //boatTrimColorSelector.updateVal += setTrimColor.Invoke;
+
     }
 
     private void OnDisable()
@@ -94,8 +95,15 @@ public class MultiplayerMenuHelper : MonoBehaviour
         kickPlayer.RemoveListener(OnKickPlayer);
     }
 
+    private void OnServerStopped(bool state)
+    {
+        Debug.Log("OnServerStopped " + state);
+    }
+
     async void Start()
     {
+        NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
+
         int deviceIndex = int.Parse(Application.productName[Application.productName.Length - 1].ToString());
 
         playerName = "Player " + deviceIndex;
@@ -110,6 +118,11 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         if (!alreadySigned)
             await SignInAnonymouslyAsync();
+    }
+
+    private void OnConnectionEvent(NetworkManager manager, ConnectionEventData data)
+    {
+        Debug.Log("OnConnectionEvent," + " " + manager.name + " " + data.EventType);
     }
 
     private async Task SignInAnonymouslyAsync()
@@ -220,8 +233,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
         {
             NetworkManager.Singleton.StartHost();
             SwitchToBoatSelection();
-            if (isOffline)
-                StartCoroutine(UpdatePlayersRoutine());
+            //if (isOffline)
+            StartCoroutine(UpdatePlayersRoutine());
         }
         catch (System.Exception e)
         {
@@ -239,8 +252,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
             NetworkManager.Singleton.StartClient();
             SwitchToBoatSelection();
 
-            if(isOffline)
-                StartCoroutine(UpdatePlayersRoutine());
+            //if(isOffline)
+            StartCoroutine(UpdatePlayersRoutine());
 
             raceButton.interactable = false;
         }
@@ -249,10 +262,23 @@ public class MultiplayerMenuHelper : MonoBehaviour
         }
     }
 
+    public void EndSession()
+    {
+        NetworkManager.Singleton.Shutdown();
+        menuAnimator.SetTrigger("EndSession");
+    }
+
     private IEnumerator UpdatePlayersRoutine() {
         while(enabled) {
             InitializePlayers(NetworkRaceManager.playerStats);
             yield return new WaitForSeconds(.5f);
+
+            bool noPlayers = NetworkRaceManager.playerStats.Count == 0;
+            if (noPlayers)
+            {
+                menuAnimator.SetTrigger("EndSession");
+                yield break;
+            }
         }
     }
 
@@ -530,7 +556,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         {
             LobbyService.Instance.GetLobbyAsync(lobbyId);
             yield return delay;
-            ShowPlayers(currentLobby, isServer);
+            //ShowPlayers(currentLobby, isServer);
 
             if (!isServer)
             {
