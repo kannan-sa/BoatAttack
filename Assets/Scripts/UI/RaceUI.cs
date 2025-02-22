@@ -77,10 +77,6 @@ namespace BoatAttack.UI
             RaceManager.raceStarted += SetGameplayUi;
             PauseGame.AddListener(OnPause);
 
-            pauseImagePanel.source = CameraReference.ImageSource;
-            optionImagePanel.source = CameraReference.ImageSource;
-            UICanvas.worldCamera = CameraReference.CanvasCamera;
-
             _controls.BoatControls.Enable();
             _controls.BoatControls.Back.performed += OnBackKey;
         }
@@ -158,8 +154,10 @@ namespace BoatAttack.UI
 
         public void MatchEnd()
         {
-            int playerPlace = RaceManager.RaceData.boats[0].Boat.Place - 1;
-            Debug.Log($"player position {RaceManager.RaceData.boats[0].Boat.Place}");
+            int index = RaceData.game == GameType.Singleplayer ? 0 : PlayerStatus.index;
+            int playerPlace = RaceData.boats[index].Boat.Place - 1;
+            Debug.Log("Player Index " + index);
+            Debug.Log($"player position {RaceData.boats[index].Boat.Place}");
 
             bool canShowVictory = playerPlace < victoryDetails.Length;
             victoryPanel.SetActive(canShowVictory);
