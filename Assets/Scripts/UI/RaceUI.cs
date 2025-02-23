@@ -1,5 +1,4 @@
-﻿using LeTai.Asset.TranslucentImage;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,9 +34,6 @@ namespace BoatAttack.UI
         public GameObject victoryPanel;
 
         [Header("Property")]
-        public TranslucentImage pauseImagePanel;
-        public TranslucentImage optionImagePanel;
-        public Canvas UICanvas;
         public GameObject optionBG;
 
 
