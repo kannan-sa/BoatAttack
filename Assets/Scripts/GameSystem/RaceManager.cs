@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using BoatAttack.UI;
 using UnityEngine.Playables;
 using Random = UnityEngine.Random;
+using static BoatAttack.UI.RaceUI;
 
 namespace BoatAttack
 {
@@ -228,8 +229,8 @@ namespace BoatAttack
                 introCams.SetActive(false);
             }
 
-            yield return new WaitForSeconds(3f); // countdown 3..2..1..
-            
+            yield return Instance.StartCoroutine(Sequence.StartSequence());
+
             RaceStarted = true;
             raceStarted?.Invoke(RaceStarted);
             

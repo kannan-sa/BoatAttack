@@ -3213,7 +3213,7 @@ MonoBehaviour:
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 3945ce5ffe899e04b8f79caa06e0aff5, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 8a1b937fceea5ad48bac36a7db2cdab3, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 66826649ad6498b4e92a482dba6f9015, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: d00f6eb8eee5f654ab8103190007e6f5, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -6920,7 +6920,8 @@ MonoBehaviour:
   setPrimaryColor: {fileID: 11400000, guid: 5b427762f13bf80449ceaa5e8fac971c, type: 2}
   setTrimColor: {fileID: 11400000, guid: 4b8a5b11e277fd14285939705e5d55bc, type: 2}
   menuAnimator: {fileID: 3300335164659556536}
-  projectSceneManager: {fileID: 0}
+  networkManager: {fileID: 0}
+  networkRaceManager: {fileID: 0}
   boatPlayerName: {fileID: 1479008396765401371}
   playerInputControl: {fileID: 0}
   raceButton: {fileID: 1836817025332412059}
@@ -9058,6 +9059,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776243802059527625}
     m_Modifications:
+    - target: {fileID: 624053490004786774, guid: 7b090b4caf0dba641b7ad3e523ece7ba,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 340
+      objectReference: {fileID: 0}
     - target: {fileID: 640902508064178466, guid: 7b090b4caf0dba641b7ad3e523ece7ba,
         type: 3}
       propertyPath: m_Name
@@ -10521,6 +10527,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776243802059527625}
     m_Modifications:
+    - target: {fileID: 624053490004786774, guid: 7b090b4caf0dba641b7ad3e523ece7ba,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 340
+      objectReference: {fileID: 0}
     - target: {fileID: 640902508064178466, guid: 7b090b4caf0dba641b7ad3e523ece7ba,
         type: 3}
       propertyPath: m_Name
@@ -13199,6 +13210,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776243802059527625}
     m_Modifications:
+    - target: {fileID: 624053490004786774, guid: 7b090b4caf0dba641b7ad3e523ece7ba,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 340
+      objectReference: {fileID: 0}
     - target: {fileID: 640902508064178466, guid: 7b090b4caf0dba641b7ad3e523ece7ba,
         type: 3}
       propertyPath: m_Name
@@ -13303,16 +13319,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6937617064181673280, guid: 7b090b4caf0dba641b7ad3e523ece7ba,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -593.1113
-      objectReference: {fileID: 0}
-    - target: {fileID: 6937617064181673280, guid: 7b090b4caf0dba641b7ad3e523ece7ba,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -11.553223
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13542,7 +13548,7 @@ PrefabInstance:
     - target: {fileID: 338618926739793454, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1116005466297711690, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
@@ -13697,7 +13703,7 @@ PrefabInstance:
     - target: {fileID: 4111707213802966325, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4249267186017884935, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
@@ -13712,7 +13718,7 @@ PrefabInstance:
     - target: {fileID: 4782200077121372656, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6290384759078209988, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
@@ -13722,7 +13728,7 @@ PrefabInstance:
     - target: {fileID: 6290384759078209988, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6639155778321985046, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
@@ -13777,7 +13783,7 @@ PrefabInstance:
     - target: {fileID: 9214780803975080683, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14207,7 +14213,7 @@ PrefabInstance:
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
@@ -14217,7 +14223,7 @@ PrefabInstance:
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
@@ -14228,7 +14234,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 8803882710196166548}
+      objectReference: {fileID: 5085794017186567176}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -14237,12 +14243,12 @@ PrefabInstance:
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SelectGameObject
+      value: SetStatus
       objectReference: {fileID: 0}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: BoatAttack.UI.MainMenuHelper, Assembly-CSharp
+      value: MultiplayerMenuHelper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
@@ -14257,7 +14263,7 @@ PrefabInstance:
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

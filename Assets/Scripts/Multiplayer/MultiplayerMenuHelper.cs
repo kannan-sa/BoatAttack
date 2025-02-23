@@ -40,7 +40,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public IntegerEvent setTrimColor;
     [Header("Controls")]
     public Animator menuAnimator;
-    public NetworkRaceManager projectSceneManager;
+    public NetworkManager networkManager;
+    public NetworkRaceManager networkRaceManager;
     public GameObject boatPlayerName;
     public GameObject playerInputControl;
     public Button raceButton;
@@ -74,6 +75,27 @@ public class MultiplayerMenuHelper : MonoBehaviour
     private bool isOffline = false;
 
     private Coroutine playerUpdateRoutine;
+
+    private static NetworkManager nManager = null;
+    private static NetworkRaceManager nRaceManager = null;
+
+    private void Awake() {
+        if (nManager == null) {
+            nManager = networkManager;
+        }
+        else {
+            Destroy(networkManager.gameObject);
+            networkManager = nManager;
+        }
+
+        if (nRaceManager == null) {
+            nRaceManager = networkRaceManager;
+        }
+        else {
+            Destroy(networkRaceManager.gameObject);
+            networkRaceManager = nRaceManager;
+        }
+    }
 
     private void OnEnable()
     {
@@ -203,7 +225,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             return;
         }
 
-        projectSceneManager.LoadGameScene();
+        nRaceManager.LoadGameScene();
         keepLobby = false;
 /*        
         Debug.Log(isServer ? "Creating Game" : "Joining Game");
@@ -281,6 +303,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     }
 
     private IEnumerator UpdatePlayersRoutine() {
+        yield return new WaitForSeconds(1f);
         while(enabled) {
             InitializePlayers(NetworkRaceManager.playerStats);
             yield return new WaitForSeconds(.5f);
@@ -312,6 +335,14 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     }
 
+    public void SetStatus() {
+        if (RaceManager.RaceData.game != RaceManager.GameType.Multiplayer)
+            return;
+
+        int index = PlayerStatus.index;
+        NetworkRaceManager.playerStats[index].status.Value = true;
+    }
+
     private IEnumerator StatusRoutine()
     {
         bool clientsConnected = false;
@@ -326,7 +357,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 #if DEBUG_ENABLED
         Debug.Log($"All clients connected lets start the game..");
 #endif
-        projectSceneManager.LoadGameScene();
+        nRaceManager.LoadGameScene();
     }
     #endregion
 
