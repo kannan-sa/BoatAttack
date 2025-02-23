@@ -1,5 +1,4 @@
-﻿using LeTai.Asset.TranslucentImage;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +33,7 @@ namespace BoatAttack.UI
         public GameObject optionMenu;
         public GameObject victoryPanel;
 
-        [Header("Property")]
-        public TranslucentImage pauseImagePanel;
-        public TranslucentImage optionImagePanel;
-        public Canvas UICanvas;
-        public GameObject optionBG;
-
+        public ImageSequence sequence;
 
         [Header("Events")]
         public GameEvent FinishGame;
@@ -65,11 +59,12 @@ namespace BoatAttack.UI
         private string[] victoryDetails = new string[0];
 
         private InputControls _controls;
-
+        public static ImageSequence Sequence;
 
         private void Awake()
         {
             _controls = new InputControls();
+            Sequence = sequence;
         }
 
         private void OnEnable()
@@ -77,12 +72,11 @@ namespace BoatAttack.UI
             RaceManager.raceStarted += SetGameplayUi;
             PauseGame.AddListener(OnPause);
 
-            pauseImagePanel.source = CameraReference.ImageSource;
-            optionImagePanel.source = CameraReference.ImageSource;
-            UICanvas.worldCamera = CameraReference.CanvasCamera;
-
             _controls.BoatControls.Enable();
             _controls.BoatControls.Back.performed += OnBackKey;
+
+            if (RaceData.game == GameType.Multiplayer)
+                StartCoroutine(CheckForFinish());
         }
 
         private void OnDisable()
@@ -92,6 +86,18 @@ namespace BoatAttack.UI
 
             _controls.BoatControls.Disable();
             _controls.BoatControls.Back.performed -= OnBackKey;
+        }
+
+        private IEnumerator CheckForFinish() {
+            while (enabled) {
+                yield return new WaitForSeconds(.5f);
+
+                bool noPlayers = NetworkRaceManager.playerStats.Count == 0;
+                if (noPlayers) {
+                    RaceManager.UnloadRace();
+                    yield break;
+                }
+            }
         }
 
         private void OnBackKey(InputAction.CallbackContext context)
@@ -105,7 +111,6 @@ namespace BoatAttack.UI
         private void OnPause(bool paused)
         {
             pauseMenu.SetActive(paused);
-            optionBG.SetActive(paused); 
         }
 
         public void Setup(int player)
@@ -158,8 +163,10 @@ namespace BoatAttack.UI
 
         public void MatchEnd()
         {
-            int playerPlace = RaceManager.RaceData.boats[0].Boat.Place - 1;
-            Debug.Log($"player position {RaceManager.RaceData.boats[0].Boat.Place}");
+            int index = RaceData.game == GameType.Singleplayer ? 0 : PlayerStatus.index;
+            int playerPlace = RaceData.boats[index].Boat.Place - 1;
+            Debug.Log("Player Index " + index);
+            Debug.Log($"player position {RaceData.boats[index].Boat.Place}");
 
             bool canShowVictory = playerPlace < victoryDetails.Length;
             victoryPanel.SetActive(canShowVictory);

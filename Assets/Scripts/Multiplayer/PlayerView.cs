@@ -7,6 +7,8 @@ public class PlayerView : MonoBehaviour, IView<Player>
 {
     [SerializeField]
     private TextMeshProUGUI playerName;
+    [SerializeField]
+    private TextMeshProUGUI playerStatus;
 
     public Action KickPlayer;
 
@@ -26,6 +28,7 @@ public class PlayerView : MonoBehaviour, IView<Player>
 
     public void Initialize(PlayerStatus player) {
         playerName.text = player.boatName.Value.ToString();
+        playerStatus.text = player.status.Value ? "Ready" : "Not Ready";
         //playerID = player.Id;
         //KickOption.SetActive(playerDetails.IsHost);
     }

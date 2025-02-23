@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: {fileID: 7071285922184029866}
+  playerStatus: {fileID: 2131748568278192813}
   KickOption: {fileID: 0}
   kickEvent: {fileID: 0}
 --- !u!1 &2650175986461681778

@@ -83,6 +83,8 @@ namespace BoatAttack
 
         void FixedUpdate()
         {
+            if (!RaceManager.RaceStarted)
+                return;
             engine.Accelerate(_throttle);
             engine.Turn(_steering);
         }
