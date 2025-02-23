@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlacementFixer : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(FixRoutine(transform.position, transform.rotation));
@@ -23,5 +22,6 @@ public class PlacementFixer : MonoBehaviour
             transform.position = pos;
             transform.rotation = rot;
         }
+        Destroy(this);
     }
 }

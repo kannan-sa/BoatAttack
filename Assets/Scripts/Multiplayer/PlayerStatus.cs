@@ -15,15 +15,20 @@ public class PlayerStatus : NetworkBehaviour
     public NetworkVariable<int> boatType = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> primaryColor = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> trimColor = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
+    public NetworkVariable<bool> status = new NetworkVariable<bool>(false, writePerm: NetworkVariableWritePermission.Owner);
 
     public static int index = 0;
+    public int selfIndex;
+
+    private BoatData boat;
 
     public override void OnNetworkSpawn()
     {
         name = $"player stat {OwnerClientId}";
         NetworkRaceManager.playerStats.Add(this);
+        selfIndex = (int)OwnerClientId;
 
-        var boat = new BoatData();
+        boat = new BoatData();
         boat.human = true;
         boat.boatName = boatName.Value.ToString();
         RaceManager.RaceData.boats.Add(boat);
@@ -58,7 +63,9 @@ public class PlayerStatus : NetworkBehaviour
         primaryColor.OnValueChanged -= OnPrimaryColorSet;
         trimColor.OnValueChanged -= OnTrimColorSet;
         NetworkRaceManager.playerStats.Remove(this);
-
+        RaceManager.RaceData.boats.Remove(boat);
+        RaceManager.RaceData.boatCount = RaceManager.RaceData.boats.Count;
+        RaceManager.Instance._boatTimes.Remove(selfIndex);
         if (IsOwner)
         {
             onSetPlayerName.RemoveListener(OnSetPlayerName);

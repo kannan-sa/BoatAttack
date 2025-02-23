@@ -174,7 +174,6 @@ GameObject:
   - component: {fileID: 7003470173341666317}
   - component: {fileID: 2069708385832803977}
   - component: {fileID: 6557441044962295121}
-  - component: {fileID: 4144352256939029199}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -360,28 +359,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d54dfeeef7fcad4f87c36df77aaa8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4144352256939029199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7003470173341666308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ee01e66702087b4798e633ca34c7956, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blurConfig: {fileID: 11400000, guid: 547219b374408f246adb6657bec39fb5, type: 2}
-  downsample: 0
-  blurRegion:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  maxUpdateRate: Infinity
-  preview: 0
-  backgroundFill:
-    mode: 0
-    color: {r: 1, g: 1, b: 1, a: 1}

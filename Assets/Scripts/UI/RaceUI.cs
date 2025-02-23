@@ -32,10 +32,7 @@ namespace BoatAttack.UI
         public GameObject pauseMenu;
         public GameObject optionMenu;
         public GameObject victoryPanel;
-
-        [Header("Property")]
-        public GameObject optionBG;
-
+        public ImageSequence sequence;
 
         [Header("Events")]
         public GameEvent FinishGame;
@@ -61,11 +58,13 @@ namespace BoatAttack.UI
         private string[] victoryDetails = new string[0];
 
         private InputControls _controls;
+        public static ImageSequence Sequence;
 
 
         private void Awake()
         {
             _controls = new InputControls();
+            Sequence = sequence;
         }
 
         private void OnEnable()
@@ -75,6 +74,9 @@ namespace BoatAttack.UI
 
             _controls.BoatControls.Enable();
             _controls.BoatControls.Back.performed += OnBackKey;
+
+            if (RaceData.game == GameType.Multiplayer)
+                StartCoroutine(CheckForFinish());
         }
 
         private void OnDisable()
@@ -84,6 +86,18 @@ namespace BoatAttack.UI
 
             _controls.BoatControls.Disable();
             _controls.BoatControls.Back.performed -= OnBackKey;
+        }
+
+        private IEnumerator CheckForFinish() {
+            while (enabled) {
+                yield return new WaitForSeconds(.5f);
+
+                bool noPlayers = NetworkRaceManager.playerStats.Count == 0;
+                if (noPlayers) {
+                    RaceManager.UnloadRace();
+                    yield break;
+                }
+            }
         }
 
         private void OnBackKey(InputAction.CallbackContext context)
@@ -97,7 +111,6 @@ namespace BoatAttack.UI
         private void OnPause(bool paused)
         {
             pauseMenu.SetActive(paused);
-            optionBG.SetActive(paused); 
         }
 
         public void Setup(int player)
