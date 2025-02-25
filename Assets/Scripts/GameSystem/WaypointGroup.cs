@@ -65,7 +65,7 @@ namespace BoatAttack
 				obj.transform.SetPositionAndRotation(wp.point, wp.rotation);
 				obj.TryGetComponent(out _triggers[i]);
 				_triggers[i].isTrigger = true;
-				_triggers[i].size = new Vector3(wp.width * 2f, 50f, 0.5f);
+				_triggers[i].size = new Vector3(wp.width * 6f, 50f, 0.5f);
 				_triggerPairs.Add(_triggers[i], wp);
 				wp.Trigger = _triggers[i];
 				if (wp.isCheckpoint || i == 0)
