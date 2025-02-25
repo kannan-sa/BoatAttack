@@ -99,7 +99,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     private void OnEnable()
     {
-        isOffline = Application.internetReachability == NetworkReachability.NotReachable;
+        //isOffline = Application.internetReachability == NetworkReachability.NotReachable;
+
+        isOffline = true;
         Debug.Log($"is Offline {isOffline}");
         Instance = this;
         selectLobby.AddListener(OnSelectLobby);

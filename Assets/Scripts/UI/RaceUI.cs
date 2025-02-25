@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -29,15 +30,16 @@ namespace BoatAttack.UI
         public GameObject raceStat;
         public GameObject matchEnd;
         public GameObject finishButton;
-        public GameObject pauseMenu;
-        public GameObject optionMenu;
-        public GameObject victoryPanel;
 
         public ImageSequence sequence;
 
+        [Header("Panels")]
+        public GameObject optionMenu;
+        public GameObject pauseMenu;
+        public GameObject victoryPanel;
+
         [Header("Events")]
         public GameEvent FinishGame;
-        public BoolEvent PauseGame;
 
         [Header("Assets")]
         public AssetReference playerMarker;
@@ -60,20 +62,25 @@ namespace BoatAttack.UI
 
         private InputControls _controls;
         public static ImageSequence Sequence;
+        
+        private bool _paused;
+
+        float waitTime = 0, maxWaitTime = 1;
 
         private void Awake()
         {
             _controls = new InputControls();
+            _controls.BoatControls.Back.performed += OnBackKey;
+            _controls.BoatControls.Pause.performed += OnPauseKey;
+
             Sequence = sequence;
         }
 
         private void OnEnable()
         {
             RaceManager.raceStarted += SetGameplayUi;
-            PauseGame.AddListener(OnPause);
 
             _controls.BoatControls.Enable();
-            _controls.BoatControls.Back.performed += OnBackKey;
 
             if (RaceData.game == GameType.Multiplayer)
                 StartCoroutine(CheckForFinish());
@@ -82,10 +89,7 @@ namespace BoatAttack.UI
         private void OnDisable()
         {
             RaceManager.raceStarted -= SetGameplayUi;
-            PauseGame.RemoveListener(OnPause);
-
             _controls.BoatControls.Disable();
-            _controls.BoatControls.Back.performed -= OnBackKey;
         }
 
         private IEnumerator CheckForFinish() {
@@ -100,17 +104,32 @@ namespace BoatAttack.UI
             }
         }
 
+        private void OnPauseKey(InputAction.CallbackContext context)
+        {
+            _paused = !_paused;
+
+            Debug.Log($"OnPauseKey {_paused} is pauseMenu null ? {(pauseMenu == null)}");
+
+            if (_paused)
+            {
+                pauseMenu.SetActive(true);
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                HideAllPanels();
+            }
+
+            waitTime = maxWaitTime;
+        }
+
         private void OnBackKey(InputAction.CallbackContext context)
         {
             if(optionMenu.activeSelf)
                 optionMenu.SetActive(false);
             else if(pauseMenu.activeSelf)
-                PauseGame.Invoke(false);
-        }
-
-        private void OnPause(bool paused)
-        {
-            pauseMenu.SetActive(paused);
+                OnResumeGame();
         }
 
         public void Setup(int player)
@@ -177,6 +196,21 @@ namespace BoatAttack.UI
             SetGameStats(true);
             SetGameplayUi(false);
             EventSystem.current.SetSelectedGameObject(finishButton);
+        }
+
+        public void OnResumeGame()
+        {
+            if (waitTime > 0)   //patch to block the immediate resume option..
+                return;
+            _paused = false;
+            Time.timeScale = 1.0f;
+            HideAllPanels();
+        }
+
+        private void HideAllPanels()
+        {
+            pauseMenu.SetActive(false);
+            optionMenu.SetActive(false);
         }
 
         private IEnumerator CreateGameStats()
@@ -268,6 +302,12 @@ namespace BoatAttack.UI
             RaceManager.LoadGame();
         }
 
+        public void ExitGame()
+        {
+            Time.timeScale = 1;
+            FinishMatch();
+        }
+
         public void LateUpdate()
         {
             var rawTime = RaceManager.RaceTime;
@@ -275,6 +315,9 @@ namespace BoatAttack.UI
 
             var l = (_boat.SplitTimes.Count > 0) ? rawTime - _boat.SplitTimes[_boat.LapCount - 1] : 0f;
             timeLap.text = $"lap {FormatRaceTime(l)}";
+
+            if(waitTime >= 0)
+                waitTime -= .1f;
         }
 
         public static string FormatRaceTime(float seconds)
