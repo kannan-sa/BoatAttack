@@ -20,7 +20,7 @@ public class NetworkRaceManager : NetworkBehaviour
     [Header("Asset References")]
     public AssetReference loadingScreen;
 
-    private GameObject loadingScreenObject;
+    private static GameObject loadingScreenObject;
 
     public MainMenuHelper mainMenuHelper;
 
@@ -65,13 +65,19 @@ public class NetworkRaceManager : NetworkBehaviour
 
     private IEnumerator Start()
     {
-        var loadingScreenLoading = loadingScreen.InstantiateAsync();
-        yield return loadingScreenLoading;
-        loadingScreenObject = loadingScreenLoading.Result;
-        loadingScreenObject.SendMessage("SetLoad", .95f);
-        DontDestroyOnLoad(loadingScreenObject);
+        if (loadingScreenObject == null)
+        {
+            var loadingScreenLoading = loadingScreen.InstantiateAsync();
+            yield return loadingScreenLoading;
 
-        loadingScreenObject.SetActive(false);
+            Debug.Log("NetworkRaceManager Start Loading");
+
+            loadingScreenObject = loadingScreenLoading.Result;
+            loadingScreenObject.SendMessage("SetLoad", .95f);
+            DontDestroyOnLoad(loadingScreenObject);
+
+            loadingScreenObject.SetActive(false);
+        }
     }
 
     protected override void OnOwnershipChanged(ulong previous, ulong current)
