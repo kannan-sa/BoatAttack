@@ -8,7 +8,7 @@ public class FloatEvent : GameEvent<float> {
     {
         if(!string.IsNullOrEmpty(persistanceKey))
         {
-            value = PlayerPrefs.GetFloat(persistanceKey, 0f);
+            value = PlayerPrefs.GetFloat(persistanceKey, value);
             if (log)
                 Debug.Log($" reading {name} = {value}");
         }

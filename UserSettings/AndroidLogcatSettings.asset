@@ -2,64 +2,52 @@
     "m_SelectedDeviceId": "GMKJAUU46DUCLVJJ",
     "m_SelectedPackage": {
         "deviceId": "GMKJAUU46DUCLVJJ",
-        "name": "com.Elxsi.BoatAttack2",
-        "processId": 7611,
+        "name": "com.Elxsi.BoatAttack1",
+        "processId": 18621,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
-            "name": "com.android.launcher",
-            "processId": 2640,
-            "exited": false
-        },
-        {
-            "deviceId": "GMKJAUU46DUCLVJJ",
             "name": "com.Elxsi.BoatAttack1",
-            "processId": 10991,
-            "exited": true
-        },
-        {
-            "deviceId": "GMKJAUU46DUCLVJJ",
-            "name": "com.Elxsi.BoatAttack3",
-            "processId": 15772,
-            "exited": true
-        },
-        {
-            "deviceId": "GMKJAUU46DUCLVJJ",
-            "name": "com.Elxsi.BoatAttack3",
-            "processId": 28961,
+            "processId": 26768,
             "exited": true
         },
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
             "name": "com.Elxsi.BoatAttack1",
-            "processId": 30468,
+            "processId": 26870,
             "exited": true
         },
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
             "name": "com.Elxsi.BoatAttack1",
-            "processId": 1231,
-            "exited": false
+            "processId": 31645,
+            "exited": true
         },
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
-            "name": "com.Elxsi.BoatAttack2",
-            "processId": 2678,
+            "name": "com.Elxsi.BoatAttack1",
+            "processId": 878,
+            "exited": true
+        },
+        {
+            "deviceId": "GMKJAUU46DUCLVJJ",
+            "name": "com.Elxsi.BoatAttack1",
+            "processId": 13327,
             "exited": false
         },
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
             "name": "com.Elxsi.BoatAttack1",
-            "processId": 5741,
+            "processId": 15428,
             "exited": false
         },
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
-            "name": "com.Elxsi.BoatAttack2",
-            "processId": 7611,
+            "name": "com.Elxsi.BoatAttack1",
+            "processId": 18621,
             "exited": false
         }
     ],
