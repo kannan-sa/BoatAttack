@@ -192,7 +192,6 @@ namespace BoatAttack.UI
             if (canShowVictory )
                 victoryImage.sprite = Resources.Load<Sprite>(victoryDetails[playerPlace]);
 
-            matchEnd.SetActive(true);
             SetGameStats(true);
             SetGameplayUi(false);
             EventSystem.current.SetSelectedGameObject(finishButton);
