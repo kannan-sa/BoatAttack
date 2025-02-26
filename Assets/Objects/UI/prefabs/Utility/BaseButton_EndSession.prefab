@@ -91,7 +91,7 @@ PrefabInstance:
     - target: {fileID: 3972971401390162711, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
       propertyPath: m_Name
-      value: BaseButton_Create Variant
+      value: BaseButton_EndSession
       objectReference: {fileID: 0}
     - target: {fileID: 3972971401390162711, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
@@ -117,7 +117,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 51d42a5563b013e499dc998137edd2d9,
+      objectReference: {fileID: 21300000, guid: d59e75f0db19ad347a3fd6e0a2924762,
         type: 3}
     - target: {fileID: 5997052341516223045, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
@@ -168,19 +168,19 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 27666bed8f0cdda4fb5a62a2f7d58a64,
+      objectReference: {fileID: 21300000, guid: e133d1dd207947c4783b3f33a0fb3ba1,
         type: 3}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
       propertyPath: m_SpriteState.m_SelectedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 91c929835cc8d8e41a8cae0135731c74,
+      objectReference: {fileID: 21300000, guid: b00ab61af532948448e01ae2390b027f,
         type: 3}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 91c929835cc8d8e41a8cae0135731c74,
+      objectReference: {fileID: 21300000, guid: b00ab61af532948448e01ae2390b027f,
         type: 3}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
