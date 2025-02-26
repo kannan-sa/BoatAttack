@@ -167,7 +167,7 @@ namespace BoatAttack
         {
             RaceData = new Race {game = gameType,
                 boats = new List<BoatData>(),
-                boatCount = 3,
+                boatCount = 4,
                 laps = 1,
                 type = RaceType.Race
             };
