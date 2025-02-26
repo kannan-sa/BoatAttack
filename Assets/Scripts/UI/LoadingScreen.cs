@@ -31,7 +31,7 @@ public class LoadingScreen : MonoBehaviour
             progress.value = load;
     }
 
-    public void SetActive(bool active ) 
+    public void SetActive(bool active) 
     {
         if (progress)
             progress.gameObject.SetActive(active);

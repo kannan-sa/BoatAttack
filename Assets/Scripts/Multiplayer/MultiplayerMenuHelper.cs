@@ -21,11 +21,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     private string lobbyName;
 
     [Header("Labels")]
-    public TextMeshProUGUI playerNameLabel;
-    public TextMeshProUGUI lobbyNameLabel;
-    public TextMeshProUGUI boatTitleLabel;
     public TextMeshProUGUI status;
-    public TextMeshProUGUI caption;
     [Header("Panels")]
     public GameObject statusPanel;
     public GameObject boatPanel;
@@ -42,9 +38,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public Animator menuAnimator;
     public NetworkManager networkManager;
     public NetworkRaceManager networkRaceManager;
-    public GameObject boatPlayerName;
-    public GameObject playerInputControl;
-    public Button raceButton;
+    public Button startGameButton;
 
     public LobbyView[] lobbies;
     public PlayerView[] players;
@@ -194,10 +188,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     private void SwitchToBoatSelection()
     {
-        //Switch to BoatSelection
-        boatTitleLabel.text = "MULTIPLAYER";
-        boatPlayerName.SetActive(false);
-        //playerInputControl.SetActive(true);
         menuAnimator.SetTrigger("Next");
         canPollLobbies = false;
     }
@@ -229,15 +219,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         nRaceManager.LoadGameScene();
         keepLobby = false;
-/*        
-        Debug.Log(isServer ? "Creating Game" : "Joining Game");
-
-        if (isServer)
-            CreateGame();
-            //CreateRelay();
-        else
-            JoinGame();
-*/
     }
 
     public void CreateGame()
@@ -265,9 +246,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
         {
             SetStatus(e.Message, 4f);
         }
-
-        //UpdateLobbyData("TEST");
-        //StartCoroutine(StatusRoutine());
     }
 
     public void JoinGame()
@@ -280,7 +258,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             //if(isOffline)
             playerUpdateRoutine = StartCoroutine(UpdatePlayersRoutine());
 
-            raceButton.interactable = false;
+            startGameButton.interactable = false;
         }
         catch (System.Exception e) {
             SetStatus(e.Message, 4f);

@@ -11,7 +11,6 @@ namespace BoatAttack.UI
         public EnumSelector reverseSelector;
 
         [Header("Boat Selection")] public GameObject[] boatMeshes;
-        public TextMeshProUGUI boatName;
         public EnumSelector boatHullSelector;
         public ColorSelector boatPrimaryColorSelector;
         public ColorSelector boatTrimColorSelector;
@@ -68,7 +67,7 @@ namespace BoatAttack.UI
             SetLaps(lapSelector.CurrentOption);
             SetReverse(reverseSelector.CurrentOption);
             // boat stuff
-            SetSinglePlayerName(boatName.text);
+            SetSinglePlayerName(MultiplayerMenuHelper.Instance.PlayerName);
             UpdateBoat(playerIndex);
             UpdateBoatColor(boatPrimaryColorSelector.value, true);
             UpdateBoatColor(boatTrimColorSelector.value, false);
