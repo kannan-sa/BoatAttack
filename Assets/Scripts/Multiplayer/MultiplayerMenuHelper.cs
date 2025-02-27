@@ -32,13 +32,15 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public StringEvent kickPlayer;
     public StringEvent setPlayerName;
     public IntegerEvent setBoatType;
-    public IntegerEvent setPrimaryColor;
-    public IntegerEvent setTrimColor;
     [Header("Controls")]
     public Animator menuAnimator;
     public NetworkManager networkManager;
     public NetworkRaceManager networkRaceManager;
     public Button startGameButton;
+
+    public GameObject endSessionButton;
+    public GameObject leaveSessionButton;
+
 
     public LobbyView[] lobbies;
     public PlayerView[] players;
@@ -103,9 +105,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         // boat stuff
         boatHullSelector.updateVal += setBoatType.Invoke;
-        //boatPrimaryColorSelector.updateVal += setPrimaryColor.Invoke;
-        //boatTrimColorSelector.updateVal += setTrimColor.Invoke;
-
     }
 
     private void OnDisable()
@@ -190,8 +189,10 @@ public class MultiplayerMenuHelper : MonoBehaviour
     {
         menuAnimator.SetTrigger("Next");
         canPollLobbies = false;
+        endSessionButton.SetActive(isServer);
+        leaveSessionButton.SetActive(!isServer);
     }
- 
+
 
     #region Events
     private void OnSelectLobby(string lobby)

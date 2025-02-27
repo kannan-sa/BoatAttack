@@ -11,6 +11,7 @@ namespace BoatAttack.UI
         public int startOption;
         private int _currentOption;
 
+        public FloatEvent changeEvent;
 
 
         public delegate void UpdateValue(int index);
@@ -36,6 +37,7 @@ namespace BoatAttack.UI
                 hue = value;
                 this.value = Color.HSVToRGB(hue, saturation, val);
                 updateColor?.Invoke(this.value);
+                changeEvent?.Invoke(hue);
                 if (image)
                     image.color = this.value;
                 if (slider)

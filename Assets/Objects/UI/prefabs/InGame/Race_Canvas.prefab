@@ -115,12 +115,13 @@ MonoBehaviour:
   map: {fileID: 1448973746731313808}
   gameplayUi: {fileID: 8180482066495898879}
   raceStat: {fileID: 4295115900528004404}
+  matchEnd: {fileID: 0}
   finishButton: {fileID: 4067339474162091894}
   sequence: {fileID: 1028623252874556424}
   optionMenu: {fileID: 4067339474162091894}
   pauseMenu: {fileID: 7285053047003810506}
   victoryPanel: {fileID: 7101771276981362487}
-  FinishGame: {fileID: 11400000, guid: e72ba056f5c4893419da29334f885a12, type: 2}
+  finishEventName: FinishGame
   playerMarker:
     m_AssetGUID: 34b5c45ac411341838c26dd7e127563e
     m_SubObjectName: 
@@ -3861,12 +3862,12 @@ PrefabInstance:
     - target: {fileID: 1303815422798124544, guid: 691ed99aaf08415499cdac10bff150e7,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 433
+      value: 1373
       objectReference: {fileID: 0}
     - target: {fileID: 1303815422798124544, guid: 691ed99aaf08415499cdac10bff150e7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 579
+      value: 1646
       objectReference: {fileID: 0}
     - target: {fileID: 4389912351665690556, guid: 691ed99aaf08415499cdac10bff150e7,
         type: 3}
@@ -4011,12 +4012,12 @@ PrefabInstance:
     - target: {fileID: 6563725133810729602, guid: 691ed99aaf08415499cdac10bff150e7,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 392
+      value: 1373
       objectReference: {fileID: 0}
     - target: {fileID: 6563725133810729602, guid: 691ed99aaf08415499cdac10bff150e7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 563
+      value: 1646
       objectReference: {fileID: 0}
     - target: {fileID: 9179502743986101551, guid: 691ed99aaf08415499cdac10bff150e7,
         type: 3}
@@ -4689,12 +4690,12 @@ PrefabInstance:
     - target: {fileID: 72160263453854153, guid: b717b98e22d5a724ca9a455e113108a1,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 403.7986
       objectReference: {fileID: 0}
     - target: {fileID: 72160263453854153, guid: b717b98e22d5a724ca9a455e113108a1,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 75
+      value: 72.3614
       objectReference: {fileID: 0}
     - target: {fileID: 72160263453854153, guid: b717b98e22d5a724ca9a455e113108a1,
         type: 3}
@@ -4734,12 +4735,12 @@ PrefabInstance:
     - target: {fileID: 72160263453854153, guid: b717b98e22d5a724ca9a455e113108a1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -265
+      value: -449
       objectReference: {fileID: 0}
     - target: {fileID: 72160263453854153, guid: b717b98e22d5a724ca9a455e113108a1,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -125
+      value: -38.819
       objectReference: {fileID: 0}
     - target: {fileID: 72160263453854153, guid: b717b98e22d5a724ca9a455e113108a1,
         type: 3}
@@ -4788,7 +4789,7 @@ PrefabInstance:
     - target: {fileID: 338618926739793454, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2450013487644584049, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
@@ -4893,12 +4894,12 @@ PrefabInstance:
     - target: {fileID: 4111707213802966325, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4782200077121372656, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6290384759078209988, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
@@ -4933,7 +4934,7 @@ PrefabInstance:
     - target: {fileID: 9214780803975080683, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
