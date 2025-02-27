@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "GMKJAUU46DUCLVJJ",
     "m_SelectedPackage": {
-        "deviceId": "GMKJAUU46DUCLVJJ",
-        "name": "com.Elxsi.BoatAttack1",
-        "processId": 18621,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,44 +11,26 @@
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
             "name": "com.Elxsi.BoatAttack1",
-            "processId": 26768,
+            "processId": 14081,
             "exited": true
         },
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
             "name": "com.Elxsi.BoatAttack1",
-            "processId": 26870,
+            "processId": 19550,
             "exited": true
         },
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
             "name": "com.Elxsi.BoatAttack1",
-            "processId": 31645,
+            "processId": 19780,
             "exited": true
         },
         {
             "deviceId": "GMKJAUU46DUCLVJJ",
             "name": "com.Elxsi.BoatAttack1",
-            "processId": 878,
+            "processId": 23032,
             "exited": true
-        },
-        {
-            "deviceId": "GMKJAUU46DUCLVJJ",
-            "name": "com.Elxsi.BoatAttack1",
-            "processId": 13327,
-            "exited": false
-        },
-        {
-            "deviceId": "GMKJAUU46DUCLVJJ",
-            "name": "com.Elxsi.BoatAttack1",
-            "processId": 15428,
-            "exited": false
-        },
-        {
-            "deviceId": "GMKJAUU46DUCLVJJ",
-            "name": "com.Elxsi.BoatAttack1",
-            "processId": 18621,
-            "exited": false
         }
     ],
     "m_Tags": {

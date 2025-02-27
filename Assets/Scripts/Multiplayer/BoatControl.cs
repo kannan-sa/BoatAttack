@@ -28,8 +28,8 @@ public class BoatControl : NetworkBehaviour
         var boat = RaceManager.RaceData.boats[index];
 
         boat.boatName = playerStatus.boatName.Value.ToString();
-        boat.livery.primaryColor = ConstantData.GetPaletteColor(playerStatus.primaryColor.Value);
-        boat.livery.trimColor = ConstantData.GetPaletteColor(playerStatus.trimColor.Value);
+        boat.livery.primaryColor = Color.HSVToRGB(playerStatus.primaryColor.Value, 0.75f, 1f); //ConstantData.GetPaletteColor(playerStatus.primaryColor.Value);
+        boat.livery.trimColor = Color.HSVToRGB(playerStatus.trimColor.Value, 0.75f, 1); //ConstantData.GetPaletteColor(playerStatus.trimColor.Value);
 
         gameObject.name = boat.boatName;
 

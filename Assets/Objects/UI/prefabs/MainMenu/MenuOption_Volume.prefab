@@ -506,7 +506,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5550766793783300208}
   - component: {fileID: 7729901881609013723}
-  - component: {fileID: 7508407116140177958}
   m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
@@ -588,39 +587,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: a4105bc9b1e370e47b1fe13ff855ce7a, type: 2}
-        m_TargetAssemblyTypeName: GameEvent`1[[System.Single, mscorlib
-        m_MethodName: Invoke
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &7508407116140177958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5723894828766612912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d93835bcc9e53643bd2bd1ad41f7b2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Log: 0
-  InitializeOnStart: 1
-  eventObject: {fileID: 11400000, guid: a4105bc9b1e370e47b1fe13ff855ce7a, type: 2}
-  OnEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7729901881609013723}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
-        m_MethodName: set_value
+      - m_Target: {fileID: 4821030179797286763}
+        m_TargetAssemblyTypeName: VolumeControl, Assembly-CSharp
+        m_MethodName: OnValueChange
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -818,6 +787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volumeSlider: {fileID: 7729901881609013723}
   increament: 0.1
+  eventName: 
 --- !u!1 &8174035046969028566
 GameObject:
   m_ObjectHideFlags: 0

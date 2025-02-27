@@ -9,13 +9,13 @@ public class PlayerStatus : NetworkBehaviour
     [Header("Events")]
     public StringEvent onSetPlayerName;
     public IntegerEvent onSelectBoatType;
-    public IntegerEvent onSelectPrimaryColor;
-    public IntegerEvent onSelectTrimColor;
+    public FloatEvent onSelectPrimaryColor;
+    public FloatEvent onSelectTrimColor;
 
     public NetworkVariable<FixedString128Bytes> boatName = new NetworkVariable<FixedString128Bytes>(writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> boatType = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
-    public NetworkVariable<int> primaryColor = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
-    public NetworkVariable<int> trimColor = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
+    public NetworkVariable<float> primaryColor = new NetworkVariable<float>(writePerm: NetworkVariableWritePermission.Owner);
+    public NetworkVariable<float> trimColor = new NetworkVariable<float>(writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<bool> status = new NetworkVariable<bool>(false, writePerm: NetworkVariableWritePermission.Owner);
 
     public static int index = 0;
@@ -93,22 +93,22 @@ public class PlayerStatus : NetworkBehaviour
         #endif
     }
 
-    private void OnPrimaryColorSet(int previousValue, int newValue)
+    private void OnPrimaryColorSet(float previousValue, float newValue)
     {
         int index = (int)OwnerClientId;
-        var c = RaceManager.RaceData.boats[index].livery.primaryColor = ConstantData.GetPaletteColor(newValue);
-        #if DEBUG_ENABLED
+        var c = RaceManager.RaceData.boats[index].livery.primaryColor = Color.HSVToRGB(newValue , 0.75f, 1f); // ConstantData.GetPaletteColor(newValue);
+#if DEBUG_ENABLED
             Debug.Log($"Setting Primary Color {newValue.ToString()} ,on {OwnerClientId}, {c}");
-        #endif
+#endif
     }
 
-    private void OnTrimColorSet(int previousValue, int newValue)
+    private void OnTrimColorSet(float previousValue, float newValue)
     {
         int index = (int)OwnerClientId;
-        var c = RaceManager.RaceData.boats[index].livery.trimColor = ConstantData.GetPaletteColor(newValue);
-        #if DEBUG_ENABLED
+        var c = RaceManager.RaceData.boats[index].livery.trimColor = Color.HSVToRGB(newValue, 0.75f, 1f); // ConstantData.GetPaletteColor(newValue);
+#if DEBUG_ENABLED
             Debug.Log($"Setting Trim Color {newValue.ToString()} ,on {OwnerClientId}, {c}");
-        #endif
+#endif
     }
 
     private void OnSetPlayerName(string playerName)
@@ -127,7 +127,7 @@ public class PlayerStatus : NetworkBehaviour
         boatType.Value = value;
     }
 
-    private void OnSelectPrimaryColor(int color)
+    private void OnSelectPrimaryColor(float color)
     {
         if (!IsOwner)
             return;
@@ -138,7 +138,7 @@ public class PlayerStatus : NetworkBehaviour
         primaryColor.Value = color;
     }
 
-    private void OnSelectTrimColor(int color)
+    private void OnSelectTrimColor(float color)
     {
         if (!IsOwner)
             return;

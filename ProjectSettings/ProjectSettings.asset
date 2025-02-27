@@ -162,7 +162,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.Elxsi.BoatAttack1
     Lumin: com.DefaultCompany.BoatAttack
-    Standalone: com.Elxsi.BoatAttack2
+    Standalone: com.Elxsi.BoatAttack1
     iPhone: com.Unity3D.BoatAttack
   buildNumber:
     Standalone: 0
