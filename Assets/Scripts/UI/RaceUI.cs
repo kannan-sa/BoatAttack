@@ -28,7 +28,6 @@ namespace BoatAttack.UI
         public RectTransform map;
         public GameObject gameplayUi;
         public GameObject raceStat;
-        public GameObject matchEnd;
         public GameObject finishButton;
 
         public ImageSequence sequence;
@@ -189,12 +188,21 @@ namespace BoatAttack.UI
 
             bool canShowVictory = playerPlace < victoryDetails.Length;
             victoryPanel.SetActive(canShowVictory);
-            if (canShowVictory )
+            if (canShowVictory)
+            {
                 victoryImage.sprite = Resources.Load<Sprite>(victoryDetails[playerPlace]);
+                StartCoroutine(HideVictory(4));
+            }
 
             SetGameStats(true);
             SetGameplayUi(false);
             EventSystem.current.SetSelectedGameObject(finishButton);
+        }
+
+        private IEnumerator HideVictory(int time)
+        {
+            yield return new WaitForSeconds(time);
+            victoryPanel.SetActive(false);
         }
 
         public void OnResumeGame()
@@ -217,16 +225,23 @@ namespace BoatAttack.UI
             List<BoatData> stats = RaceManager.RaceData.boats.OrderBy(b => b.Boat.Place).ToList();
 
             //_raceStats = new RaceStatsPlayer[RaceManager.RaceData.boatCount];
-            for (var i = 0; i < RaceManager.RaceData.boatCount && i < _raceStats.Length; i++)
+            for (var i = 0; i < _raceStats.Length; i++)
             {
                 //var raceStatLoading = raceStatsPlayer.InstantiateAsync(raceStat.transform);
                 //yield return raceStatLoading;
                 yield return 0;
-                var raceStatLoading = _raceStats[i];
-                raceStatLoading.gameObject.SetActive(true);
-                raceStatLoading.name += stats[i].boatName;
-                raceStatLoading.TryGetComponent(out _raceStats[i]);
-                _raceStats[i].Setup(stats[i].Boat);
+
+                if (i < RaceManager.RaceData.boatCount)
+                {
+                    _raceStats[i].gameObject.SetActive(true);
+                    var raceStatLoading = _raceStats[i];
+                    raceStatLoading.gameObject.SetActive(true);
+                    raceStatLoading.name += stats[i].boatName;
+                    raceStatLoading.TryGetComponent(out _raceStats[i]);
+                    _raceStats[i].Setup(stats[i].Boat);
+                }
+                else
+                    _raceStats[i].gameObject.SetActive(false);
             }
         }
 
