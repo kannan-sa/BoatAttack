@@ -39,7 +39,8 @@ namespace BoatAttack.UI
         public GameObject victoryPanel;
 
         [Header("Events")]
-        public GameEvent FinishGame;
+        public string finishEventName;
+
 
         [Header("Assets")]
         public AssetReference playerMarker;
@@ -67,6 +68,9 @@ namespace BoatAttack.UI
 
         float waitTime = 0, maxWaitTime = 1;
 
+        private GameEvent FinishGame;
+
+
         private void Awake()
         {
             _controls = new InputControls();
@@ -74,6 +78,8 @@ namespace BoatAttack.UI
             _controls.BoatControls.Pause.performed += OnPauseKey;
 
             Sequence = sequence;
+
+            FinishGame = Resources.Load<GameEvent>(finishEventName);
         }
 
         private void OnEnable()
@@ -305,7 +311,8 @@ namespace BoatAttack.UI
         {
             if (RaceData.game == GameType.Multiplayer)
             {
-                FinishGame.Invoke();
+                if(FinishGame)
+                    FinishGame.Invoke();
                 return;
             }
             RaceManager.UnloadRace();

@@ -23,6 +23,21 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 3686152711093269936, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4821030179797286763, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: eventName
+      value: MusicVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221261944715475317, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7508407116140177958, guid: 2e071b02441815042b1b36f9e038ab85,
         type: 3}
       propertyPath: eventObject
@@ -33,8 +48,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: 059e962593926614082d0051c7b674f8,
-        type: 2}
+      objectReference: {fileID: 4636504154799247954}
+    - target: {fileID: 7729901881609013723, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnValueChange
+      objectReference: {fileID: 0}
     - target: {fileID: 7741146400298903167, guid: 2e071b02441815042b1b36f9e038ab85,
         type: 3}
       propertyPath: m_Name
@@ -165,3 +184,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e071b02441815042b1b36f9e038ab85, type: 3}
+--- !u!114 &4636504154799247954 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4821030179797286763, guid: 2e071b02441815042b1b36f9e038ab85,
+    type: 3}
+  m_PrefabInstance: {fileID: 198042460225514809}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff7050d368889348b2f80390be0721e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -47,8 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 606243250
   InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -56,8 +54,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &1475055905669977428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,12 +66,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9334674f40c7e0642af6f119e711b6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   onSetPlayerName: {fileID: 11400000, guid: c16977f28020fd944a52a24b7c56a1eb, type: 2}
   onSelectBoatType: {fileID: 11400000, guid: 26d1af72d9d9f394880b208bd5becb78, type: 2}
   onSelectPrimaryColor: {fileID: 11400000, guid: 5b427762f13bf80449ceaa5e8fac971c,
     type: 2}
-  onSelectTrimColor: {fileID: 11400000, guid: 4b8a5b11e277fd14285939705e5d55bc, type: 2}
+  onSelectTrimColor: {fileID: 11400000, guid: d79ac1a7a040a0c4b8e477a6a8dd4ed4, type: 2}
   boatName:
     m_InternalValue:
       utf8LengthInBytes: 0
@@ -219,3 +214,6 @@ MonoBehaviour:
     m_InternalValue: 0
   trimColor:
     m_InternalValue: 0
+  status:
+    m_InternalValue: 0
+  selfIndex: 0

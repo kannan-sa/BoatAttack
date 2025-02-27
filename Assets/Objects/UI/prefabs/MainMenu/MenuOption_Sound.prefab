@@ -23,6 +23,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4821030179797286763, guid: 2e071b02441815042b1b36f9e038ab85,
+        type: 3}
+      propertyPath: eventName
+      value: SoundVolume
+      objectReference: {fileID: 0}
     - target: {fileID: 5221261944715475317, guid: 2e071b02441815042b1b36f9e038ab85,
         type: 3}
       propertyPath: m_AnchorMax.y
