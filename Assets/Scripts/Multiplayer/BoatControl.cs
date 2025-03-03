@@ -29,7 +29,7 @@ public class BoatControl : NetworkBehaviour
 
         boat.boatName = playerStatus.boatName.Value.ToString();
         boat.livery.primaryColor = Color.HSVToRGB(playerStatus.primaryColor.Value, 0.75f, 1f); //ConstantData.GetPaletteColor(playerStatus.primaryColor.Value);
-        boat.livery.trimColor = Color.HSVToRGB(playerStatus.trimColor.Value, 0.75f, 1); //ConstantData.GetPaletteColor(playerStatus.trimColor.Value);
+        boat.livery.trimColor = Color.HSVToRGB(playerStatus.trimColor.Value, 0.75f, 0.6f); //ConstantData.GetPaletteColor(playerStatus.trimColor.Value);
 
         gameObject.name = boat.boatName;
 
@@ -41,6 +41,8 @@ public class BoatControl : NetworkBehaviour
         if (!IsOwner)
             yield break;
 
+        playerStatus.beginRace.Value = false;
+        
         yield return RaceManager.Instance.StartCoroutine(RaceManager.CreatePlayerUi(index));
         RaceManager.SetupCamera(index); // setup camera for player 1
         yield return StartCoroutine(RaceManager.BeginRace());
