@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5137888035373209674, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 14.599976
+      objectReference: {fileID: 0}
     - target: {fileID: 7504817807149001553, guid: 4ed6a17b8f9c64727bbb59e18c3022ac,
         type: 3}
       propertyPath: m_Pivot.x
