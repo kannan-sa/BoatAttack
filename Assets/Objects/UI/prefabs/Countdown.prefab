@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6098611998910674663}
   - component: {fileID: 575444839713035178}
   m_Layer: 5
-  m_Name: GameStarting
+  m_Name: Waiting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1863, y: 204}
+  m_SizeDelta: {x: 1141, y: 306}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6098611998910674663
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4408054ab515a3c499fd7f15c68cf4da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e6ff7e2c3fb6b2642a187c6a1c035e26, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 331, y: 417}
+  m_SizeDelta: {x: 218, y: 306}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6789350982460179014
 CanvasRenderer:
@@ -200,11 +200,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SequencialImages:
-  - {fileID: 575444839713035178}
   - {fileID: 7970915268619572273}
   - {fileID: 426121820030463270}
   - {fileID: 1468397272163375126}
   - {fileID: 4267790972081736624}
+  waitingImage: {fileID: 575444839713035178}
   interval: 1
 --- !u!1 &1272512133852318897
 GameObject:
@@ -241,7 +241,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 306, y: 406}
+  m_SizeDelta: {x: 198, y: 298}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8867658640490584731
 CanvasRenderer:
@@ -316,7 +316,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1484, y: 416}
+  m_SizeDelta: {x: 1141, y: 306}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8396559217883078936
 CanvasRenderer:
@@ -428,7 +428,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 658a85b7368728049b533fd00dadc8cf, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -471,7 +471,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 343, y: 411}
+  m_SizeDelta: {x: 228, y: 302}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7131652720947192340
 CanvasRenderer:

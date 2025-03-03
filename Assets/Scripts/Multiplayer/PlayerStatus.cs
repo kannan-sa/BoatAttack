@@ -17,6 +17,8 @@ public class PlayerStatus : NetworkBehaviour
     public NetworkVariable<float> primaryColor = new NetworkVariable<float>(writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<float> trimColor = new NetworkVariable<float>(writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<bool> status = new NetworkVariable<bool>(false, writePerm: NetworkVariableWritePermission.Owner);
+    public NetworkVariable<bool> beginRace = new NetworkVariable<bool>(false, writePerm: NetworkVariableWritePermission.Owner);
+
 
     public static int index = 0;
 
@@ -105,7 +107,7 @@ public class PlayerStatus : NetworkBehaviour
     private void OnTrimColorSet(float previousValue, float newValue)
     {
         int index = (int)OwnerClientId;
-        var c = RaceManager.RaceData.boats[index].livery.trimColor = Color.HSVToRGB(newValue, 0.75f, 1f); // ConstantData.GetPaletteColor(newValue);
+        var c = RaceManager.RaceData.boats[index].livery.trimColor = Color.HSVToRGB(newValue, 0.75f, 0.6f); // ConstantData.GetPaletteColor(newValue);
 #if DEBUG_ENABLED
             Debug.Log($"Setting Trim Color {newValue.ToString()} ,on {OwnerClientId}, {c}");
 #endif

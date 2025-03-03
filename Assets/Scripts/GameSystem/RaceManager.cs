@@ -226,6 +226,15 @@ namespace BoatAttack
             }
             introCams.SetActive(false);
 
+            if(RaceData.game == GameType.Multiplayer)
+            {
+                NetworkRaceManager.playerStats[PlayerStatus.index].beginRace.Value = true;
+                Sequence.ShowWaiting();
+                while (NetworkRaceManager.playerStats.Any(p => !p.beginRace.Value))
+                    yield return new WaitForSeconds(.25f);
+            }
+
+
             yield return Instance.StartCoroutine(Sequence.StartSequence());
 
             RaceStarted = true;
