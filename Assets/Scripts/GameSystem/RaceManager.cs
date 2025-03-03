@@ -220,20 +220,17 @@ namespace BoatAttack
             var introCams = GameObject.FindWithTag("introCameras");
             introCams.TryGetComponent<PlayableDirector>(out var introDirector);
 
-            if (introDirector)
+            while (introDirector && introDirector.state == PlayState.Playing)
             {
-                while (introDirector.state == PlayState.Playing)
-                {
-                    yield return null;
-                }
-                introCams.SetActive(false);
+                yield return null;
             }
+            introCams.SetActive(false);
 
             yield return Instance.StartCoroutine(Sequence.StartSequence());
 
             RaceStarted = true;
             raceStarted?.Invoke(RaceStarted);
-            
+
             SceneManager.sceneLoaded -= Setup;
         }
 
