@@ -98,6 +98,7 @@ MonoBehaviour:
   value: {r: 0.25, g: 1, b: 0.42400008, a: 1}
   loop: 1
   startOption: 0
+  changeEvent: {fileID: 0}
   slider: {fileID: 7729901881609013723}
   hue: 0.372
   saturation: 0.75
@@ -272,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -405,7 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
