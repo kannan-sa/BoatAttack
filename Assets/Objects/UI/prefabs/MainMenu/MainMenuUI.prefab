@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5229569430991827634
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3628,7 +3628,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4189550729318471685}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -5612,6 +5612,7 @@ MonoBehaviour:
   statusPanel: {fileID: 1327835103865433561}
   boatPanel: {fileID: 4415978879805592942}
   playersPanel: {fileID: 8879847859628571610}
+  typePanel: {fileID: 7951200662553551537}
   selectLobby: {fileID: 11400000, guid: c1f06f48c0fcfaa4ea07b12de0cf9ca2, type: 2}
   kickPlayer: {fileID: 11400000, guid: 072bfd314a70ba44c980ea5eca846436, type: 2}
   setPlayerName: {fileID: 11400000, guid: c16977f28020fd944a52a24b7c56a1eb, type: 2}

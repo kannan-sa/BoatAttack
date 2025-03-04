@@ -30,6 +30,7 @@ namespace BoatAttack.UI
         public GameObject raceStat;
         public GameObject matchEnd;
         public GameObject finishButton;
+        public GameObject lobbyButton;
 
         public ImageSequence sequence;
 
@@ -203,12 +204,27 @@ namespace BoatAttack.UI
 
             SetGameStats(true);
             SetGameplayUi(false);
-            EventSystem.current.SetSelectedGameObject(finishButton);
         }
 
         private IEnumerator HideVictory(int time)
         {
             yield return new WaitForSeconds(time);
+
+            if (RaceData.game == GameType.Multiplayer)
+            {
+                NetworkRaceManager.playerStats[PlayerStatus.index].finished.Value = true;
+                yield return new WaitWhile(() => NetworkRaceManager.playerStats.Any(p => !p.finished.Value));
+
+                finishButton.SetActive(false);
+                lobbyButton.SetActive(true);
+            }
+            else
+            {
+                finishButton.SetActive(true);
+                lobbyButton.SetActive(false);
+            }
+
+
             victoryPanel.SetActive(false);
         }
 

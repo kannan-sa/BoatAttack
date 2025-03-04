@@ -8,14 +8,14 @@ public class BoatControl : NetworkBehaviour
     private bool endCheck;
     public override void OnNetworkSpawn()
     {
-        int index = (int)OwnerClientId;
+        int index = NetworkRaceManager.GetPlayerIndex(OwnerClientId);
         StartCoroutine(SetupRoutine(index));
     }
 
     //Need to find exact fix for clients position reseting to zero..
     private IEnumerator SetupRoutine(int index)
     {
-        Debug.Log($"spawned {OwnerClientId} @ {transform.position}");
+        //Debug.Log($"spawned {OwnerClientId} @ {transform.position}");
 
         //if(IsOwner)
         //    StartCoroutine(FixRoutine(transform.position, transform.rotation));
@@ -42,6 +42,8 @@ public class BoatControl : NetworkBehaviour
             yield break;
 
         playerStatus.beginRace.Value = false;
+        playerStatus.finished.Value = false;
+
         
         yield return RaceManager.Instance.StartCoroutine(RaceManager.CreatePlayerUi(index));
         RaceManager.SetupCamera(index); // setup camera for player 1

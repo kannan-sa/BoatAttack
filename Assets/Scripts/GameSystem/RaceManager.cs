@@ -89,15 +89,20 @@ namespace BoatAttack
                 case GameType.LocalMultiplayer:
                     break;
                 case GameType.Multiplayer:
-                    //var racemUi = RaceData.boats[player].Boat.RaceUi;
-                    foreach (var boat in RaceData.boats)
+                    var racemUi = RaceData.boats[player].Boat.RaceUi;
+                    if (racemUi)
                     {
-                        var racemUi =boat.Boat.RaceUi;
-                        if(racemUi)
-                            racemUi.MatchEnd();
+                        racemUi.MatchEnd();
+                        /*
+                        foreach (var boat in RaceData.boats)
+                        {
+                            var racemUi =boat.Boat.RaceUi;
+                            if(racemUi)
+                                racemUi.MatchEnd();
+                        }*/
+                        ReplayCamera.Instance.EnableSpectatorMode();
+                        RaceData.boats[player].Boat.MatchComplete = true;
                     }
-                    ReplayCamera.Instance.EnableSpectatorMode();
-                    RaceData.boats[player].Boat.MatchComplete = true;
                     break;
                 case GameType.Spectator:
                     break;

@@ -13,6 +13,7 @@ using BoatAttack;
 using BoatAttack.UI;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class MultiplayerMenuHelper : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public GameObject statusPanel;
     public GameObject boatPanel;
     public GameObject playersPanel;
+    public GameObject typePanel;
+
 
     [Header("Events")]
     public StringEvent selectLobby;
@@ -73,7 +76,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     private bool isOffline = false;
     private bool isServerAvailable = false;
 
-    private Coroutine playerUpdateRoutine;
+    private Coroutine playerUpdateRoutine = null;
 
     private static NetworkManager nManager = null;
     private static NetworkRaceManager nRaceManager = null;
@@ -123,16 +126,30 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     async void Start()
     {
-        NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
+        InitializeLobbies(new List<Lobby>());
+        InitializePlayers(new List<Player>());
 
         int deviceIndex = int.Parse(Application.productName[Application.productName.Length - 1].ToString());
 
         playerName = "Player " + deviceIndex;
-        lobbyName = "Game " + ((deviceIndex * 10 ) + Random.Range(0, 10));
+        lobbyName = "Game " + ((deviceIndex * 10) + Random.Range(0, 10));
 
+        if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsClient)
+        {
+            //typePanel.SetActive(false);
+            //playersPanel.SetActive(true);
+            menuAnimator.Play("Menu_Multiplayer_BoatToPlayer", 0, 1f);
+            playerUpdateRoutine = StartCoroutine(UpdatePlayersRoutine());
+            startGameButton.interactable = isServer;
+            endSessionButton.SetActive(isServer);
+            leaveSessionButton.SetActive(!isServer);
+            if (isServer)
+                EventSystem.current.SetSelectedGameObject(startGameButton.gameObject);
 
-        InitializeLobbies(new List<Lobby>());
-        InitializePlayers(new List<Player>());
+            return;
+        }
+
+        NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
 
         if (isOffline)
             return;
@@ -279,7 +296,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
             isServer = false;
         }
 
-        StopCoroutine(playerUpdateRoutine);
+        if(playerUpdateRoutine != null)
+            StopCoroutine(playerUpdateRoutine);
         NetworkManager.Singleton.Shutdown();
 
         if(playersPanel.activeSelf)
@@ -287,12 +305,21 @@ public class MultiplayerMenuHelper : MonoBehaviour
     }
 
     private IEnumerator UpdatePlayersRoutine() {
-        yield return new WaitForSeconds(1f);
+
+        bool interactable = startGameButton.interactable;
+
         while(enabled) {
             InitializePlayers(NetworkRaceManager.playerStats);
 
-            if(isServer)
+            if (isServer)
+            {
                 startGameButton.interactable = NetworkRaceManager.playerStats.All(p => p.status.Value);
+                if (interactable != startGameButton.interactable)
+                {
+                    EventSystem.current.SetSelectedGameObject(startGameButton.gameObject);
+                    interactable = startGameButton.interactable;
+                }
+            }
 
             yield return new WaitForSeconds(.5f);
 
@@ -304,6 +331,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
                 else if (boatPanel.activeSelf)
                     menuAnimator.SetTrigger("Back");
+
+                NetworkManager.Singleton.Shutdown();
                 yield break;
             }
         }
