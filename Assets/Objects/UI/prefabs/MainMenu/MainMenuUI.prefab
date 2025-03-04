@@ -3382,6 +3382,8 @@ MonoBehaviour:
   startGameButton: {fileID: 2619513435920225005}
   endSessionButton: {fileID: 1580618895944855853}
   leaveSessionButton: {fileID: 1913426294798472806}
+  createGameButton: {fileID: 5605909424213029110}
+  joinGameButton: {fileID: 1634262893035328574}
   lobbies:
   - {fileID: 3675416623096205175}
   - {fileID: 3901539834458278685}
@@ -9356,6 +9358,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5305019879326933117, guid: 7b090b4caf0dba641b7ad3e523ece7ba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6937617064181673280, guid: 7b090b4caf0dba641b7ad3e523ece7ba,
         type: 3}

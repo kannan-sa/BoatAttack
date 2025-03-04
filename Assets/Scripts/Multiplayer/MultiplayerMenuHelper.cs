@@ -12,6 +12,7 @@ using TMPro;
 using BoatAttack;
 using BoatAttack.UI;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MultiplayerMenuHelper : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public GameObject endSessionButton;
     public GameObject leaveSessionButton;
 
+    public Button createGameButton, joinGameButton;
 
     public LobbyView[] lobbies;
     public PlayerView[] players;
@@ -69,6 +71,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public static bool alreadySigned = false;
 
     private bool isOffline = false;
+    private bool isServerAvailable = false;
 
     private Coroutine playerUpdateRoutine;
 
@@ -287,6 +290,10 @@ public class MultiplayerMenuHelper : MonoBehaviour
         yield return new WaitForSeconds(1f);
         while(enabled) {
             InitializePlayers(NetworkRaceManager.playerStats);
+
+            if(isServer)
+                startGameButton.interactable = NetworkRaceManager.playerStats.All(p => p.status.Value);
+
             yield return new WaitForSeconds(.5f);
 
             bool noPlayers = NetworkRaceManager.playerStats.Count == 0;
