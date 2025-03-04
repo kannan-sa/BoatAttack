@@ -32,7 +32,7 @@ namespace BoatAttack.UI
         private void OnEnable()
         {
             Application.runInBackground = true;
-            Screen.fullScreen = true; // Force fullscreen
+            //Screen.fullScreen = true; // Force fullscreen
 
             // level stuff
             levelSelector.updateVal += SetLevel;

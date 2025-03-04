@@ -20,7 +20,7 @@ public class ImageSequence : MonoBehaviour
     {
         gameObject.SetActive(true);
         waitingImage.gameObject.SetActive(false);
-        for (int index = 0; index < SequencialImages.Length; index++)
+        for (int index = 0; index < SequencialImages.Length && enabled; index++)
         {
             SequencialImages[index].gameObject.SetActive(true); 
 

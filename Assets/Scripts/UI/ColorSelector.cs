@@ -87,6 +87,7 @@ namespace BoatAttack.UI
         private void UpdateColor()
         {
             value = ConstantData.GetPaletteColor(_currentOption);
+            HUE = 0;
         }
 
         private int ValidateIndex(int index)
