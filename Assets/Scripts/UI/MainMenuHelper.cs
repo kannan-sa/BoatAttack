@@ -32,7 +32,7 @@ namespace BoatAttack.UI
         private void OnEnable()
         {
             Application.runInBackground = true;
-            Screen.fullScreen = true; // Force fullscreen
+            //Screen.fullScreen = true; // Force fullscreen
 
             // level stuff
             levelSelector.updateVal += SetLevel;
@@ -151,11 +151,13 @@ namespace BoatAttack.UI
             // update racedata
             if (primary)
             {
-                RaceManager.RaceData.boats[playerIndex].livery.primaryColor = color;
+                if(RaceManager.RaceData.boats.Count > playerIndex) 
+                    RaceManager.RaceData.boats[playerIndex].livery.primaryColor = color;
             }
             else
             {
-                RaceManager.RaceData.boats[playerIndex].livery.trimColor = color;
+                if(RaceManager.RaceData.boats.Count > playerIndex) 
+                    RaceManager.RaceData.boats[playerIndex].livery.trimColor = color;
             }
             return;
             // update menu boats
