@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using System;
 
 public class NetworkRaceManager : NetworkBehaviour
 {
@@ -28,7 +29,7 @@ public class NetworkRaceManager : NetworkBehaviour
 
     private int loadedCount;
 
-    private List<NetworkObject> networkObjects = new List<NetworkObject>();
+    private static List<NetworkObject> networkObjects = new List<NetworkObject>();
 
 #if UNITY_EDITOR
     public UnityEditor.SceneAsset SceneAsset, MenuScene;
@@ -167,7 +168,10 @@ public class NetworkRaceManager : NetworkBehaviour
                     loadingScreenObject.SetActive(false);
 
                 if (isMenu)
-                    RaceManager.Instance.ResetGame();
+                {
+                    loadedCount = 0;
+                    RaceManager.Instance.ResetGame(true);
+                }
 
                 canStart = isLevel;
                 break;
@@ -199,8 +203,8 @@ public class NetworkRaceManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void WayPointInitializedRpc()
     {
-        bool canSpawn = loadedCount == (NetworkManager.Singleton.ConnectedClients.Count -1);
-        Debug.Log($"Loaded {loadedCount++}, client id {OwnerClientId}, canSpawn = {canSpawn}");
+        bool canSpawn = loadedCount++ == (NetworkManager.Singleton.ConnectedClients.Count -1);
+        //Debug.Log($"Loaded {loadedCount++}, client id {OwnerClientId}, canSpawn = {canSpawn}");
 
         if(canSpawn)
             StartCoroutine(SetupRace());
@@ -216,7 +220,7 @@ public class NetworkRaceManager : NetworkBehaviour
     {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
         {
-            int i = (int)clientId;
+            int i = GetPlayerIndex(clientId);
             var boat = RaceManager.RaceData.boats[i]; // boat to setup
 
             // Load prefab
@@ -236,8 +240,29 @@ public class NetworkRaceManager : NetworkBehaviour
     private void DestroyBoats()
     {
         foreach (var item in networkObjects)
-        {
             item.Despawn();
+        networkObjects.Clear();
+    }
+
+    public static void RemoveBoat(GameObject go)
+    {
+        if(go == null) return;
+
+        if(go.TryGetComponent(out NetworkObject component))
+            networkObjects.Remove(component);
+    }
+
+    public static int GetPlayerIndex(ulong ownerClientId)
+    {
+        int index = 0;
+
+        foreach (var player in playerStats)
+        {
+            if(player.OwnerClientId == ownerClientId)
+                break;
+            index++;
         }
+
+        return index;
     }
 }

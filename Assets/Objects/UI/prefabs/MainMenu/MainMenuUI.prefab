@@ -3215,6 +3215,7 @@ MonoBehaviour:
   statusPanel: {fileID: 1327835103865433561}
   boatPanel: {fileID: 4415978879805592942}
   playersPanel: {fileID: 8879847859628571610}
+  typePanel: {fileID: 7951200662553551537}
   selectLobby: {fileID: 11400000, guid: c1f06f48c0fcfaa4ea07b12de0cf9ca2, type: 2}
   kickPlayer: {fileID: 11400000, guid: 072bfd314a70ba44c980ea5eca846436, type: 2}
   setPlayerName: {fileID: 11400000, guid: c16977f28020fd944a52a24b7c56a1eb, type: 2}
