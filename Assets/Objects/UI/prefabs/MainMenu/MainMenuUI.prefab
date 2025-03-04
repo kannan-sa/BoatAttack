@@ -5622,6 +5622,8 @@ MonoBehaviour:
   startGameButton: {fileID: 2806847100990200112}
   endSessionButton: {fileID: 5500316812655241052}
   leaveSessionButton: {fileID: 8736669376298179793}
+  createGameButton: {fileID: 8406287380731357855}
+  joinGameButton: {fileID: 3395003701394301076}
   lobbies:
   - {fileID: 3675416623096205175}
   - {fileID: 3901539834458278685}
