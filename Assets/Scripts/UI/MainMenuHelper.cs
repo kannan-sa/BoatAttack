@@ -159,8 +159,7 @@ namespace BoatAttack.UI
                 if(RaceManager.RaceData.boats.Count > playerIndex) 
                     RaceManager.RaceData.boats[playerIndex].livery.trimColor = color;
             }
-            return;
-            // update menu boats
+
             foreach (var t in boatMeshes)
             {
                 var renderers = t.GetComponentsInChildren<MeshRenderer>(true);

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Events;
@@ -302,6 +303,7 @@ namespace BoatAttack.UI
 
         public void UpdatePlaceCounter(int place)
         {
+            _totalPlayers = RaceData.boats.Count;
             positionNumber.text = $"{place}/{_totalPlayers}";
         }
 
@@ -327,8 +329,16 @@ namespace BoatAttack.UI
         {
             if (RaceData.game == GameType.Multiplayer)
             {
-                if(FinishGame)
-                    FinishGame.Invoke();
+                if (MultiplayerMenuHelper.isServer)
+                {
+                    if (FinishGame)
+                        FinishGame.Invoke();
+                }
+                else
+                {
+                    NetworkManager.Singleton.Shutdown();
+                    RaceManager.UnloadRace();
+                }
                 return;
             }
             RaceManager.UnloadRace();

@@ -8,6 +8,7 @@ namespace BoatAttack.UI
     {
         public string[] options;
         public Sprite[] images;
+        public GameObject[] models;
         public TextMeshProUGUI text;
         public bool loop;
         public int startOption;
@@ -60,6 +61,9 @@ namespace BoatAttack.UI
 
             if(image && images.Length > _currentOption)
                 image.sprite = images[_currentOption];
+
+            for(int i = 0; i < models.Length; i++)
+                models[i].SetActive(i == _currentOption);
         }
 
         private int ValidateIndex(int index)
