@@ -12,6 +12,12 @@ public class BoatControl : NetworkBehaviour
         StartCoroutine(SetupRoutine(index));
     }
 
+    public override void OnNetworkDespawn()
+    {
+        if (TryGetComponent(out NetworkObject networkObject))
+            NetworkRaceManager.RemoveBoat(networkObject);
+    }
+
     //Need to find exact fix for clients position reseting to zero..
     private IEnumerator SetupRoutine(int index)
     {

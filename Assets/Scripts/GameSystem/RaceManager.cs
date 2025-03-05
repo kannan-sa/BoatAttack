@@ -126,6 +126,8 @@ namespace BoatAttack
             RaceStarted = false;
             if(!resetStart) 
                 RaceData.boats.Clear();
+            else
+                RaceData.boats.ForEach(b => b.time = 0);
             RaceTime = 0f;
             _boatTimes.Clear();
             raceStarted = null;
@@ -286,30 +288,37 @@ namespace BoatAttack
         {
             if (!RaceStarted) return;
 
-            int finished = RaceData.boatCount;
+            int finished = RaceData.boats.Count;
             for (var i = 0; i < RaceData.boats.Count; i++)
             {
                 var boat = RaceData.boats[i].Boat;
                 if (boat.MatchComplete)
                 {
-                    _boatTimes[i] = Mathf.Infinity; // completed the race so no need to update
+                    RaceData.boats[i].time = Mathf.Infinity;
+                    //_boatTimes[i] = Mathf.Infinity; // completed the race so no need to update
                     --finished;
                 }
                 else
                 {
-                    _boatTimes[i] = boat.LapPercentage + boat.LapCount;
+                    RaceData.boats[i].time = boat.LapPercentage + boat.LapCount;
+                    //_boatTimes[i] = boat.LapPercentage + boat.LapCount;
                 }
             }
             if(RaceStarted && finished == 0)
                 EndRace();
 
+            var place = RaceData.boats.Count;
+            foreach (var boat in RaceData.boats.OrderBy(b =>b.time).Where(b => !b.Boat.MatchComplete))
+                boat.Boat.Place = place--;
+
+            /*
             var mySortedList = _boatTimes.OrderBy(d => d.Value).ToList();
-            var place = RaceData.boatCount;
+            var place = RaceData.boats.Count;
             foreach (var boat in mySortedList.Select(index => RaceData.boats[index.Key].Boat).Where(boat => !boat.MatchComplete))
             {
                 boat.Place = place;
                 place--;
-            }
+            }*/
 
             RaceTime += Time.deltaTime;
         }
