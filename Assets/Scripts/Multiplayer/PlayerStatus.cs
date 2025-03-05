@@ -65,7 +65,6 @@ public class PlayerStatus : NetworkBehaviour
         primaryColor.OnValueChanged -= OnPrimaryColorSet;
         trimColor.OnValueChanged -= OnTrimColorSet;
 
-        NetworkRaceManager.RemoveBoat(boat.BoatObject);
         NetworkRaceManager.playerStats.Remove(this);
         RaceManager.RaceData.boats.Remove(boat);
         RaceManager.RaceData.boatCount = RaceManager.RaceData.boats.Count;
