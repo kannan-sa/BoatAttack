@@ -223,7 +223,11 @@ namespace BoatAttack
 #endif
                 engine.RB.angularVelocity = Vector3.zero;
                 engine.RB.position = resetPoint;
-                engine.RB.rotation = resetMatrix.rotation;
+
+                var count = WaypointGroup.Instance.WPs.Count;
+                var nextWp = (int)Mathf.Repeat(_wpCount + 1, count);
+                var wayPoint = WaypointGroup.Instance.WPs[nextWp];
+                engine.RB.rotation = wayPoint.rotation; //resetMatrix.rotation;
             }
         }
 

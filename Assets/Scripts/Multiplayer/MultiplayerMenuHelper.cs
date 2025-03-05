@@ -326,7 +326,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
             bool noPlayers = NetworkRaceManager.playerStats.Count == 0;
             if (noPlayers)
             {
-                if(playersPanel.activeSelf)
+                yield return new WaitForSeconds(.5f);
+                if (playersPanel.activeSelf)
                     menuAnimator.SetTrigger("EndSession");
 
                 else if (boatPanel.activeSelf)
