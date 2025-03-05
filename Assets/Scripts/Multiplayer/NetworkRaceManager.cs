@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System;
+using System.Linq;
 
 public class NetworkRaceManager : NetworkBehaviour
 {
@@ -239,8 +240,13 @@ public class NetworkRaceManager : NetworkBehaviour
 
     private void DestroyBoats()
     {
-        foreach (var item in networkObjects)
-            item.Despawn();
+        for (int i = networkObjects.Count - 1; i >= 0; i--)
+        {
+            if (networkObjects[i] == null)
+                continue;
+            networkObjects[i].Despawn();
+        }
+
         networkObjects.Clear();
     }
 
@@ -250,6 +256,13 @@ public class NetworkRaceManager : NetworkBehaviour
 
         if(go.TryGetComponent(out NetworkObject component))
             networkObjects.Remove(component);
+    }
+
+    public static void RemoveBoat(NetworkObject no)
+    {
+        if (no == null) return;
+
+        networkObjects.Remove(no);
     }
 
     public static int GetPlayerIndex(ulong ownerClientId)
