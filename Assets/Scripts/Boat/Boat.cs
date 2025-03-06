@@ -225,9 +225,13 @@ namespace BoatAttack
                 engine.RB.position = resetPoint;
 
                 var count = WaypointGroup.Instance.WPs.Count;
-                var nextWp = (int)Mathf.Repeat(_wpCount + 1, count);
+                var nextWp = (int)Mathf.Repeat(_wpCount + (WaypointGroup.Instance.Reverse ? -1 : 1), count);
                 var wayPoint = WaypointGroup.Instance.WPs[nextWp];
+
                 engine.RB.rotation = wayPoint.rotation; //resetMatrix.rotation;
+
+                if(WaypointGroup.Instance.Reverse)
+                    engine.RB.rotation *= Quaternion.Euler(0, 180f, 0);
             }
         }
 

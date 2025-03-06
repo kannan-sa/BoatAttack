@@ -328,20 +328,9 @@ namespace BoatAttack.UI
         public void FinishMatch()
         {
             if (RaceData.game == GameType.Multiplayer)
-            {
-                if (MultiplayerMenuHelper.isServer)
-                {
-                    if (FinishGame)
-                        FinishGame.Invoke();
-                }
-                else
-                {
-                    NetworkManager.Singleton.Shutdown();
-                    RaceManager.UnloadRace();
-                }
-                return;
-            }
-            RaceManager.UnloadRace();
+                FinishGame?.Invoke();
+            else
+                RaceManager.UnloadRace();
         }
 
         public void RestartMatch()
@@ -353,7 +342,11 @@ namespace BoatAttack.UI
         public void ExitGame()
         {
             Time.timeScale = 1;
-            FinishMatch();
+            //FinishMatch();
+            if (RaceData.game == GameType.Multiplayer)
+                NetworkManager.Singleton.Shutdown();
+
+            RaceManager.UnloadRace();
         }
 
         public void LateUpdate()
