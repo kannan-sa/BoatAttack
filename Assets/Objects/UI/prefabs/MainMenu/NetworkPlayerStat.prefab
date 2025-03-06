@@ -71,6 +71,7 @@ MonoBehaviour:
   onSelectPrimaryColor: {fileID: 11400000, guid: 5b427762f13bf80449ceaa5e8fac971c,
     type: 2}
   onSelectTrimColor: {fileID: 11400000, guid: d79ac1a7a040a0c4b8e477a6a8dd4ed4, type: 2}
+  onStatsUpdate: {fileID: 11400000, guid: b7abada144b455e47a124aa853161f8f, type: 2}
   boatName:
     m_InternalValue:
       utf8LengthInBytes: 0
@@ -215,5 +216,9 @@ MonoBehaviour:
   trimColor:
     m_InternalValue: 0
   status:
+    m_InternalValue: 0
+  finished:
+    m_InternalValue: 0
+  beginRace:
     m_InternalValue: 0
   selfIndex: 0

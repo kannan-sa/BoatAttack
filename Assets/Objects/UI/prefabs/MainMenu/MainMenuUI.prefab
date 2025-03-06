@@ -3290,8 +3290,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   lobbyName: 
-  status: {fileID: 1672092737000878147}
-  statusPanel: {fileID: 1327835103865433561}
+  MaxPlayerInLobby: 4
+  isOffline: 1
   boatPanel: {fileID: 4415978879805592942}
   playersPanel: {fileID: 8879847859628571610}
   typePanel: {fileID: 7951200662553551537}
@@ -3299,14 +3299,15 @@ MonoBehaviour:
   kickPlayer: {fileID: 11400000, guid: 072bfd314a70ba44c980ea5eca846436, type: 2}
   setPlayerName: {fileID: 11400000, guid: c16977f28020fd944a52a24b7c56a1eb, type: 2}
   setBoatType: {fileID: 11400000, guid: 26d1af72d9d9f394880b208bd5becb78, type: 2}
+  playerStatUpdate: {fileID: 11400000, guid: b7abada144b455e47a124aa853161f8f, type: 2}
   menuAnimator: {fileID: 3300335164659556536}
   networkManager: {fileID: 0}
   networkRaceManager: {fileID: 0}
-  startGameButton: {fileID: 3177128194396934447}
   endSessionButton: {fileID: 1311570138123258038}
   leaveSessionButton: {fileID: 6508287449834553174}
   createGameButton: {fileID: 1633492274639785758}
   joinGameButton: {fileID: 7076206861360301248}
+  startGameButton: {fileID: 3177128194396934447}
   lobbies:
   - {fileID: 3675416623096205175}
   - {fileID: 3901539834458278685}
@@ -6237,6 +6238,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5085794017186567176}
+    - target: {fileID: 4707068379526570284, guid: a05a1cf0bfce70c41b85f021a0516c32,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: JoinLobby
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
