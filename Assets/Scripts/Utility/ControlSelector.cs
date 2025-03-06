@@ -8,15 +8,17 @@ public class ControlSelector : MonoBehaviour
     public float delay = 0;
     public GameObject control;
     public GameObject otherControl;
+
+    public GameObject[] controls;
+
+    public bool skipControlsOnDisable = true;
+
     private void OnEnable()
     {
-        if (!control)
-            return;
-
         if (delay > 0)
             StartCoroutine(DelaySelectControl(control));
         else
-            EventSystem.current.SetSelectedGameObject(control);
+            SelectControl(control);
     }
 
     private void OnDisable()
@@ -24,15 +26,32 @@ public class ControlSelector : MonoBehaviour
         if (!otherControl)
             return;
 
-        if (delay > 0)
-            StartCoroutine(DelaySelectControl(otherControl));
-        else
-            EventSystem.current.SetSelectedGameObject(otherControl);
+        SelectControl(otherControl, skipControlsOnDisable);
     }
 
     private IEnumerator DelaySelectControl(GameObject control)
     {
         yield return new WaitForSeconds(delay);
-        EventSystem.current.SetSelectedGameObject(control);
+        SelectControl(control);
+    }
+
+    private void SelectControl(GameObject control, bool skipControls = false)
+    {
+        if (control != null)
+            EventSystem.current.SetSelectedGameObject(control);
+
+        if (skipControls)
+            return;
+
+        foreach (var ctrl in controls)
+        {
+            if (ctrl == null)
+                continue;
+
+            if (ctrl.activeSelf) { 
+                EventSystem.current.SetSelectedGameObject(ctrl);
+                break;
+            }
+        }
     }
 }
