@@ -3143,8 +3143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   lobbyName: 
-  status: {fileID: 1672092737000878147}
-  statusPanel: {fileID: 1327835103865433561}
+  MaxPlayerInLobby: 4
+  isOffline: 0
   boatPanel: {fileID: 4415978879805592942}
   playersPanel: {fileID: 8879847859628571610}
   typePanel: {fileID: 7951200662553551537}
@@ -3152,14 +3152,15 @@ MonoBehaviour:
   kickPlayer: {fileID: 11400000, guid: 072bfd314a70ba44c980ea5eca846436, type: 2}
   setPlayerName: {fileID: 11400000, guid: c16977f28020fd944a52a24b7c56a1eb, type: 2}
   setBoatType: {fileID: 11400000, guid: 26d1af72d9d9f394880b208bd5becb78, type: 2}
+  playerStatUpdate: {fileID: 11400000, guid: b7abada144b455e47a124aa853161f8f, type: 2}
   menuAnimator: {fileID: 3300335164659556536}
   networkManager: {fileID: 0}
   networkRaceManager: {fileID: 0}
-  startGameButton: {fileID: 2619513435920225005}
   endSessionButton: {fileID: 1580618895944855853}
   leaveSessionButton: {fileID: 1913426294798472806}
   createGameButton: {fileID: 5605909424213029110}
   joinGameButton: {fileID: 1634262893035328574}
+  startGameButton: {fileID: 2619513435920225005}
   lobbies:
   - {fileID: 3675416623096205175}
   - {fileID: 3901539834458278685}
