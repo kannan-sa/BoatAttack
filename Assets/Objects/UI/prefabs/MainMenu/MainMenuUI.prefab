@@ -1097,6 +1097,8 @@ MonoBehaviour:
   delay: 0
   control: {fileID: 3252583950441024465}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!222 &2337376848131570054
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1955,6 +1957,8 @@ MonoBehaviour:
   delay: 0
   control: {fileID: 2768384349224791879}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!222 &2916609308422322885
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3305,6 +3309,8 @@ MonoBehaviour:
   delay: 0.4
   control: {fileID: 2713276358716306612}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!114 &8440763142227051246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3824,8 +3830,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.5
-  control: {fileID: 1913426294798472806}
+  control: {fileID: 0}
   otherControl: {fileID: 0}
+  controls:
+  - {fileID: 1913426294798472806}
+  - {fileID: 4950914640318343626}
+  skipControlsOnDisable: 1
 --- !u!1 &9182516452791675576
 GameObject:
   m_ObjectHideFlags: 0
@@ -5981,6 +5991,8 @@ MonoBehaviour:
   delay: 0.4
   control: {fileID: 1560599954599807816}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!114 &4250994746316377905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10059,6 +10071,8 @@ MonoBehaviour:
   delay: 0.4
   control: {fileID: 6979660352462723654}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!114 &3058622780971951454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10910,12 +10924,18 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7280275883238421441}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4950914640318343626}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4950914640318343626 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2431260958005418507, guid: 531e2fd49c1284242aa43b2770737700,
+    type: 3}
+  m_PrefabInstance: {fileID: 7280275883238421441}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8257252826594534164 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1702109857525862613, guid: 531e2fd49c1284242aa43b2770737700,
