@@ -11,6 +11,7 @@ public class PlayerStatus : NetworkBehaviour
     public IntegerEvent onSelectBoatType;
     public FloatEvent onSelectPrimaryColor;
     public FloatEvent onSelectTrimColor;
+    public GameEvent onStatsUpdate;
 
     public NetworkVariable<FixedString128Bytes> boatName = new NetworkVariable<FixedString128Bytes>(writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> boatType = new NetworkVariable<int>(writePerm: NetworkVariableWritePermission.Owner);
@@ -30,7 +31,6 @@ public class PlayerStatus : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         name = $"player stat {OwnerClientId}";
-        NetworkRaceManager.playerStats.Add(this);
 
         boat = new BoatData();
         boat.human = true;
@@ -46,7 +46,9 @@ public class PlayerStatus : NetworkBehaviour
         boatType.OnValueChanged += OnBoatTypeSet;
         primaryColor.OnValueChanged += OnPrimaryColorSet;
         trimColor.OnValueChanged += OnTrimColorSet;
+        status.OnValueChanged += OnStatusUpade;
         
+        NetworkRaceManager.Add(this);
         if (IsOwner)
         {
             index = RaceManager.RaceData.boats.IndexOf(boat);
@@ -57,19 +59,25 @@ public class PlayerStatus : NetworkBehaviour
             onSelectTrimColor.AddListener(OnSelectTrimColor);
         }
     }
-    
+
+    private void OnStatusUpade(bool previousValue, bool newValue)
+    {
+        onStatsUpdate.Invoke();
+    }
+
     public override void OnNetworkDespawn()
     {
         boatName.OnValueChanged -= OnBoatNameSet;
         boatType.OnValueChanged -= OnBoatTypeSet;
         primaryColor.OnValueChanged -= OnPrimaryColorSet;
         trimColor.OnValueChanged -= OnTrimColorSet;
+        status.OnValueChanged -= OnStatusUpade;
 
-        NetworkRaceManager.playerStats.Remove(this);
         RaceManager.RaceData.boats.Remove(boat);
         RaceManager.RaceData.boatCount = RaceManager.RaceData.boats.Count;
         RaceManager.Instance._boatTimes.Remove(selfIndex);
 
+        NetworkRaceManager.Remove(this);
         if (IsOwner)
         {
             onSetPlayerName.RemoveListener(OnSetPlayerName);
@@ -83,18 +91,20 @@ public class PlayerStatus : NetworkBehaviour
     {
         int index = RaceManager.RaceData.boats.IndexOf(boat);
         RaceManager.RaceData.boats[index].boatName = newValue.ToString();
-        #if DEBUG_ENABLED
+        onStatsUpdate.Invoke();
+#if DEBUG_ENABLED
         Debug.Log($"Setting Player name {newValue.ToString()} ,on {OwnerClientId}");
-        #endif
+#endif
     }
 
     private void OnBoatTypeSet(int previousValue, int newValue)
     {
         int index = RaceManager.RaceData.boats.IndexOf(boat);
         RaceManager.SetHull(index, newValue);
-        #if DEBUG_ENABLED
+        onStatsUpdate.Invoke();
+#if DEBUG_ENABLED
             Debug.Log($"Setting Boat hull {newValue.ToString()} ,on {OwnerClientId}");
-        #endif
+#endif
     }
 
     private void OnPrimaryColorSet(float previousValue, float newValue)

@@ -124,6 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: {fileID: 7071285922184029866}
+  playerStatus: {fileID: 0}
+  boatType: {fileID: 1700407700391884812}
   KickOption: {fileID: 0}
   kickEvent: {fileID: 0}
 --- !u!1 &2650175986461681778
@@ -776,7 +778,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

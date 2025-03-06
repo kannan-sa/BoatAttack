@@ -32,6 +32,8 @@ public class NetworkRaceManager : NetworkBehaviour
 
     private static List<NetworkObject> networkObjects = new List<NetworkObject>();
 
+    public static Action OnPlayerStatsUpdate;
+
 #if UNITY_EDITOR
     public UnityEditor.SceneAsset SceneAsset, MenuScene;
     private void OnValidate()
@@ -277,5 +279,17 @@ public class NetworkRaceManager : NetworkBehaviour
         }
 
         return index;
+    }
+
+    public static void Add(PlayerStatus playerStat)
+    {
+        playerStats.Add(playerStat);
+        OnPlayerStatsUpdate?.Invoke();
+    }
+
+    public static void Remove(PlayerStatus playerStat)
+    {
+        playerStats.Remove(playerStat);
+        OnPlayerStatsUpdate?.Invoke();
     }
 }

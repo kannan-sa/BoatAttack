@@ -23,10 +23,7 @@ public class ControlSelector : MonoBehaviour
 
     private void OnDisable()
     {
-        if (!otherControl)
-            return;
-
-        SelectControl(otherControl, skipControlsOnDisable);
+         SelectControl(otherControl, skipControlsOnDisable);
     }
 
     private IEnumerator DelaySelectControl(GameObject control)
