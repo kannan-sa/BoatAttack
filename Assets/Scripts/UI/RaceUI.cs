@@ -279,6 +279,7 @@ namespace BoatAttack.UI
                 yield return markerLoading; // wait for marker to load
 
                 markerLoading.Result.name += RaceManager.RaceData.boats[i].boatName;
+                RaceData.boats[i].playerMarker = markerLoading.Result;
                 if (markerLoading.Result.TryGetComponent<PlayerMarker>(out var pm))
                     pm.Setup(RaceManager.RaceData.boats[i]);
             }
@@ -290,7 +291,7 @@ namespace BoatAttack.UI
             {
                 var mapMarkerLoading = playerMapMarker.InstantiateAsync(map);
                 yield return mapMarkerLoading; // wait for marker to load
-
+                boatData.mapMarker = mapMarkerLoading.Result;
                 if (mapMarkerLoading.Result.TryGetComponent<PlayerMapMarker>(out var pm))
                     pm.Setup(boatData);
             }
@@ -342,11 +343,16 @@ namespace BoatAttack.UI
         public void ExitGame()
         {
             Time.timeScale = 1;
+
+            //Method 1 - Quits all the player to lobby
             //FinishMatch();
+            //----------
+            
+            //Method 2 - Quit current player to main menu
             if (RaceData.game == GameType.Multiplayer)
                 NetworkManager.Singleton.Shutdown();
-
             RaceManager.UnloadRace();
+            //----------
         }
 
         public void LateUpdate()

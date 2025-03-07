@@ -117,6 +117,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
         NetworkRaceManager.OnPlayerStatsUpdate -= OnPlayerStatsUpdate;
     }
 
+    public static int deviceIndex;
+
     async void Start()
     {
         InitializeLobbies(new List<Lobby>());
@@ -131,7 +133,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
 
 
-        int deviceIndex = int.Parse(Application.productName[Application.productName.Length - 1].ToString());
+        deviceIndex = int.Parse(Application.productName[Application.productName.Length - 1].ToString());
 
         playerName = "Player " + deviceIndex;
         lobbyName = "Game " + ((deviceIndex * 10) + Random.Range(0, 10));
@@ -240,12 +242,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
                 callback(true);
         }
     }
-
-    public void Clear()
-    {
-        NetworkManager.Singleton.OnConnectionEvent -= OnConnectionEvent;
-    }
-
     #endregion
 
     #region Process - Transition
@@ -310,7 +306,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     {
         InitializePlayers(NetworkRaceManager.playerStats);
 
-        if (!playersPanel.activeSelf)
+        if (playersPanel == null && !playersPanel.activeSelf)
             return;
 
         GameObject buttonToSelect = null;
@@ -332,6 +328,12 @@ public class MultiplayerMenuHelper : MonoBehaviour
     {
         Debug.Log("OnConnectionEvent," + " " + manager.name + " " + data.EventType);
         if (isServer)
+            return;
+
+        if(playersPanel == null)
+            return;
+
+        if (boatPanel == null)
             return;
 
         switch(data.EventType)
