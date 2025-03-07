@@ -126,7 +126,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         float webTime = Time.time;
         StartCoroutine(CheckInternetConnection((isConnected) => {
-            Debug.Log($"\n 2. WebRequest Method - Internet Available: {isConnected} in {Time.time - webTime} Secs.");
+            //Debug.Log($"\n 2. WebRequest Method - Internet Available: {isConnected} in {Time.time - webTime} Secs.");
             onlineModeButton.interactable = isConnected;
         }));
 
@@ -326,7 +326,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     private void OnConnectionEvent(NetworkManager manager, ConnectionEventData data)
     {
-        Debug.Log("OnConnectionEvent," + " " + manager.name + " " + data.EventType);
+        //Debug.Log("OnConnectionEvent," + " " + manager.name + " " + data.EventType);
         if (isServer)
             return;
 

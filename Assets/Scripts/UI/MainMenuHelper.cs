@@ -54,7 +54,7 @@ namespace BoatAttack.UI
 
         private void OnBackKey(InputAction.CallbackContext context)
         {
-            Debug.Log("On Back");
+            //Debug.Log("On Back");
             if(!TypePanel.activeSelf)
                 menuAnimator.SetTrigger("Back");
             OptionPanel.SetActive(false);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ControlSelector : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class ControlSelector : MonoBehaviour
     public GameObject otherControl;
 
     public GameObject[] controls;
+
+    public Selectable[] selectables;
 
     public bool skipControlsOnDisable = true;
 
@@ -47,6 +50,18 @@ public class ControlSelector : MonoBehaviour
 
             if (ctrl.activeSelf) { 
                 EventSystem.current.SetSelectedGameObject(ctrl);
+                break;
+            }
+        }
+
+        foreach (var selectable in selectables)
+        {
+            if (selectable == null)
+                continue;
+
+            if (selectable.interactable)
+            {
+                EventSystem.current.SetSelectedGameObject(selectable.gameObject);
                 break;
             }
         }

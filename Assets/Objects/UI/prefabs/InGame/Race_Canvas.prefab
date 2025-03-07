@@ -2161,6 +2161,7 @@ MonoBehaviour:
   control: {fileID: 0}
   otherControl: {fileID: 0}
   controls: []
+  selectables: []
   skipControlsOnDisable: 1
 --- !u!1 &7285053047003810506
 GameObject:
@@ -2252,10 +2253,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47ce39ef41626e4cb45bce5d1341588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0
+  delay: 0.5
   control: {fileID: 5646606039997598901}
   otherControl: {fileID: 0}
   controls: []
+  selectables: []
   skipControlsOnDisable: 1
 --- !u!1 &7836571592379715256
 GameObject:
@@ -4294,6 +4296,7 @@ MonoBehaviour:
   control: {fileID: 7119986613743927302}
   otherControl: {fileID: 0}
   controls: []
+  selectables: []
   skipControlsOnDisable: 1
 --- !u!1001 &6326951849264989638
 PrefabInstance:
@@ -4709,6 +4712,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2075370011019696578}
     m_Modifications:
+    - target: {fileID: 238351334371761427, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: delay
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 238351334371761427, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: otherControl
@@ -5434,6 +5442,7 @@ MonoBehaviour:
   control: {fileID: 6045541627525748136}
   otherControl: {fileID: 0}
   controls: []
+  selectables: []
   skipControlsOnDisable: 1
 --- !u!224 &7333158735167561590 stripped
 RectTransform:
