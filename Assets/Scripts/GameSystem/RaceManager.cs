@@ -131,6 +131,7 @@ namespace BoatAttack
             RaceTime = 0f;
             _boatTimes.Clear();
             raceStarted = null;
+            NetworkRaceManager.loadedCount = 0;
         }
 
         public static void Setup(Scene scene, LoadSceneMode mode)

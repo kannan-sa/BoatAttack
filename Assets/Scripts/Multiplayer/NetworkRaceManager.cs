@@ -24,11 +24,9 @@ public class NetworkRaceManager : NetworkBehaviour
 
     private static GameObject loadingScreenObject;
 
-    public MultiplayerMenuHelper multiplayerMenuHelper;
-
     private RaceManager raceManager;
 
-    private int loadedCount;
+    public static int loadedCount;
 
     private static List<NetworkObject> networkObjects = new List<NetworkObject>();
 
@@ -165,9 +163,6 @@ public class NetworkRaceManager : NetworkBehaviour
                 if(isLevel || isMenu)
                     loadingScreenObject.SetActive(true);
 
-                if (isLevel)
-                    multiplayerMenuHelper.Clear();
-
                 break;
             case SceneEventType.LoadEventCompleted:
                 //Hide loading..
@@ -175,10 +170,7 @@ public class NetworkRaceManager : NetworkBehaviour
                     loadingScreenObject.SetActive(false);
 
                 if (isMenu)
-                {
-                    loadedCount = 0;
                     RaceManager.Instance.ResetGame(true);
-                }
 
                 canStart = isLevel;
                 break;

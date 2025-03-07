@@ -255,6 +255,8 @@ namespace BoatAttack
         public bool human;
         [NonSerialized] public Boat Boat;
         [NonSerialized] public GameObject BoatObject;
+        [NonSerialized] public GameObject playerMarker;
+        [NonSerialized] public GameObject mapMarker;
         [NonSerialized] public float time = 0;
 
         public void SetController(GameObject boat, Boat controller)
