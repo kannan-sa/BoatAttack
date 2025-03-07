@@ -24,7 +24,7 @@ public class NetworkRaceManager : NetworkBehaviour
 
     private static GameObject loadingScreenObject;
 
-    public MainMenuHelper mainMenuHelper;
+    public MultiplayerMenuHelper multiplayerMenuHelper;
 
     private RaceManager raceManager;
 
@@ -164,6 +164,10 @@ public class NetworkRaceManager : NetworkBehaviour
                 //Show loading..
                 if(isLevel || isMenu)
                     loadingScreenObject.SetActive(true);
+
+                if (isLevel)
+                    multiplayerMenuHelper.Clear();
+
                 break;
             case SceneEventType.LoadEventCompleted:
                 //Hide loading..
