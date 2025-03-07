@@ -2389,6 +2389,7 @@ MonoBehaviour:
   control: {fileID: 0}
   otherControl: {fileID: 0}
   controls: []
+  selectables: []
   skipControlsOnDisable: 1
 --- !u!1 &7285053047003810506
 GameObject:
@@ -2480,10 +2481,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47ce39ef41626e4cb45bce5d1341588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0
+  delay: 0.5
   control: {fileID: 7821594201120237831}
   otherControl: {fileID: 0}
   controls: []
+  selectables: []
   skipControlsOnDisable: 1
 --- !u!1 &8180482066495898879
 GameObject:
@@ -3695,6 +3697,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 238351334371761427, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
+      propertyPath: delay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 238351334371761427, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: control
+      value: 
+      objectReference: {fileID: 4616919529746190554}
+    - target: {fileID: 238351334371761427, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
       propertyPath: otherControl
       value: 
       objectReference: {fileID: 4723935942388356979}
@@ -3823,6 +3835,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7412674542635272555, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 2109659256147971783}
     - target: {fileID: 9214780803975080683, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3836,6 +3853,24 @@ PrefabInstance:
 --- !u!1 &1254581560682359634 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6290384759078209988, guid: 960f1f94a20b50e4daad2fe6842d5272,
+    type: 3}
+  m_PrefabInstance: {fileID: 5053818146731418262}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2109659256147971783 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6585889101290531921, guid: 960f1f94a20b50e4daad2fe6842d5272,
+    type: 3}
+  m_PrefabInstance: {fileID: 5053818146731418262}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &4616919529746190554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 445947681836937804, guid: 960f1f94a20b50e4daad2fe6842d5272,
     type: 3}
   m_PrefabInstance: {fileID: 5053818146731418262}
   m_PrefabAsset: {fileID: 0}
@@ -5097,6 +5132,7 @@ MonoBehaviour:
   control: {fileID: 5584700314351014298}
   otherControl: {fileID: 0}
   controls: []
+  selectables: []
   skipControlsOnDisable: 1
 --- !u!224 &8908786679466351428 stripped
 RectTransform:
@@ -5367,6 +5403,7 @@ MonoBehaviour:
   control: {fileID: 5756701750281174666}
   otherControl: {fileID: 0}
   controls: []
+  selectables: []
   skipControlsOnDisable: 1
 --- !u!224 &8773399848928261204 stripped
 RectTransform:
