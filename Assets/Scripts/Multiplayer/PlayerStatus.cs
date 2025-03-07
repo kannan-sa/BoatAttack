@@ -73,6 +73,7 @@ public class PlayerStatus : NetworkBehaviour
         trimColor.OnValueChanged -= OnTrimColorSet;
         status.OnValueChanged -= OnStatusUpade;
 
+        ClearMarkers(boat);
         RaceManager.RaceData.boats.Remove(boat);
         RaceManager.RaceData.boatCount = RaceManager.RaceData.boats.Count;
         RaceManager.Instance._boatTimes.Remove(selfIndex);
@@ -84,7 +85,18 @@ public class PlayerStatus : NetworkBehaviour
             onSelectBoatType.RemoveListener(OnSelectBoatType);
             onSelectPrimaryColor.RemoveListener(OnSelectPrimaryColor);
             onSelectTrimColor.RemoveListener(OnSelectTrimColor);
+
+            RaceManager.SetupCamera(index, true); // setup camera for player 1
         }
+    }
+
+    private void ClearMarkers(BoatData boat)
+    {
+        if(boat.mapMarker != null)
+            Destroy(boat.mapMarker);
+
+        if(boat.playerMarker != null) 
+            Destroy(boat.playerMarker);
     }
 
     private void OnBoatNameSet(FixedString128Bytes previousValue, FixedString128Bytes newValue)

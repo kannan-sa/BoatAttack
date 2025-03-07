@@ -6,9 +6,10 @@ using System.Collections;
 public class BoatControl : NetworkBehaviour
 {
     private bool endCheck;
+    int index = 0;
     public override void OnNetworkSpawn()
     {
-        int index = NetworkRaceManager.GetPlayerIndex(OwnerClientId);
+        index = NetworkRaceManager.GetPlayerIndex(OwnerClientId);
         StartCoroutine(SetupRoutine(index));
     }
 
@@ -23,16 +24,8 @@ public class BoatControl : NetworkBehaviour
     {
         //Debug.Log($"spawned {OwnerClientId} @ {transform.position}");
 
-        //if(IsOwner)
-        //    StartCoroutine(FixRoutine(transform.position, transform.rotation));
-
-        //if(!IsHost && IsOwner) 
-        //     yield return StartCoroutine(SetupWaypoints());
-
         PlayerStatus playerStatus = NetworkRaceManager.playerStats[index];
-
         var boat = RaceManager.RaceData.boats[index];
-
         boat.boatName = playerStatus.boatName.Value.ToString();
         boat.livery.primaryColor = Color.HSVToRGB(playerStatus.primaryColor.Value, 0.75f, 1f); //ConstantData.GetPaletteColor(playerStatus.primaryColor.Value);
         boat.livery.trimColor = Color.HSVToRGB(playerStatus.trimColor.Value, 0.75f, 0.6f); //ConstantData.GetPaletteColor(playerStatus.trimColor.Value);

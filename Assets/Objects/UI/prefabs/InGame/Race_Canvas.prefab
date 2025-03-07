@@ -2086,6 +2086,8 @@ MonoBehaviour:
   delay: 0.5
   control: {fileID: 0}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!1 &7285053047003810506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,6 +2181,8 @@ MonoBehaviour:
   delay: 0
   control: {fileID: 4604517030746978632}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!1 &8142436233461498932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3616,6 +3620,8 @@ MonoBehaviour:
   delay: 0.5
   control: {fileID: 3953728687165893809}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!114 &6210807475639981974 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4712021978443144402, guid: 2e802695a225e48efb842122e2423314,
@@ -4575,6 +4581,8 @@ MonoBehaviour:
   delay: 0.5
   control: {fileID: 8052701452060403723}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!1001 &5773236351494178518
 PrefabInstance:
   m_ObjectHideFlags: 0

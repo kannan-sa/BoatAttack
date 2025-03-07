@@ -620,6 +620,11 @@ PrefabInstance:
       objectReference: {fileID: 821891830}
     - target: {fileID: 5085794017186567176, guid: 56de8e58d1a974ab880e61b104d7ef98,
         type: 3}
+      propertyPath: maxPlayerInLobby
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5085794017186567176, guid: 56de8e58d1a974ab880e61b104d7ef98,
+        type: 3}
       propertyPath: networkRaceManager
       value: 
       objectReference: {fileID: 1511429680}
