@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 public class Notification : MonoBehaviour
 {
     private static Notification instance = null;
+
+    public GameObject canvas;
+
     [Header("Labels")]
     public TextMeshProUGUI status;
     private void Awake()
@@ -13,9 +16,12 @@ public class Notification : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            Clear();
         }
         else
             Destroy(gameObject);
+
+        
     }
 
     #region Interface
@@ -25,7 +31,7 @@ public class Notification : MonoBehaviour
         if (!instance)
             return;
         instance.status.text = text;
-        instance.gameObject.SetActive(true);
+        instance.canvas.SetActive(true);
         await Task.Delay(1000 * duration);
         Clear();
     }
@@ -36,7 +42,7 @@ public class Notification : MonoBehaviour
         if (!instance)
             return;
         instance.status.text = text;
-        instance.gameObject.SetActive(true);
+        instance.canvas.SetActive(true);
     }
 
     public static void Clear()
@@ -44,7 +50,7 @@ public class Notification : MonoBehaviour
         if (!instance)
             return;
         instance.status.text = string.Empty;
-        instance.gameObject.SetActive(false);
+        instance.canvas.SetActive(false);
     }
     #endregion
 }

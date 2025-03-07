@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Lobbies;
+using UnityEngine.Networking;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
@@ -16,8 +17,6 @@ using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using System.Collections.Concurrent;
 using Unity.Networking.Transport.Relay;
-using System.Collections;
-using UnityEngine.Networking;
 
 public class MultiplayerMenuHelper : MonoBehaviour
 {
@@ -28,6 +27,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     [Header("Configuration")]
     public int maxPlayerInLobby = 4;
+    public int notificationWaitSeconds = 2;
     public bool isOffline = true;
 
     [Header("Panels")]
@@ -72,6 +72,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     }
     public string LobbyName { get => lobbyName; set { lobbyName = value; } }
 
+    private bool skipEvent;
     public static bool alreadySigned = false;
     private static NetworkManager nManager = null;
     private static NetworkRaceManager nRaceManager = null;
@@ -115,6 +116,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         kickPlayer.RemoveListener(OnKickPlayer);
         playerStatUpdate.RemoveListener(OnPlayerStatsUpdate);
         NetworkRaceManager.OnPlayerStatsUpdate -= OnPlayerStatsUpdate;
+        canPollLobbies = false;
     }
 
     public static int deviceIndex;
@@ -124,17 +126,11 @@ public class MultiplayerMenuHelper : MonoBehaviour
         InitializeLobbies(new List<Lobby>());
         InitializePlayers(new List<Player>());
 
-        float webTime = Time.time;
-        StartCoroutine(CheckInternetConnection((isConnected) => {
-            //Debug.Log($"\n 2. WebRequest Method - Internet Available: {isConnected} in {Time.time - webTime} Secs.");
-            onlineModeButton.interactable = isConnected;
-        }));
-
+        isOffline = !await CheckInternetConnection();
+        onlineModeButton.interactable = !isOffline;
         NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
-
-
+        
         deviceIndex = int.Parse(Application.productName[Application.productName.Length - 1].ToString());
-
         playerName = "Player " + deviceIndex;
         lobbyName = "Game " + ((deviceIndex * 10) + Random.Range(0, 10));
 
@@ -229,17 +225,18 @@ public class MultiplayerMenuHelper : MonoBehaviour
     }
 
     private string testUrl = "https://clients3.google.com/generate_204"; // Lightweight request
-    IEnumerator CheckInternetConnection(System.Action<bool> callback)
+
+    public async Task<bool> CheckInternetConnection()
     {
         using (UnityWebRequest request = UnityWebRequest.Get(testUrl))
         {
             request.timeout = 5;
-            yield return request.SendWebRequest();
+            var operation = request.SendWebRequest();
 
-            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-                callback(false);
-            else
-                callback(true);
+            while (!operation.isDone)
+                await Task.Yield();
+
+            return request.result != UnityWebRequest.Result.ConnectionError && request.result != UnityWebRequest.Result.ProtocolError;
         }
     }
     #endregion
@@ -336,6 +333,12 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (boatPanel == null)
             return;
 
+        if (skipEvent)
+        {
+            skipEvent = false;
+            return;
+        }
+
         switch(data.EventType)
         {
             case ConnectionEvent.ClientDisconnected:
@@ -356,9 +359,12 @@ public class MultiplayerMenuHelper : MonoBehaviour
     #region Multiplayer Services - Netcode
     public void StartRace()
     {
+        if (RaceManager.RaceData.game != RaceManager.GameType.Multiplayer)
+            return;
+
         if (!isServer)
         {
-            Notification.ShowText("Only Server can start race", 4);
+            Notification.ShowText("Only Server can start race", notificationWaitSeconds);
             return;
         }
 
@@ -382,7 +388,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Notification.ShowText(e.Message, 4);
+            Notification.ShowText(e.Message, notificationWaitSeconds);
         }
     }
 
@@ -397,12 +403,13 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
             if(isOffline)
             {
-                await Task.Delay(100);
+                Notification.ShowText("Finding Game..", 1);
+                await Task.Delay(500);
                 bool isConnected = NetworkManager.Singleton.IsConnectedClient;
                 bool lobbyFull = NetworkRaceManager.playerStats.Count > maxPlayerInLobby;
                 if (!isConnected || lobbyFull)
                 {
-                    Notification.ShowText(lobbyFull ? "Lobby Is Full" : "No Game Found To Join");
+                    Notification.ShowText(lobbyFull ? "Lobby Is Full" : "No Game Found To Join", notificationWaitSeconds);
                     NetworkManager.Singleton.Shutdown();
                     return;
                 }
@@ -412,7 +419,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             SwitchToBoatSelection();
         }
         catch (System.Exception e) {
-            Notification.ShowText(e.Message, 4);
+            Notification.ShowText(e.Message, notificationWaitSeconds);
         }
     }
 
@@ -429,6 +436,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
         NetworkManager.Singleton.Shutdown();
         if(playersPanel.activeSelf)
             menuAnimator.SetTrigger("EndSession");
+
+        skipEvent = true;
     }
         
     public async void PollLobbies()
@@ -492,7 +501,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         catch (LobbyServiceException e)
         {
             Debug.Log(e);
-            Notification.ShowText(e.Message, 4);
+            Notification.ShowText(e.Message, notificationWaitSeconds);
         }
     }
 
@@ -505,7 +514,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         if (string.IsNullOrEmpty(lobbyID))
         {
-            Notification.ShowText("Select Lobby", 6);
+            Notification.ShowText("Select Lobby", notificationWaitSeconds);
             return;
         }
 
@@ -526,7 +535,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         catch (LobbyServiceException e)
         {
             Debug.Log(e);
-            Notification.ShowText(e.Message, 4);
+            Notification.ShowText(e.Message, notificationWaitSeconds);
         }
     }
 
