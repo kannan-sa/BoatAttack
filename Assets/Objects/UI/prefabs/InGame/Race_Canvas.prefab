@@ -1441,7 +1441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -19.9}
+  m_AnchoredPosition: {x: 0, y: 53}
   m_SizeDelta: {x: 0, y: 60}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2921344267221606824
@@ -2160,6 +2160,8 @@ MonoBehaviour:
   delay: 0.5
   control: {fileID: 0}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!1 &7285053047003810506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2253,6 +2255,8 @@ MonoBehaviour:
   delay: 0
   control: {fileID: 5646606039997598901}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!1 &7836571592379715256
 GameObject:
   m_ObjectHideFlags: 0
@@ -3386,7 +3390,7 @@ PrefabInstance:
     - target: {fileID: 1651242306443558259, guid: 4823b5c430af647578af56a5d37f7276,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -67
+      value: 5.8999653
       objectReference: {fileID: 0}
     - target: {fileID: 1651242306443558259, guid: 4823b5c430af647578af56a5d37f7276,
         type: 3}
@@ -3542,7 +3546,7 @@ PrefabInstance:
     - target: {fileID: 1651242306443558259, guid: 4823b5c430af647578af56a5d37f7276,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -415
+      value: -342.10004
       objectReference: {fileID: 0}
     - target: {fileID: 1651242306443558259, guid: 4823b5c430af647578af56a5d37f7276,
         type: 3}
@@ -4289,6 +4293,8 @@ MonoBehaviour:
   delay: 0.5
   control: {fileID: 7119986613743927302}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!1001 &6326951849264989638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4380,7 +4386,7 @@ PrefabInstance:
     - target: {fileID: 1651242306443558259, guid: 4823b5c430af647578af56a5d37f7276,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -244
+      value: -171.10002
       objectReference: {fileID: 0}
     - target: {fileID: 1651242306443558259, guid: 4823b5c430af647578af56a5d37f7276,
         type: 3}
@@ -4521,7 +4527,7 @@ PrefabInstance:
     - target: {fileID: 1651242306443558259, guid: 4823b5c430af647578af56a5d37f7276,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 104
+      value: 176.89998
       objectReference: {fileID: 0}
     - target: {fileID: 1651242306443558259, guid: 4823b5c430af647578af56a5d37f7276,
         type: 3}
@@ -5427,6 +5433,8 @@ MonoBehaviour:
   delay: 0.5
   control: {fileID: 6045541627525748136}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!224 &7333158735167561590 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1705088698142256427, guid: 2e802695a225e48efb842122e2423314,
