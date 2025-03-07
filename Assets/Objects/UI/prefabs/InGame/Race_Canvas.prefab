@@ -1759,7 +1759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5430448869757173062
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2388,6 +2388,8 @@ MonoBehaviour:
   delay: 0.5
   control: {fileID: 0}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!1 &7285053047003810506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2481,6 +2483,8 @@ MonoBehaviour:
   delay: 0
   control: {fileID: 7821594201120237831}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!1 &8180482066495898879
 GameObject:
   m_ObjectHideFlags: 0
@@ -4678,10 +4682,7 @@ PrefabInstance:
     - target: {fileID: 1155670549187173950, guid: 4823b5c430af647578af56a5d37f7276,
         type: 3}
       propertyPath: m_text
-      value: '4
-
-
-'
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1651242306443558259, guid: 4823b5c430af647578af56a5d37f7276,
         type: 3}
@@ -5095,6 +5096,8 @@ MonoBehaviour:
   delay: 0.5
   control: {fileID: 5584700314351014298}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!224 &8908786679466351428 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1705088698142256427, guid: 2e802695a225e48efb842122e2423314,
@@ -5363,6 +5366,8 @@ MonoBehaviour:
   delay: 0.5
   control: {fileID: 5756701750281174666}
   otherControl: {fileID: 0}
+  controls: []
+  skipControlsOnDisable: 1
 --- !u!224 &8773399848928261204 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1705088698142256427, guid: 2e802695a225e48efb842122e2423314,

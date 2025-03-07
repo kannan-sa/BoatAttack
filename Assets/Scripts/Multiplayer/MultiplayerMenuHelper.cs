@@ -17,6 +17,7 @@ using Unity.Services.Lobbies.Models;
 using System.Collections.Concurrent;
 using Unity.Networking.Transport.Relay;
 using System.Collections;
+using UnityEngine.Networking;
 
 public class MultiplayerMenuHelper : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     private string lobbyName;
 
     [Header("Configuration")]
-    public int MaxPlayerInLobby = 4;
+    public int maxPlayerInLobby = 4;
     public bool isOffline = true;
 
     [Header("Panels")]
@@ -46,7 +47,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public NetworkRaceManager networkRaceManager;
 
     public GameObject endSessionButton, leaveSessionButton;
-    public Button createGameButton, joinGameButton, startGameButton;
+    public Button createGameButton, joinGameButton, startGameButton, onlineModeButton;
 
     public LobbyView[] lobbies;
     public PlayerView[] players;
@@ -98,8 +99,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
     {
         //isOffline = Application.internetReachability == NetworkReachability.NotReachable;
 
-        
-
         Debug.Log($"is Offline {isOffline}");
         Instance = this;
         selectLobby.AddListener(OnSelectLobby);
@@ -122,6 +121,15 @@ public class MultiplayerMenuHelper : MonoBehaviour
     {
         InitializeLobbies(new List<Lobby>());
         InitializePlayers(new List<Player>());
+
+        float webTime = Time.time;
+        StartCoroutine(CheckInternetConnection((isConnected) => {
+            Debug.Log($"\n 2. WebRequest Method - Internet Available: {isConnected} in {Time.time - webTime} Secs.");
+            onlineModeButton.interactable = isConnected;
+        }));
+
+        NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
+
 
         int deviceIndex = int.Parse(Application.productName[Application.productName.Length - 1].ToString());
 
@@ -151,7 +159,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     private void InitializeLobbies(List<Lobby> results)
     {
-        var joinableLobbies = results.Where(l => l.Players.Count < MaxPlayerInLobby).ToList();
+        var joinableLobbies = results.Where(l => l.Players.Count < maxPlayerInLobby).ToList();
 
         for (int i = 0; i < lobbies.Length; i++)
         {
@@ -217,6 +225,27 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         return canResume;
     }
+
+    private string testUrl = "https://clients3.google.com/generate_204"; // Lightweight request
+    IEnumerator CheckInternetConnection(System.Action<bool> callback)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(testUrl))
+        {
+            request.timeout = 5;
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+                callback(false);
+            else
+                callback(true);
+        }
+    }
+
+    public void Clear()
+    {
+        NetworkManager.Singleton.OnConnectionEvent -= OnConnectionEvent;
+    }
+
     #endregion
 
     #region Process - Transition
@@ -226,6 +255,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         canPollLobbies = false;
         endSessionButton.SetActive(isServer);
         leaveSessionButton.SetActive(!isServer);
+        startGameButton.interactable = isServer;
     }
     #endregion
 
@@ -297,6 +327,28 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (buttonToSelect != null)
             EventSystem.current.SetSelectedGameObject(buttonToSelect);
     }
+
+    private void OnConnectionEvent(NetworkManager manager, ConnectionEventData data)
+    {
+        Debug.Log("OnConnectionEvent," + " " + manager.name + " " + data.EventType);
+        if (isServer)
+            return;
+
+        switch(data.EventType)
+        {
+            case ConnectionEvent.ClientDisconnected:
+                if (playersPanel.activeSelf)
+                    menuAnimator.SetTrigger("EndSession");
+                else if (boatPanel.activeSelf)
+                    menuAnimator.SetTrigger("Back");
+                break;
+        }
+    }
+
+    public void SetMultiplayerMode(bool mode)
+    {
+        isOffline = mode;
+    }
 #endregion
 
     #region Multiplayer Services - Netcode
@@ -343,11 +395,12 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
             if(isOffline)
             {
-                await Task.Delay(1000);
-                bool noPlayer = NetworkRaceManager.playerStats.Count == 0;
-                if (noPlayer)
+                await Task.Delay(100);
+                bool isConnected = NetworkManager.Singleton.IsConnectedClient;
+                bool lobbyFull = NetworkRaceManager.playerStats.Count > maxPlayerInLobby;
+                if (!isConnected || lobbyFull)
                 {
-                    Notification.ShowText("No Game Found");
+                    Notification.ShowText(lobbyFull ? "Lobby Is Full" : "No Game Found To Join");
                     NetworkManager.Singleton.Shutdown();
                     return;
                 }
@@ -355,32 +408,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
             isServer = false;
             SwitchToBoatSelection();
-            startGameButton.interactable = false;
-            StartCoroutine(ExitCheckRoutine());
         }
         catch (System.Exception e) {
             Notification.ShowText(e.Message, 4);
-        }
-    }
-
-    private IEnumerator ExitCheckRoutine()
-    {
-        while(enabled)
-        {
-            bool noPlayers = NetworkRaceManager.playerStats.Count == 0;
-            if (noPlayers)
-            {
-                yield return new WaitForSeconds(.5f);
-                if (playersPanel.activeSelf)
-                    menuAnimator.SetTrigger("EndSession");
-
-                else if (boatPanel.activeSelf)
-                    menuAnimator.SetTrigger("Back");
-
-                NetworkManager.Singleton.Shutdown();
-                yield break;
-            }
-            yield return new WaitForSeconds(.5f);
         }
     }
 
@@ -394,9 +424,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             isServer = false;
         }
 
-        StopCoroutine(ExitCheckRoutine());
         NetworkManager.Singleton.Shutdown();
-
         if(playersPanel.activeSelf)
             menuAnimator.SetTrigger("EndSession");
     }
@@ -421,7 +449,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         int index = PlayerStatus.index;
         NetworkRaceManager.playerStats[index].status.Value = true;
-        startGameButton.interactable = NetworkRaceManager.playerStats.All(p => p.status.Value);
+        if(isServer)
+            startGameButton.interactable = NetworkRaceManager.playerStats.All(p => p.status.Value);
     }
     #endregion
 
@@ -446,7 +475,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             };
             options.IsPrivate = false;
 
-            currentLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, 4, options);
+            currentLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayerInLobby, options);
             lobbyID = currentLobby.Id;
 #if DEBUG_ENABLED
             Debug.Log("Lobby created " + lobby.Name);
@@ -556,8 +585,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     private async void HeartbeatLobbyCoroutine(string lobbyId, int waitTimeSeconds)
     {
-        var delay = new WaitForSecondsRealtime(waitTimeSeconds);
-
         while (keepLobby)
         {
             await LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
