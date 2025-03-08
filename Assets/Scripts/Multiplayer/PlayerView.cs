@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerView : MonoBehaviour, IView<Player>
 {
@@ -11,6 +12,9 @@ public class PlayerView : MonoBehaviour, IView<Player>
     private TextMeshProUGUI playerStatus;
     [SerializeField]
     private TextMeshProUGUI boatType;
+
+    public GameObject editBoatButton;
+
     public Action KickPlayer;
 
     [SerializeField]
@@ -31,6 +35,7 @@ public class PlayerView : MonoBehaviour, IView<Player>
         playerName.text = player.boatName.Value.ToString();
         playerStatus.text = player.status.Value ? "Ready" : "Not Ready";
         boatType.text = player.boatType.Value == 0 ? "Interceptor" : "Renegade";
+        editBoatButton.SetActive(player.IsOwner);
         //playerID = player.Id;
         //KickOption.SetActive(playerDetails.IsHost);
     }
