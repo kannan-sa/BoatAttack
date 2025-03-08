@@ -28,6 +28,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     [Header("Configuration")]
     public int maxPlayerInLobby = 4;
     public int notificationWaitSeconds = 2;
+    public int joinGameWaitMilliseconds = 500;
     public bool isOffline = true;
 
     [Header("Panels")]
@@ -41,6 +42,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public StringEvent setPlayerName;
     public IntegerEvent setBoatType;
     public GameEvent playerStatUpdate;
+    public GameEvent editBoat;
+
     [Header("Controls")]
     public Animator menuAnimator;
     public NetworkManager networkManager;
@@ -105,6 +108,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         selectLobby.AddListener(OnSelectLobby);
         kickPlayer.AddListener(OnKickPlayer);
         playerStatUpdate.AddListener(OnPlayerStatsUpdate);
+        editBoat.AddListener(ResetStatus);
         // boat stuff
         boatHullSelector.updateVal += setBoatType.Invoke;
         NetworkRaceManager.OnPlayerStatsUpdate += OnPlayerStatsUpdate;
@@ -115,6 +119,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
         selectLobby.RemoveListener(OnSelectLobby);
         kickPlayer.RemoveListener(OnKickPlayer);
         playerStatUpdate.RemoveListener(OnPlayerStatsUpdate);
+        editBoat.RemoveListener(ResetStatus);
+
         NetworkRaceManager.OnPlayerStatsUpdate -= OnPlayerStatsUpdate;
         canPollLobbies = false;
     }
@@ -158,18 +164,24 @@ public class MultiplayerMenuHelper : MonoBehaviour
     private void InitializeLobbies(List<Lobby> results)
     {
         var joinableLobbies = results.Where(l => l.Players.Count < maxPlayerInLobby).ToList();
-
-        for (int i = 0; i < lobbies.Length; i++)
+        try
         {
-            if (i < joinableLobbies.Count)
+            for (int i = 0; i < lobbies.Length; i++)
             {
-                lobbies[i].gameObject.SetActive(true);
-                lobbies[i].Initialize(joinableLobbies[i]);
+                if (i < joinableLobbies.Count)
+                {
+                    lobbies[i].gameObject.SetActive(true);
+                    lobbies[i].Initialize(joinableLobbies[i]);
+                }
+                else
+                {
+                    lobbies[i].gameObject.SetActive(false);
+                }
             }
-            else
-            {
-                lobbies[i].gameObject.SetActive(false);
-            }
+        }
+        catch
+        {
+            //Nothing..
         }
     }
 
@@ -333,15 +345,18 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (boatPanel == null)
             return;
 
-        if (skipEvent)
-        {
-            skipEvent = false;
-            return;
-        }
+        
 
         switch(data.EventType)
         {
             case ConnectionEvent.ClientDisconnected:
+
+                if (skipEvent)
+                {
+                    skipEvent = false;
+                    break;
+                }
+
                 if (playersPanel.activeSelf)
                     menuAnimator.SetTrigger("EndSession");
                 else if (boatPanel.activeSelf)
@@ -404,7 +419,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             if(isOffline)
             {
                 Notification.ShowText("Finding Game..", 1);
-                await Task.Delay(500);
+                await Task.Delay(joinGameWaitMilliseconds);
                 bool isConnected = NetworkManager.Singleton.IsConnectedClient;
                 bool lobbyFull = NetworkRaceManager.playerStats.Count > maxPlayerInLobby;
                 if (!isConnected || lobbyFull)
@@ -463,6 +478,15 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if(isServer)
             startGameButton.interactable = NetworkRaceManager.playerStats.All(p => p.status.Value);
     }
+
+    public void ResetStatus()
+    {
+        int index = PlayerStatus.index;
+        NetworkRaceManager.playerStats[index].status.Value = false;
+
+        menuAnimator.SetTrigger("Back");
+    }
+
     #endregion
 
     #region Multiplayer Services - Lobby 
