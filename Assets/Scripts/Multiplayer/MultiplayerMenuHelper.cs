@@ -18,6 +18,12 @@ using Unity.Services.Lobbies.Models;
 using System.Collections.Concurrent;
 using Unity.Networking.Transport.Relay;
 
+public class CustomCertificateHandler : CertificateHandler {
+    protected override bool ValidateCertificate(byte[] certificateData) {
+        return true; // Accept all certificates (INSECURE)
+    }
+}
+
 public class MultiplayerMenuHelper : MonoBehaviour
 {
     [SerializeField]
@@ -63,7 +69,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     private Lobby currentLobby;
     private string lobbyID;
     public static MultiplayerMenuHelper Instance;
-    private bool isServer, canPollLobbies, keepLobby = true;
+    private bool canPollLobbies, keepLobby = true;
     private ConcurrentQueue<string> createdLobbyIds = new ConcurrentQueue<string>();
     
     public string PlayerName { get => playerName; 
@@ -76,7 +82,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public string LobbyName { get => lobbyName; set { lobbyName = value; } }
 
     private bool skipEvent;
+
     public static bool alreadySigned = false;
+    private static bool isServer = false;
     private static NetworkManager nManager = null;
     private static NetworkRaceManager nRaceManager = null;
 
@@ -230,6 +238,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
         startGameButton.interactable = isServer;
         endSessionButton.SetActive(isServer);
         leaveSessionButton.SetActive(!isServer);
+        InitializePlayers(NetworkRaceManager.playerStats);
+
         if (isServer)
             EventSystem.current.SetSelectedGameObject(startGameButton.gameObject);
 
@@ -242,6 +252,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequest.Get(testUrl))
         {
+            request.certificateHandler = new CustomCertificateHandler();
             request.timeout = 5;
             var operation = request.SendWebRequest();
 
@@ -368,6 +379,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public void SetMultiplayerMode(bool mode)
     {
         isOffline = mode;
+
+        if (isOffline)
+            InitializeLobbies(new List<Lobby>());
     }
 #endregion
 
