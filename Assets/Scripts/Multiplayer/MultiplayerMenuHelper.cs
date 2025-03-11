@@ -357,7 +357,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
             return;
 
         
-
         switch(data.EventType)
         {
             case ConnectionEvent.ClientDisconnected:
@@ -367,6 +366,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
                     skipEvent = false;
                     break;
                 }
+
+                InitializeLobbies(new List<Lobby>());//on other projects also
 
                 if (playersPanel.activeSelf)
                     menuAnimator.SetTrigger("EndSession");
@@ -454,8 +455,11 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     public void EndSession()
     {
+        
         if (RaceManager.RaceData.game != RaceManager.GameType.Multiplayer)
             return;
+
+        InitializeLobbies(new List<Lobby>());
 
         if(isServer) {
             keepLobby = false;
@@ -504,7 +508,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     #endregion
 
     #region Multiplayer Services - Lobby 
-    public async void CreateLobby()
+    public async void CreateLobby()//this creates lobbies like game 16, game 30 etc
     {
         if (isOffline) {
             CreateGame();
@@ -523,6 +527,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
                 }
             };
             options.IsPrivate = false;
+
+            lobbyName = "Game " + ((deviceIndex * 10) + Random.Range(0, 10));
 
             currentLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayerInLobby, options);
             lobbyID = currentLobby.Id;
