@@ -5770,6 +5770,16 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 2179087277760628487}
+    - target: {fileID: 3566701962967900120, guid: 6312e4271f86843a59d483d5e26cbe7f,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 7814493712638288705}
+    - target: {fileID: 3566701962967900120, guid: 6312e4271f86843a59d483d5e26cbe7f,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 7814493712638288705}
     - target: {fileID: 4310061526176766886, guid: 6312e4271f86843a59d483d5e26cbe7f,
         type: 3}
       propertyPath: m_Pivot.x
