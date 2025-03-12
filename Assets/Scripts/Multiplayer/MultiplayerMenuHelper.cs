@@ -507,12 +507,19 @@ public class MultiplayerMenuHelper : MonoBehaviour
     #region Multiplayer Services - Lobby 
     public async void CreateLobby()
     {
-        isOffline = !await CheckInternetConnection();   //it may cause more delay in creating lobby...
         if (isOffline) {
             CreateGame();
             return;
         }
-
+else
+{
+bool online = await CheckInternetConnection();   //it may cause more delay in creating lobby...
+if(!online)
+{
+Notification.ShowText("Internet Not Available", notificationWaitSeconds);
+return;
+}
+}
         try
         {
             CreateLobbyOptions options = new CreateLobbyOptions()
@@ -549,12 +556,18 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     public async void JoinLobby()
     {
-        isOffline = !await CheckInternetConnection();   //it may cause more delay in creating lobby...
-
         if (isOffline) {
             JoinGame();
             return;
-        }
+        }else
+{
+bool online = await CheckInternetConnection();   //it may cause more delay in creating lobby...
+if(!online)
+{
+Notification.ShowText("Internet Not Available", notificationWaitSeconds);
+return;
+}
+}
 
         if (string.IsNullOrEmpty(lobbyID))
         {
