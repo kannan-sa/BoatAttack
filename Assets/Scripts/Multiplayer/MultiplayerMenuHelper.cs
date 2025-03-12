@@ -158,12 +158,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
             await SignInAnonymouslyAsync();
     }
 
-    void OnApplicationQuit()
-    {
-        while (createdLobbyIds.TryDequeue(out var lobbyId))
-        {
-            LobbyService.Instance.DeleteLobbyAsync(lobbyId);
-        }
+    void OnApplicationQuit() {
+        DeleteAllLobbies();
     }
     #endregion
 
@@ -464,6 +460,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if(isServer) {
             keepLobby = false;
             isServer = false;
+            DeleteAllLobbies();
         }
 
         NetworkManager.Singleton.Shutdown();
@@ -510,6 +507,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     #region Multiplayer Services - Lobby 
     public async void CreateLobby()
     {
+        isOffline = !await CheckInternetConnection();   //it may cause more delay in creating lobby...
         if (isOffline) {
             CreateGame();
             return;
@@ -551,6 +549,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     public async void JoinLobby()
     {
+        isOffline = !await CheckInternetConnection();   //it may cause more delay in creating lobby...
+
         if (isOffline) {
             JoinGame();
             return;
@@ -644,6 +644,12 @@ public class MultiplayerMenuHelper : MonoBehaviour
         {
             await LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
             await Task.Delay(1000 * waitTimeSeconds);
+        }
+    }
+
+    private void DeleteAllLobbies() {
+        while (createdLobbyIds.TryDequeue(out var lobbyId)) {
+            LobbyService.Instance.DeleteLobbyAsync(lobbyId);
         }
     }
     #endregion
