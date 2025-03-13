@@ -12065,13 +12065,33 @@ PrefabInstance:
     - target: {fileID: 4707068379526570284, guid: 2502a494a72ab364a903875476f3a458,
         type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 2502a494a72ab364a903875476f3a458,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 1860459124708255734}
     - target: {fileID: 4707068379526570284, guid: 2502a494a72ab364a903875476f3a458,
         type: 3}
       propertyPath: m_Navigation.m_WrapAround
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 2502a494a72ab364a903875476f3a458,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 1860459124708255734}
+    - target: {fileID: 4707068379526570284, guid: 2502a494a72ab364a903875476f3a458,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 1860459124708255734}
+    - target: {fileID: 4707068379526570284, guid: 2502a494a72ab364a903875476f3a458,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 1860459124708255734}
     - target: {fileID: 4707068379526570284, guid: 2502a494a72ab364a903875476f3a458,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -12092,6 +12112,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2502a494a72ab364a903875476f3a458, type: 3}
+--- !u!114 &1860459124708255734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4707068379526570284, guid: 2502a494a72ab364a903875476f3a458,
+    type: 3}
+  m_PrefabInstance: {fileID: 6378065157858854618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8736669376298179793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5700549504411637263 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1702109857525862613, guid: 2502a494a72ab364a903875476f3a458,
@@ -12903,13 +12935,33 @@ PrefabInstance:
     - target: {fileID: 4707068379526570284, guid: 531e2fd49c1284242aa43b2770737700,
         type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 531e2fd49c1284242aa43b2770737700,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 3222963022284414075}
     - target: {fileID: 4707068379526570284, guid: 531e2fd49c1284242aa43b2770737700,
         type: 3}
       propertyPath: m_Navigation.m_WrapAround
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 531e2fd49c1284242aa43b2770737700,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 3222963022284414075}
+    - target: {fileID: 4707068379526570284, guid: 531e2fd49c1284242aa43b2770737700,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 3222963022284414075}
+    - target: {fileID: 4707068379526570284, guid: 531e2fd49c1284242aa43b2770737700,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 3222963022284414075}
     - target: {fileID: 4707068379526570284, guid: 531e2fd49c1284242aa43b2770737700,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -13110,13 +13162,33 @@ PrefabInstance:
     - target: {fileID: 4707068379526570284, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
         type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 2806847100990200112}
     - target: {fileID: 4707068379526570284, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
         type: 3}
       propertyPath: m_Navigation.m_WrapAround
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 2806847100990200112}
+    - target: {fileID: 4707068379526570284, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 2806847100990200112}
+    - target: {fileID: 4707068379526570284, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 2806847100990200112}
     - target: {fileID: 4707068379526570284, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -13137,6 +13209,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 090065c98bcabb04ca6cda3ca6bc2b41, type: 3}
+--- !u!114 &3222963022284414075 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4707068379526570284, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
+    type: 3}
+  m_PrefabInstance: {fileID: 7919753712470130007}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500316812655241052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5500316812655241052 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2431260958005418507, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
