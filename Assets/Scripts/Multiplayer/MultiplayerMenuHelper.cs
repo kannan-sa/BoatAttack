@@ -17,9 +17,12 @@ using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using System.Collections.Concurrent;
 using Unity.Networking.Transport.Relay;
+using System;
 
-public class CustomCertificateHandler : CertificateHandler {
-    protected override bool ValidateCertificate(byte[] certificateData) {
+public class CustomCertificateHandler : CertificateHandler
+{
+    protected override bool ValidateCertificate(byte[] certificateData)
+    {
         return true; // Accept all certificates (INSECURE)
     }
 }
@@ -71,13 +74,15 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public static MultiplayerMenuHelper Instance;
     private bool canPollLobbies, keepLobby = true;
     private ConcurrentQueue<string> createdLobbyIds = new ConcurrentQueue<string>();
-    
-    public string PlayerName { get => playerName; 
-        set 
-        { 
+
+    public string PlayerName
+    {
+        get => playerName;
+        set
+        {
             playerName = value;
             setPlayerName.Invoke(value);
-        } 
+        }
     }
     public string LobbyName { get => lobbyName; set { lobbyName = value; } }
 
@@ -89,19 +94,24 @@ public class MultiplayerMenuHelper : MonoBehaviour
     private static NetworkRaceManager nRaceManager = null;
 
     #region Unity - Events
-    private void Awake() {
-        if (nManager == null) {
+    private void Awake()
+    {
+        if (nManager == null)
+        {
             nManager = networkManager;
         }
-        else {
+        else
+        {
             Destroy(networkManager.gameObject);
             networkManager = nManager;
         }
 
-        if (nRaceManager == null) {
+        if (nRaceManager == null)
+        {
             nRaceManager = networkRaceManager;
         }
-        else {
+        else
+        {
             Destroy(networkRaceManager.gameObject);
             networkRaceManager = nRaceManager;
         }
@@ -143,10 +153,10 @@ public class MultiplayerMenuHelper : MonoBehaviour
         isOffline = !await CheckInternetConnection();
         onlineModeButton.interactable = !isOffline;
         NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
-        
+
         deviceIndex = int.Parse(Application.productName[Application.productName.Length - 1].ToString());
         playerName = "Player " + deviceIndex;
-        lobbyName = "Game " + ((deviceIndex * 10) + Random.Range(0, 10));
+        lobbyName = "Game " + ((deviceIndex * 10) + UnityEngine.Random.Range(0, 10));
 
         if (TryResumeGameSession())
             return;
@@ -158,7 +168,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
             await SignInAnonymouslyAsync();
     }
 
-    void OnApplicationQuit() {
+    void OnApplicationQuit()
+    {
         DeleteAllLobbies();
     }
     #endregion
@@ -336,6 +347,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
         else
             buttonToSelect = leaveSessionButton;
 
+        if (!playersPanel.activeSelf) // for point 1
+            return;
+
         if (buttonToSelect != null)
             EventSystem.current.SetSelectedGameObject(buttonToSelect);
     }
@@ -346,14 +360,14 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (isServer)
             return;
 
-        if(playersPanel == null)
+        if (playersPanel == null)
             return;
 
         if (boatPanel == null)
             return;
 
-        
-        switch(data.EventType)
+
+        switch (data.EventType)
         {
             case ConnectionEvent.ClientDisconnected:
 
@@ -380,7 +394,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (isOffline)
             InitializeLobbies(new List<Lobby>());
     }
-#endregion
+    #endregion
 
     #region Multiplayer Services - Netcode
     public void StartRace()
@@ -427,7 +441,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
             NetworkManager.Singleton.StartClient();
 
-            if(isOffline)
+            if (isOffline)
             {
                 Notification.ShowText("Finding Game..", 1);
                 await Task.Delay(joinGameWaitMilliseconds);
@@ -444,32 +458,42 @@ public class MultiplayerMenuHelper : MonoBehaviour
             isServer = false;
             SwitchToBoatSelection();
         }
-        catch (System.Exception e) {
+        catch (System.Exception e)
+        {
             Notification.ShowText(e.Message, notificationWaitSeconds);
         }
     }
 
     public void EndSession()
     {
-        
+
         if (RaceManager.RaceData.game != RaceManager.GameType.Multiplayer)
             return;
 
-        InitializeLobbies(new List<Lobby>());
+        //InitializeLobbies(new List<Lobby>());
 
-        if(isServer) {
+        if (isServer)
+        {
             keepLobby = false;
             isServer = false;
             DeleteAllLobbies();
         }
+        else // fix for bug : When one player leaves the Online multiplayer game lobby and try to join again it shows Player already member of the lobby
+        {
+            if (!isOffline && !string.IsNullOrEmpty(lobbyID))
+            {
+                Lobbies.Instance.RemovePlayerAsync(lobbyID, AuthenticationService.Instance.PlayerId);
+            }
+
+        }
 
         NetworkManager.Singleton.Shutdown();
-        if(playersPanel.activeSelf)
+        if (playersPanel.activeSelf)
             menuAnimator.SetTrigger("EndSession");
 
         skipEvent = true;
     }
-        
+
     public async void PollLobbies()
     {
         if (isOffline)
@@ -484,13 +508,14 @@ public class MultiplayerMenuHelper : MonoBehaviour
         }
     }
 
-    public void SetStatus() {
+    public void SetStatus()
+    {
         if (RaceManager.RaceData.game != RaceManager.GameType.Multiplayer)
             return;
 
         int index = PlayerStatus.index;
         NetworkRaceManager.playerStats[index].status.Value = true;
-        if(isServer)
+        if (isServer)
             startGameButton.interactable = NetworkRaceManager.playerStats.All(p => p.status.Value);
     }
 
@@ -507,19 +532,24 @@ public class MultiplayerMenuHelper : MonoBehaviour
     #region Multiplayer Services - Lobby 
     public async void CreateLobby()
     {
-        if (isOffline) {
+        if (isOffline)
+        {
             CreateGame();
             return;
         }
-else
-{
-bool online = CheckInternetConnection();   //it may cause more delay in creating lobby...
-if(!online)
-{
-Notification.ShowText("Internet Not Available", notificationWaitSeconds);
-return;
-}
-}
+        else
+        {
+
+            bool online = await CheckInternetConnection();   //it may cause more delay in creating lobby...
+
+            if (!online)
+            {
+                Notification.ShowText("No Internet", notificationWaitSeconds);
+                return;
+            }
+        }
+
+
 
         try
         {
@@ -534,7 +564,7 @@ return;
             };
             options.IsPrivate = false;
 
-            lobbyName = "Game " + ((deviceIndex * 10) + Random.Range(0, 10));
+            lobbyName = "Game " + ((deviceIndex * 10) + UnityEngine.Random.Range(0, 10));
 
             currentLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayerInLobby, options);
             lobbyID = currentLobby.Id;
@@ -557,19 +587,25 @@ return;
 
     public async void JoinLobby()
     {
-        if (isOffline) {
+
+        if (isOffline)
+        {
             JoinGame();
             return;
         }
-else
-{
-bool online = CheckInternetConnection();   //it may cause more delay in creating lobby...
-if(!online)
-{
-Notification.ShowText("Internet Not Available", notificationWaitSeconds);
-return;
-}
-}
+        else
+        {
+
+            bool online = await CheckInternetConnection();   //it may cause more delay in creating lobby...
+
+            if (!online)
+            {
+                Notification.ShowText("No Internet", notificationWaitSeconds);
+                return;
+            }
+
+        }
+
         if (string.IsNullOrEmpty(lobbyID))
         {
             Notification.ShowText("Select Lobby", notificationWaitSeconds);
@@ -661,8 +697,10 @@ return;
         }
     }
 
-    private void DeleteAllLobbies() {
-        while (createdLobbyIds.TryDequeue(out var lobbyId)) {
+    private void DeleteAllLobbies()
+    {
+        while (createdLobbyIds.TryDequeue(out var lobbyId))
+        {
             LobbyService.Instance.DeleteLobbyAsync(lobbyId);
         }
     }
