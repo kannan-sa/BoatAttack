@@ -164,6 +164,15 @@ public class NetworkRaceManager : NetworkBehaviour
                     loadingScreenObject.SetActive(true);
 
                 break;
+
+            case SceneEventType.Unload:
+                if(isMenu) {
+                    MultiplayerMenuHelper multiplayerMenuHelper = FindObjectOfType<MultiplayerMenuHelper>();
+                    if(multiplayerMenuHelper)
+                        multiplayerMenuHelper.Clear();
+                }
+                break;
+
             case SceneEventType.LoadEventCompleted:
                 //Hide loading..
                 if (isLevel || isMenu)

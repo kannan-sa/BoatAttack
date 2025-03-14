@@ -89,20 +89,19 @@ namespace BoatAttack
                 case GameType.LocalMultiplayer:
                     break;
                 case GameType.Multiplayer:
-                    var racemUi = RaceData.boats[player].Boat.RaceUi;
-                    if (racemUi)
-                    {
-                        racemUi.MatchEnd();
-                        /*
-                        foreach (var boat in RaceData.boats)
-                        {
-                            var racemUi =boat.Boat.RaceUi;
-                            if(racemUi)
-                                racemUi.MatchEnd();
-                        }*/
-                        ReplayCamera.Instance.EnableSpectatorMode();
-                        RaceData.boats[player].Boat.MatchComplete = true;
-                    }
+
+                    PlayerStatus playerStatus = NetworkRaceManager.playerStats.FirstOrDefault(p => p.selfIndex == player);
+
+                    if (!playerStatus)
+                        break;
+
+                    var racemUi = playerStatus.boat.Boat.RaceUi;
+                    if (!racemUi)
+                        break;
+
+                    racemUi.MatchEnd();
+                    ReplayCamera.Instance.EnableSpectatorMode();
+                    playerStatus.boat.Boat.MatchComplete = true;
                     break;
                 case GameType.Spectator:
                     break;
@@ -236,7 +235,8 @@ namespace BoatAttack
 
             if(RaceData.game == GameType.Multiplayer)
             {
-                NetworkRaceManager.playerStats[PlayerStatus.index].beginRace.Value = true;
+                //NetworkRaceManager.playerStats[PlayerStatus.index].beginRace.Value = true;
+                PlayerStatus.current.beginRace.Value = true;
                 Sequence.ShowWaiting();
                 while (NetworkRaceManager.playerStats.Any(p => !p.beginRace.Value))
                     yield return new WaitForSeconds(.25f);
