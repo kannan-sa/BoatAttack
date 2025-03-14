@@ -210,10 +210,6 @@ namespace BoatAttack
             if (WaypointGroup.Instance)
             {
                 var resetMatrix = WaypointGroup.Instance.GetClosestPointOnWaypoint(transform.position);
-
-                if (Keyboard.current.shiftKey.isPressed)
-                    resetMatrix = WaypointGroup.Instance.StartingPositions[_playerIndex];
-
                 var resetPoint = resetMatrix.GetColumn(3);
                 resetPoint.y = _spawnPosition.GetColumn(3).y;
 #if UNITY_6000_0_OR_NEWER

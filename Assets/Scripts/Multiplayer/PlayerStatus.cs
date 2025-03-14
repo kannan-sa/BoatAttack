@@ -26,7 +26,10 @@ public class PlayerStatus : NetworkBehaviour
 
     public int selfIndex;
 
-    private BoatData boat;
+    public BoatData boat;
+
+    public static BoatData playerBoat;
+    public static PlayerStatus current;
 
     public override void OnNetworkSpawn()
     {
@@ -51,8 +54,10 @@ public class PlayerStatus : NetworkBehaviour
         NetworkRaceManager.Add(this);
         if (IsOwner)
         {
+            playerBoat = boat;
+            current = this;
             index = RaceManager.RaceData.boats.IndexOf(boat);
-            boatName.Value = MultiplayerMenuHelper.Instance.PlayerName;
+            boatName.Value = MultiplayerMenuHelper.playerName;
             onSetPlayerName.AddListener(OnSetPlayerName);
             onSelectBoatType.AddListener(OnSelectBoatType);
             onSelectPrimaryColor.AddListener(OnSelectPrimaryColor);
