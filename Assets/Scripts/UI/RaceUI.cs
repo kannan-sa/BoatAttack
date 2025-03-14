@@ -190,10 +190,12 @@ namespace BoatAttack.UI
 
         public void MatchEnd()
         {
-            int index = RaceData.game == GameType.Singleplayer ? 0 : PlayerStatus.index;
-            int playerPlace = RaceData.boats[index].Boat.Place - 1;
-            Debug.Log("Player Index " + index);
-            Debug.Log($"player position {RaceData.boats[index].Boat.Place}");
+            BoatData playerBoat = RaceData.game == GameType.Singleplayer ? RaceData.boats[0] : PlayerStatus.playerBoat;
+
+            //int index = RaceData.game == GameType.Singleplayer ? 0 : PlayerStatus.index;
+            int playerPlace = playerBoat.Boat.Place - 1;
+            //Debug.Log("Player Index " + index);
+            //Debug.Log($"player position {RaceData.boats[index].Boat.Place}");
 
             bool canShowVictory = playerPlace < victoryDetails.Length;
             victoryPanel.SetActive(canShowVictory);
@@ -213,7 +215,8 @@ namespace BoatAttack.UI
 
             if (RaceData.game == GameType.Multiplayer)
             {
-                NetworkRaceManager.playerStats[PlayerStatus.index].finished.Value = true;
+                //NetworkRaceManager.playerStats[PlayerStatus.index].finished.Value = true;
+                PlayerStatus.current.finished.Value = true;
                 yield return new WaitWhile(() => NetworkRaceManager.playerStats.Any(p => !p.finished.Value));
 
                 finishButton.SetActive(false);

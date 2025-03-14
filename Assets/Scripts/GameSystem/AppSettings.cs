@@ -197,8 +197,7 @@ namespace BoatAttack
             }
         }
 
-        private static IEnumerator LoadSceneInternal(string scenePath)
-        {
+        private static IEnumerator LoadSceneInternal(string scenePath) {
             var loadingScreenLoading = Instance.loadingScreen.InstantiateAsync();
             yield return loadingScreenLoading;
             Instance.loadingScreenObject = loadingScreenLoading.Result;
@@ -207,48 +206,53 @@ namespace BoatAttack
             DontDestroyOnLoad(Instance.loadingScreenObject);
 
             var buildIndex = SceneUtility.GetBuildIndexByScenePath(scenePath);
-            #if DEBUG_ENABLED
-                Debug.Log($"loading scene {scenePath} at build index {buildIndex}");
-            #endif
+#if DEBUG_ENABLED
+    Debug.Log($"loading scene {scenePath} at build index {buildIndex}");
+#endif
 
-            // get current scene and set a loading scene as active
+            // Get current scene
             var currentScene = SceneManager.GetActiveScene();
-            var loadingScene = SceneManager.CreateScene("Loading");
+
+            // Check if "Loading" scene already exists
+            Scene loadingScene = SceneManager.GetSceneByName("Loading");
+            if (!loadingScene.IsValid()) {
+                // Create a new loading scene if it doesn't exist
+                loadingScene = SceneManager.CreateScene("Loading");
+            }
             SceneManager.SetActiveScene(loadingScene);
 
-            // unload last scene
-            var unload = SceneManager.UnloadSceneAsync(currentScene, UnloadSceneOptions.None);
-            while (!unload.isDone)
-            {
-                Instance.loadingScreenObject.SendMessage("SetLoad", unload.progress * 0.5f);
-                yield return null;
+            // Unload previous scene if it's not the loading scene
+            if (currentScene.name != "Loading") {
+                var unload = SceneManager.UnloadSceneAsync(currentScene);
+                while (unload != null && !unload.isDone) {
+                    Instance.loadingScreenObject.SendMessage("SetLoad", unload.progress * 0.5f);
+                    yield return null;
+                }
             }
 
-            // clean up
+            // Clean up unused assets
             var clean = Resources.UnloadUnusedAssets();
             while (!clean.isDone) { yield return null; }
 
-            // load new scene
-            var load = new AsyncOperation();
+            // Load new scene
+            AsyncOperation load;
 #if UNITY_EDITOR
-            if (buildIndex == -1)
-            {
-                load = EditorSceneManager.LoadSceneAsyncInPlayMode(scenePath,
-                    new LoadSceneParameters(LoadSceneMode.Single));
+            if (buildIndex == -1) {
+                load = EditorSceneManager.LoadSceneAsyncInPlayMode(scenePath, new LoadSceneParameters(LoadSceneMode.Single));
             }
-            else
-            {
+            else {
                 load = SceneManager.LoadSceneAsync(buildIndex);
             }
 #else
-            load = SceneManager.LoadSceneAsync(scenePath);
+    load = SceneManager.LoadSceneAsync(scenePath);
 #endif
-            while (!load.isDone)
-            {
+
+            while (!load.isDone) {
                 Instance.loadingScreenObject.SendMessage("SetLoad", load.progress * 0.5f + 0.5f);
                 yield return null;
             }
         }
+
 
         private static IEnumerator LoadPrefab<T>(AssetReference assetRef, AsyncOperationHandle assetLoading, Transform parent = null)
         {

@@ -67,7 +67,7 @@ namespace BoatAttack.UI
             SetLaps(lapSelector.CurrentOption);
             SetReverse(reverseSelector.CurrentOption);
             // boat stuff
-            SetSinglePlayerName(MultiplayerMenuHelper.Instance.PlayerName);
+            SetSinglePlayerName(MultiplayerMenuHelper.playerName);
             UpdateBoat(playerIndex);
             UpdateBoatColor(boatPrimaryColorSelector.value, true);
             UpdateBoatColor(boatTrimColorSelector.value, false);

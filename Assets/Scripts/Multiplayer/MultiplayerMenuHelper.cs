@@ -29,10 +29,8 @@ public class CustomCertificateHandler : CertificateHandler
 
 public class MultiplayerMenuHelper : MonoBehaviour
 {
-    [SerializeField]
-    private string playerName;
-    [SerializeField]
-    private string lobbyName;
+    public static string playerName;
+    public static string lobbyName;
 
     [Header("Configuration")]
     public int maxPlayerInLobby = 4;
@@ -74,20 +72,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public static MultiplayerMenuHelper Instance;
     private bool canPollLobbies, keepLobby = true;
     private ConcurrentQueue<string> createdLobbyIds = new ConcurrentQueue<string>();
-
-    public string PlayerName
-    {
-        get => playerName;
-        set
-        {
-            playerName = value;
-            setPlayerName.Invoke(value);
-        }
-    }
-    public string LobbyName { get => lobbyName; set { lobbyName = value; } }
-
+    
     private bool skipEvent;
-
     public static bool alreadySigned = false;
     private static bool isServer = false;
     private static NetworkManager nManager = null;
@@ -150,9 +136,10 @@ public class MultiplayerMenuHelper : MonoBehaviour
         InitializeLobbies(new List<Lobby>());
         InitializePlayers(new List<Player>());
 
+        ClearCameraPlayerCullingMask();
+
         isOffline = !await CheckInternetConnection();
         onlineModeButton.interactable = !isOffline;
-        NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
 
         deviceIndex = int.Parse(Application.productName[Application.productName.Length - 1].ToString());
         playerName = "Player " + deviceIndex;
@@ -249,6 +236,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         if (isServer)
             EventSystem.current.SetSelectedGameObject(startGameButton.gameObject);
+        else
+            NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
 
         return canResume;
     }
@@ -268,6 +257,16 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
             return request.result != UnityWebRequest.Result.ConnectionError && request.result != UnityWebRequest.Result.ProtocolError;
         }
+    }
+
+    private void ClearCameraPlayerCullingMask() {
+        for (int i = 0; i < maxPlayerInLobby; i++)
+            RaceManager.SetupCamera(i, true);
+    }
+
+    public void Clear() {
+        if (!isServer)
+            NetworkManager.Singleton.OnConnectionEvent -= OnConnectionEvent;
     }
     #endregion
 
@@ -402,12 +401,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (RaceManager.RaceData.game != RaceManager.GameType.Multiplayer)
             return;
 
-        if (!isServer)
-        {
-            Notification.ShowText("Only Server can start race", notificationWaitSeconds);
-            return;
-        }
-
         nRaceManager.LoadGameScene();
         keepLobby = false;
     }
@@ -457,6 +450,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
             isServer = false;
             SwitchToBoatSelection();
+            NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
         }
         catch (System.Exception e)
         {
@@ -466,11 +460,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     public void EndSession()
     {
-
         if (RaceManager.RaceData.game != RaceManager.GameType.Multiplayer)
             return;
-
-        //InitializeLobbies(new List<Lobby>());
 
         if (isServer)
         {
@@ -484,7 +475,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
             {
                 Lobbies.Instance.RemovePlayerAsync(lobbyID, AuthenticationService.Instance.PlayerId);
             }
-
+            NetworkManager.Singleton.OnConnectionEvent -= OnConnectionEvent;
         }
 
         NetworkManager.Singleton.Shutdown();
@@ -513,16 +504,18 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (RaceManager.RaceData.game != RaceManager.GameType.Multiplayer)
             return;
 
-        int index = PlayerStatus.index;
-        NetworkRaceManager.playerStats[index].status.Value = true;
+        //int index = PlayerStatus.index;
+        //NetworkRaceManager.playerStats[index].status.Value = true;
+        PlayerStatus.current.status.Value = true;
         if (isServer)
             startGameButton.interactable = NetworkRaceManager.playerStats.All(p => p.status.Value);
     }
 
     public void ResetStatus()
     {
-        int index = PlayerStatus.index;
-        NetworkRaceManager.playerStats[index].status.Value = false;
+        //int index = PlayerStatus.index;
+        //NetworkRaceManager.playerStats[index].status.Value = false;
+        PlayerStatus.current.status.Value = false;
 
         menuAnimator.SetTrigger("Back");
     }
