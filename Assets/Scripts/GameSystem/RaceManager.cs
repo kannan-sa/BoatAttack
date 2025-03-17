@@ -74,7 +74,7 @@ namespace BoatAttack
 
         public Race raceData;
 
-        public static void BoatFinished(int player)
+        public static void BoatFinished(int player, Boat boat)
         {
             switch (RaceData.game)
             {
@@ -90,18 +90,13 @@ namespace BoatAttack
                     break;
                 case GameType.Multiplayer:
 
-                    PlayerStatus playerStatus = NetworkRaceManager.playerStats.FirstOrDefault(p => p.selfIndex == player);
-
-                    if (!playerStatus)
-                        break;
-
-                    var racemUi = playerStatus.boat.Boat.RaceUi;
+                    var racemUi = boat.RaceUi;
                     if (!racemUi)
                         break;
 
                     racemUi.MatchEnd();
-                    ReplayCamera.Instance.EnableSpectatorMode();
-                    playerStatus.boat.Boat.MatchComplete = true;
+                    //ReplayCamera.Instance.EnableSpectatorMode();
+                    boat.MatchComplete = true;
                     break;
                 case GameType.Spectator:
                     break;
@@ -259,7 +254,7 @@ namespace BoatAttack
 
         private void endRace()
         {
-            BoatFinished(0);
+            BoatFinished(0, null);
             //EndRace();
         }
 
