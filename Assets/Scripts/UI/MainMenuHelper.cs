@@ -67,7 +67,10 @@ namespace BoatAttack.UI
             SetLaps(lapSelector.CurrentOption);
             SetReverse(reverseSelector.CurrentOption);
             // boat stuff
-            SetSinglePlayerName(MultiplayerMenuHelper.playerName);
+
+            int deviceIndex = int.Parse(Application.productName[Application.productName.Length - 1].ToString());
+            string playerName = "Player " + deviceIndex;
+            SetSinglePlayerName(playerName);
             UpdateBoat(playerIndex);
             UpdateBoatColor(boatPrimaryColorSelector.value, true);
             UpdateBoatColor(boatTrimColorSelector.value, false);
