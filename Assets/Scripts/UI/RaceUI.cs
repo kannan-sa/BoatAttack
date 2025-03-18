@@ -56,7 +56,7 @@ namespace BoatAttack.UI
         private float _smoothedSpeed;
         private float _smoothSpeedVel;
         private AppSettings.SpeedFormat _speedFormat;
-        
+
         [SerializeField]
         private RaceStatsPlayer[] _raceStats;
 
@@ -65,7 +65,7 @@ namespace BoatAttack.UI
 
         private InputControls _controls;
         public static ImageSequence Sequence;
-        
+
         private bool _paused;
 
         float waitTime = 0, maxWaitTime = 1;
@@ -100,12 +100,15 @@ namespace BoatAttack.UI
             _controls.BoatControls.Disable();
         }
 
-        private IEnumerator CheckForFinish() {
-            while (enabled) {
+        private IEnumerator CheckForFinish()
+        {
+            while (enabled)
+            {
                 yield return new WaitForSeconds(.5f);
 
                 bool noPlayers = NetworkRaceManager.playerStats.Count == 0;
-                if (noPlayers) {
+                if (noPlayers)
+                {
                     RaceManager.UnloadRace();
                     yield break;
                 }
@@ -134,9 +137,9 @@ namespace BoatAttack.UI
 
         private void OnBackKey(InputAction.CallbackContext context)
         {
-            if(optionMenu.activeSelf)
+            if (optionMenu.activeSelf)
                 optionMenu.SetActive(false);
-            else if(pauseMenu.activeSelf)
+            else if (pauseMenu.activeSelf)
                 OnResumeGame();
         }
 
@@ -249,7 +252,7 @@ namespace BoatAttack.UI
 
         private IEnumerator CreateGameStats()
         {
-            List<BoatData> stats = RaceManager.RaceData.boats.OrderBy(b => b.Boat.Place).ToList();
+            List<BoatData> stats = RaceManager.RaceData.boats.Where(b => b.Boat != null).OrderBy(b => b.Boat.Place).ToList();//check why null refrence
 
             //_raceStats = new RaceStatsPlayer[RaceManager.RaceData.boatCount];
             for (var i = 0; i < _raceStats.Length; i++)
@@ -258,7 +261,7 @@ namespace BoatAttack.UI
                 //yield return raceStatLoading;
                 yield return 0;
 
-                if (i < RaceManager.RaceData.boatCount)
+                if (i < stats.Count)
                 {
                     _raceStats[i].gameObject.SetActive(true);
                     var raceStatLoading = _raceStats[i];
@@ -350,7 +353,7 @@ namespace BoatAttack.UI
             //Method 1 - Quits all the player to lobby
             //FinishMatch();
             //----------
-            
+
             //Method 2 - Quit current player to main menu
             if (RaceData.game == GameType.Multiplayer)
                 NetworkManager.Singleton.Shutdown();
@@ -366,7 +369,7 @@ namespace BoatAttack.UI
             var l = (_boat.SplitTimes.Count > 0) ? rawTime - _boat.SplitTimes[_boat.LapCount - 1] : 0f;
             timeLap.text = $"lap {FormatRaceTime(l)}";
 
-            if(waitTime >= 0)
+            if (waitTime >= 0)
                 waitTime -= .1f;
         }
 
