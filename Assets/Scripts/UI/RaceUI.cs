@@ -249,7 +249,7 @@ namespace BoatAttack.UI
 
         private IEnumerator CreateGameStats()
         {
-            List<BoatData> stats = RaceManager.RaceData.boats.OrderBy(b => b.Boat.Place).ToList();
+            List<BoatData> stats = RaceManager.RaceData.boats.Where(b=>b.Boat!=null).OrderBy(b => b.Boat.Place).ToList();//check why null refrence
 
             //_raceStats = new RaceStatsPlayer[RaceManager.RaceData.boatCount];
             for (var i = 0; i < _raceStats.Length; i++)
@@ -258,7 +258,7 @@ namespace BoatAttack.UI
                 //yield return raceStatLoading;
                 yield return 0;
 
-                if (i < RaceManager.RaceData.boatCount)
+                if (i < stats.Count)
                 {
                     _raceStats[i].gameObject.SetActive(true);
                     var raceStatLoading = _raceStats[i];
