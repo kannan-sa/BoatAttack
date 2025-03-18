@@ -173,7 +173,7 @@ namespace BoatAttack
 #if DEBUG_ENABLED
             Debug.Log($"Boat {name} finished {RaceUI.OrdinalNumber(Place)} with time:{RaceUI.FormatRaceTime(SplitTimes.Last())}");
 #endif
-            RaceManager.BoatFinished(_playerIndex);
+            RaceManager.BoatFinished(_playerIndex, this);
             MatchComplete = true;
 
         }

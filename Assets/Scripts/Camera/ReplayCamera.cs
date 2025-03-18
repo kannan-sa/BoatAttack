@@ -36,7 +36,7 @@ namespace BoatAttack
 
             if (currentCam != clearShot.LiveChild)
             {
-                if (Random.value >= 0.5f) { SetRandomTarget(); }
+                //if (Random.value >= 0.5f) { SetRandomTarget(); }
                 currentCam = clearShot.LiveChild;
             }
 
@@ -46,7 +46,7 @@ namespace BoatAttack
         public void EnableSpectatorMode()
         {
             _spectatorEnabled = true;
-            SetRandomTarget();
+            //SetRandomTarget();
             //droneCamera.Priority = 100;
         }
 
