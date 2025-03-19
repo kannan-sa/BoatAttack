@@ -2289,18 +2289,6 @@ MonoBehaviour:
           m_StringArgument: Multiplayer
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5085794017186567176}
-        m_TargetAssemblyTypeName: MultiplayerMenuHelper, Assembly-CSharp
-        m_MethodName: PollLobbies
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &4287385593302339061
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,7 +2578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47ce39ef41626e4cb45bce5d1341588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0.5
+  delay: 0.75
   control: {fileID: 0}
   otherControl: {fileID: 0}
   controls: []
@@ -3291,8 +3279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07dd309234e9fd42bdf64f72b232639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: 
-  lobbyName: 
   maxPlayerInLobby: 4
   notificationWaitSeconds: 2
   joinGameWaitMilliseconds: 500
@@ -3309,6 +3295,8 @@ MonoBehaviour:
   menuAnimator: {fileID: 3300335164659556536}
   networkManager: {fileID: 0}
   networkRaceManager: {fileID: 0}
+  primeColorSlider: {fileID: 4914827777604311821}
+  trimColorSlider: {fileID: 5794649750049457072}
   endSessionButton: {fileID: 1580618895944855853}
   leaveSessionButton: {fileID: 1913426294798472806}
   createGameButton: {fileID: 5605909424213029110}
@@ -9101,6 +9089,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4914827777604311821 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 181971122127579777, guid: 6be23062448f8f545b9915fe68e8ff67,
+    type: 3}
+  m_PrefabInstance: {fileID: 5094279365338395020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6249782207980052777 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1155502993553871013, guid: 6be23062448f8f545b9915fe68e8ff67,
@@ -10011,6 +10011,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5975369584541837617}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5794649750049457072 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 181971122127579777, guid: 0ab1d5871b666de4e870c1d8ba986492,
+    type: 3}
+  m_PrefabInstance: {fileID: 5975369584541837617}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6259536367058393857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11595,7 +11607,7 @@ PrefabInstance:
     - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
         type: 3}
@@ -11609,6 +11621,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3300335164659556536}
@@ -11619,7 +11636,17 @@ PrefabInstance:
       objectReference: {fileID: 5085794017186567176}
     - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 5085794017186567176}
+    - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
@@ -11634,6 +11661,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: PollLobbies
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.Animator, UnityEngine
       objectReference: {fileID: 0}
@@ -11644,7 +11676,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: MultiplayerMenuHelper, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
