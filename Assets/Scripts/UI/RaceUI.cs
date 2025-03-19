@@ -199,13 +199,14 @@ namespace BoatAttack.UI
 
             bool canShowVictory = playerPlace < victoryDetails.Length;
             victoryPanel.SetActive(canShowVictory);
-            if (canShowVictory)
-            {
+            if (canShowVictory) {
                 victoryImage.sprite = Resources.Load<Sprite>(victoryDetails[playerPlace]);
                 StartCoroutine(HideVictory(4));
             }
+            else {
+                SetGameStats(true);
+            }
 
-            SetGameStats(true);
             SetGameplayUi(false);
         }
 
@@ -221,6 +222,7 @@ namespace BoatAttack.UI
 
                 finishButton.SetActive(false);
                 lobbyButton.SetActive(true);
+                SetGameStats(true);
             }
             else
             {
@@ -249,7 +251,7 @@ namespace BoatAttack.UI
 
         private IEnumerator CreateGameStats()
         {
-            List<BoatData> stats = RaceManager.RaceData.boats.Where(b=>b.Boat!=null).OrderBy(b => b.Boat.Place).ToList();//check why null refrence
+            List<BoatData> stats = RaceManager.RaceData.boats.OrderBy(b => b.Boat.Place).ToList();//check why null refrence
 
             //_raceStats = new RaceStatsPlayer[RaceManager.RaceData.boatCount];
             for (var i = 0; i < _raceStats.Length; i++)
@@ -264,7 +266,7 @@ namespace BoatAttack.UI
                     var raceStatLoading = _raceStats[i];
                     raceStatLoading.gameObject.SetActive(true);
                     raceStatLoading.name += stats[i].boatName;
-                    raceStatLoading.TryGetComponent(out _raceStats[i]);
+                    //raceStatLoading.TryGetComponent(out _raceStats[i]);
                     _raceStats[i].Setup(stats[i].Boat);
                 }
                 else

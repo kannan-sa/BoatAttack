@@ -55,6 +55,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     public Animator menuAnimator;
     public NetworkManager networkManager;
     public NetworkRaceManager networkRaceManager;
+    public Slider primeColorSlider, trimColorSlider;
 
     public GameObject endSessionButton, leaveSessionButton;
     public Button createGameButton, joinGameButton, startGameButton, onlineModeButton;
@@ -73,7 +74,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
     private bool canPollLobbies, keepLobby = true;
     private ConcurrentQueue<string> createdLobbyIds = new ConcurrentQueue<string>();
     
-    private bool skipEvent;
     public static bool alreadySigned = false;
     private static bool isServer = false;
     private static NetworkManager nManager = null;
@@ -278,6 +278,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
         endSessionButton.SetActive(isServer);
         leaveSessionButton.SetActive(!isServer);
         startGameButton.interactable = isServer;
+
+        primeColorSlider.value = 0;
+        trimColorSlider.value = 0;
     }
     #endregion
 
@@ -370,18 +373,14 @@ public class MultiplayerMenuHelper : MonoBehaviour
         {
             case ConnectionEvent.ClientDisconnected:
 
-                if (skipEvent)
-                {
-                    skipEvent = false;
-                    break;
-                }
-
                 InitializeLobbies(new List<Lobby>());//on other projects also
 
                 if (playersPanel.activeSelf)
                     menuAnimator.SetTrigger("EndSession");
                 else if (boatPanel.activeSelf)
                     menuAnimator.SetTrigger("Back");
+
+                NetworkManager.Singleton.OnConnectionEvent -= OnConnectionEvent;
                 break;
         }
     }
@@ -481,8 +480,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
         NetworkManager.Singleton.Shutdown();
         if (playersPanel.activeSelf)
             menuAnimator.SetTrigger("EndSession");
-
-        skipEvent = true;
     }
 
     public async void PollLobbies()
