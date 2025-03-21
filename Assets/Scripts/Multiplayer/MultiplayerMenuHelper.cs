@@ -138,9 +138,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         ClearCameraPlayerCullingMask();
 
-        isOffline = !await CheckInternetConnection();
-        onlineModeButton.interactable = !isOffline;
-
         deviceIndex = int.Parse(Application.productName[Application.productName.Length - 1].ToString());
         playerName = "Player " + deviceIndex;
         lobbyName = "Game " + ((deviceIndex * 10) + UnityEngine.Random.Range(0, 10));
@@ -148,6 +145,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (TryResumeGameSession())
             return;
 
+        isOffline = !await CheckInternetConnection();
+        onlineModeButton.interactable = !isOffline;
+        
         if (isOffline)
             return;
 
@@ -281,6 +281,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         primeColorSlider.value = 0;
         trimColorSlider.value = 0;
+        Notification.Clear();
     }
     #endregion
 
@@ -477,6 +478,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
             NetworkManager.Singleton.OnConnectionEvent -= OnConnectionEvent;
         }
 
+        if (!isOffline)
+            PollLobbies();
+
         NetworkManager.Singleton.Shutdown();
         if (playersPanel.activeSelf)
             menuAnimator.SetTrigger("EndSession");
@@ -543,6 +547,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         try
         {
+            Notification.ShowText("CREATING GAME...");
             CreateLobbyOptions options = new CreateLobbyOptions()
             {
                 IsPrivate = false,
@@ -604,6 +609,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         try
         {
+            Notification.ShowText("JOINING GAME...");
             JoinLobbyByIdOptions options = new JoinLobbyByIdOptions()
             {
                 Player = GetPlayer(),
