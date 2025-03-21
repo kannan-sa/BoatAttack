@@ -6874,8 +6874,28 @@ PrefabInstance:
     - target: {fileID: 222531190575839967, guid: d79153d6b6fee674d8a100807d6d1f14,
         type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 222531190575839967, guid: d79153d6b6fee674d8a100807d6d1f14,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 3511961380130884919}
+    - target: {fileID: 222531190575839967, guid: d79153d6b6fee674d8a100807d6d1f14,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 6496064526002228123}
+    - target: {fileID: 222531190575839967, guid: d79153d6b6fee674d8a100807d6d1f14,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 3511961380130884919}
+    - target: {fileID: 222531190575839967, guid: d79153d6b6fee674d8a100807d6d1f14,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 6496064526002228123}
     - target: {fileID: 222531190575839967, guid: d79153d6b6fee674d8a100807d6d1f14,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -7793,8 +7813,28 @@ PrefabInstance:
     - target: {fileID: 222531190575839967, guid: 3aa15030c01b44e1981a625cc3f1ec72,
         type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 222531190575839967, guid: 3aa15030c01b44e1981a625cc3f1ec72,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 6496064526002228123}
+    - target: {fileID: 222531190575839967, guid: 3aa15030c01b44e1981a625cc3f1ec72,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 3329893387491117276}
+    - target: {fileID: 222531190575839967, guid: 3aa15030c01b44e1981a625cc3f1ec72,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 3329893387491117276}
+    - target: {fileID: 222531190575839967, guid: 3aa15030c01b44e1981a625cc3f1ec72,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 6496064526002228123}
     - target: {fileID: 222531190575839967, guid: 3aa15030c01b44e1981a625cc3f1ec72,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -7915,6 +7955,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aa15030c01b44e1981a625cc3f1ec72, type: 3}
+--- !u!114 &3511961380130884919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 222531190575839967, guid: 3aa15030c01b44e1981a625cc3f1ec72,
+    type: 3}
+  m_PrefabInstance: {fileID: 3722903167669647336}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7381743256355552462 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6186627390493756198, guid: 3aa15030c01b44e1981a625cc3f1ec72,
@@ -11594,8 +11646,28 @@ PrefabInstance:
     - target: {fileID: 222531190575839967, guid: c2e1bfb366a22c746aff36dfc1d5a760,
         type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 222531190575839967, guid: c2e1bfb366a22c746aff36dfc1d5a760,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 3329893387491117276}
+    - target: {fileID: 222531190575839967, guid: c2e1bfb366a22c746aff36dfc1d5a760,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 3511961380130884919}
+    - target: {fileID: 222531190575839967, guid: c2e1bfb366a22c746aff36dfc1d5a760,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 3329893387491117276}
+    - target: {fileID: 222531190575839967, guid: c2e1bfb366a22c746aff36dfc1d5a760,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 3511961380130884919}
     - target: {fileID: 222531190575839967, guid: c2e1bfb366a22c746aff36dfc1d5a760,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
