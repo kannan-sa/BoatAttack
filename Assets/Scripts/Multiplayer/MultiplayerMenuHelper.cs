@@ -79,6 +79,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
     private static NetworkManager nManager = null;
     private static NetworkRaceManager nRaceManager = null;
 
+    [SerializeField] ModeScreen modeScreen;
+
     #region Unity - Events
     private void Awake()
     {
@@ -145,8 +147,8 @@ public class MultiplayerMenuHelper : MonoBehaviour
         if (TryResumeGameSession())
             return;
 
-        isOffline = !await CheckInternetConnection();
-        onlineModeButton.interactable = !isOffline;
+        //isOffline = !await modeScreen.CheckInternetConnection();//!await CheckInternetConnection();
+        //onlineModeButton.interactable = !isOffline;
         
         if (isOffline)
             return;
@@ -534,7 +536,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         else
         {
 
-            bool online = await CheckInternetConnection();   //it may cause more delay in creating lobby...
+            bool online = await modeScreen.CheckInternetConnection();//CheckInternetConnection();   //it may cause more delay in creating lobby...
 
             if (!online)
             {
@@ -591,7 +593,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         else
         {
 
-            bool online = await CheckInternetConnection();   //it may cause more delay in creating lobby...
+            bool online = await modeScreen.CheckInternetConnection();   //it may cause more delay in creating lobby...
 
             if (!online)
             {
