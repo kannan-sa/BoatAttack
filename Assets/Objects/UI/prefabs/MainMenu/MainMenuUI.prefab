@@ -3449,6 +3449,7 @@ GameObject:
   - component: {fileID: 3300335164659556536}
   - component: {fileID: 8803882710196166548}
   - component: {fileID: 5085794017186567176}
+  - component: {fileID: 5097129161463897390}
   m_Layer: 0
   m_Name: MainMenuUI
   m_TagString: Untagged
@@ -3567,6 +3568,23 @@ MonoBehaviour:
   boatHullSelector: {fileID: 6986721006967331224}
   boatPrimaryColorSelector: {fileID: 845302771883566743}
   boatTrimColorSelector: {fileID: 2298344930740223530}
+  modeScreen: {fileID: 5097129161463897390}
+--- !u!114 &5097129161463897390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7907029380085608248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d4cefbf25c28c48b3bb2aaa28e7b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onlineModeButton: {fileID: 3329893387491117276}
+  offlineModeButton: {fileID: 6496064526002228123}
+  backModeButton: {fileID: 3511961380130884919}
+  multiplayerMenuHelper: {fileID: 5085794017186567176}
 --- !u!1 &7925877595142671143
 GameObject:
   m_ObjectHideFlags: 0
