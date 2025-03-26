@@ -33,6 +33,7 @@ public class PlayerStatus : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        Debug.Log("Playerstatus OnNetworkSpawn called") ;
         name = $"player stat {OwnerClientId}";
 
         boat = new BoatData();
