@@ -75,7 +75,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     private ConcurrentQueue<string> createdLobbyIds = new ConcurrentQueue<string>();
     
     public static bool alreadySigned = false;
-    private static bool isServer = false;
+    internal static bool isServer = false;
     private static NetworkManager nManager = null;
     private static NetworkRaceManager nRaceManager = null;
 
@@ -149,9 +149,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
         //isOffline = !await modeScreen.CheckInternetConnection();//!await CheckInternetConnection();
         //onlineModeButton.interactable = !isOffline;
-        
-        if (isOffline)
-            return;
+       
 
         if (!alreadySigned)
             await SignInAnonymouslyAsync();
@@ -294,6 +292,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         try
         {
             await UnityServices.InitializeAsync();
+            Debug.LogError("INitializesd");
             string validProfileName = System.Guid.NewGuid().ToString("N").Substring(0, 30);
             AuthenticationService.Instance.SwitchProfile(validProfileName);
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
@@ -537,6 +536,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         {
 
             bool online = await modeScreen.CheckInternetConnection();//CheckInternetConnection();   //it may cause more delay in creating lobby...
+            Debug.LogError("Lobby "+ online);
 
             if (!online)
             {
@@ -560,11 +560,16 @@ public class MultiplayerMenuHelper : MonoBehaviour
                 }
             };
             options.IsPrivate = false;
+            Debug.LogError("Lobby creating lobby");
+
 
             lobbyName = "Game " + ((deviceIndex * 10) + UnityEngine.Random.Range(0, 10));
 
             currentLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayerInLobby, options);
             lobbyID = currentLobby.Id;
+
+            Debug.Log("lobbyID : "+lobbyID +"   and joinCode: "+ options.Data["JoinCode"] + "  lobbyName: " + lobbyName);
+
 #if DEBUG_ENABLED
             Debug.Log("Lobby created " + lobby.Name);
 #endif
@@ -622,6 +627,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
             lobbyID = joinedLobby.Id;
             lobbyName = joinedLobby.Name;
             string joinCode = joinedLobby.Data["JoinCode"].Value;
+
+            Debug.Log("lobbyID : " + lobbyID + "   and joinCode: " + joinCode + "  lobbyName: " + lobbyName);
+
             JoinRelay(joinCode);
         }
         catch (LobbyServiceException e)
@@ -655,7 +663,11 @@ public class MultiplayerMenuHelper : MonoBehaviour
                     field: QueryOrder.FieldOptions.Created)
             };
 
+            
             QueryResponse lobbies = await LobbyService.Instance.QueryLobbiesAsync(options);
+
+            Debug.Log("lobbies.Results : " + lobbies.Results + "    lobbyId: "+lobbyID + "  lobbyName: "+lobbyName);
+
             InitializeLobbies(lobbies.Results);
         }
         catch (LobbyServiceException e)
@@ -666,6 +678,9 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     private async void UpdateLobbyData(string joinCode)
     {
+
+        Debug.Log("joinCode: " + joinCode + "   and lobbyID: "+lobbyID + "  lobbyName: "+lobbyName);
+
         UpdateLobbyOptions options = new UpdateLobbyOptions()
         {
             Data = new Dictionary<string, DataObject>()
@@ -678,16 +693,19 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     private Player GetPlayer()
     {
+        Debug.Log("in get player()  and lobbyID: " + lobbyID + "  lobbyName: " + lobbyName + "playerName: "+playerName);
         return new Player
         {
             Data = new Dictionary<string, PlayerDataObject>() {
                     { "playerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName) },
                 }
         };
+        
     }
 
     private async void HeartbeatLobbyCoroutine(string lobbyId, int waitTimeSeconds)
     {
+        Debug.Log("lobbyID: " + lobbyId);
         while (keepLobby)
         {
             await LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
@@ -699,6 +717,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
     {
         while (createdLobbyIds.TryDequeue(out var lobbyId))
         {
+            Debug.Log("lobbyID: " + lobbyId);
             LobbyService.Instance.DeleteLobbyAsync(lobbyId);
         }
     }
@@ -711,6 +730,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3); //For 4 player excluding host..
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            Debug.Log("joinCode: "+ joinCode);
             UpdateLobbyData(joinCode);
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
@@ -727,6 +747,7 @@ public class MultiplayerMenuHelper : MonoBehaviour
         try
         {
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+            Debug.Log("joinCode: " + joinCode);
             RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             JoinGame();

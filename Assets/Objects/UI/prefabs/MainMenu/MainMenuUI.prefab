@@ -2579,12 +2579,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.75
-  control: {fileID: 0}
+  control: {fileID: 8602937265902567690}
   otherControl: {fileID: 0}
   controls: []
-  selectables:
-  - {fileID: 2312639687326514157}
-  - {fileID: 1696883896534186541}
+  selectables: []
   skipControlsOnDisable: 1
 --- !u!1 &5024026652243042149
 GameObject:
@@ -3315,6 +3313,7 @@ MonoBehaviour:
   boatHullSelector: {fileID: 6986721006967331224}
   boatPrimaryColorSelector: {fileID: 845302771883566743}
   boatTrimColorSelector: {fileID: 2298344930740223530}
+  modeScreen: {fileID: 0}
 --- !u!1 &7925877595142671143
 GameObject:
   m_ObjectHideFlags: 0
@@ -10232,7 +10231,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 6259536367058393857}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8602937265902567690}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -10241,6 +10240,12 @@ MonoBehaviour:
 --- !u!224 &4702123928827628500 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1702109857525862613, guid: 80b9e12bab886b5429fe330318406188,
+    type: 3}
+  m_PrefabInstance: {fileID: 6259536367058393857}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8602937265902567690 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2431260958005418507, guid: 80b9e12bab886b5429fe330318406188,
     type: 3}
   m_PrefabInstance: {fileID: 6259536367058393857}
   m_PrefabAsset: {fileID: 0}

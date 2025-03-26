@@ -100,6 +100,13 @@ namespace BoatAttack.UI
             _controls.BoatControls.Disable();
         }
 
+        private void Start()
+        {
+            if(!MultiplayerMenuHelper.isServer)
+            {
+                lobbyButton.GetComponent<Button>().interactable = false;
+            }
+        }
         private IEnumerator CheckForFinish() {
             while (enabled) {
                 yield return new WaitForSeconds(.5f);
@@ -191,7 +198,7 @@ namespace BoatAttack.UI
         public void MatchEnd()
         {
             BoatData playerBoat = RaceData.game == GameType.Singleplayer ? RaceData.boats[0] : PlayerStatus.playerBoat;
-
+            Debug.Log("Boat place: " + playerBoat.Boat.Place);
             //int index = RaceData.game == GameType.Singleplayer ? 0 : PlayerStatus.index;
             int playerPlace = playerBoat.Boat.Place - 1;
             //Debug.Log("Player Index " + index);
