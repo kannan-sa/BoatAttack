@@ -344,12 +344,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.75
-  control: {fileID: 0}
+  control: {fileID: 4236171401187750076}
   otherControl: {fileID: 0}
   controls: []
-  selectables:
-  - {fileID: 3329893387491117276}
-  - {fileID: 6496064526002228123}
+  selectables: []
   skipControlsOnDisable: 1
 --- !u!1 &793501496205653204
 GameObject:
@@ -11877,13 +11875,19 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6426705613687271748}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4236171401187750076 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7204028520910045688, guid: c2e1bfb366a22c746aff36dfc1d5a760,
+    type: 3}
+  m_PrefabInstance: {fileID: 6426705613687271748}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6496064526002228123 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 222531190575839967, guid: c2e1bfb366a22c746aff36dfc1d5a760,
     type: 3}
   m_PrefabInstance: {fileID: 6426705613687271748}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4236171401187750076}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}

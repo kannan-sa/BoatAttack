@@ -170,9 +170,9 @@ namespace BoatAttack
 
             if (LapCount <= RaceManager.GetLapCount()) return;
 
-#if DEBUG_ENABLED
+//#if DEBUG_ENABLED
             Debug.Log($"Boat {name} finished {RaceUI.OrdinalNumber(Place)} with time:{RaceUI.FormatRaceTime(SplitTimes.Last())}");
-#endif
+//#endif
             RaceManager.BoatFinished(_playerIndex, this);
             MatchComplete = true;
 

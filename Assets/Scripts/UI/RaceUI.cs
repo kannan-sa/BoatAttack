@@ -99,7 +99,13 @@ namespace BoatAttack.UI
             RaceManager.raceStarted -= SetGameplayUi;
             _controls.BoatControls.Disable();
         }
-
+        private void Start()
+        {
+            if (!MultiplayerMenuHelper.isServer)
+            {
+                lobbyButton.GetComponent<Button>().interactable = false;
+            }
+        }
         private IEnumerator CheckForFinish() {
             while (enabled) {
                 yield return new WaitForSeconds(.5f);
@@ -191,7 +197,7 @@ namespace BoatAttack.UI
         public void MatchEnd()
         {
             BoatData playerBoat = RaceData.game == GameType.Singleplayer ? RaceData.boats[0] : PlayerStatus.playerBoat;
-
+            Debug.Log("Boat place: " + playerBoat.Boat.Place);
             //int index = RaceData.game == GameType.Singleplayer ? 0 : PlayerStatus.index;
             int playerPlace = playerBoat.Boat.Place - 1;
             //Debug.Log("Player Index " + index);
@@ -252,6 +258,8 @@ namespace BoatAttack.UI
         private IEnumerator CreateGameStats()
         {
             List<BoatData> stats = RaceManager.RaceData.boats.OrderBy(b => b.Boat.Place).ToList();//check why null refrence
+
+            //Debug.Log(stats); could try printing all stats things in a foreach loop
 
             //_raceStats = new RaceStatsPlayer[RaceManager.RaceData.boatCount];
             for (var i = 0; i < _raceStats.Length; i++)
