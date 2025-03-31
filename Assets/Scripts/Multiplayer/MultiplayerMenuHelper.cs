@@ -360,7 +360,6 @@ public class MultiplayerMenuHelper : MonoBehaviour
 
     private void OnConnectionEvent(NetworkManager manager, ConnectionEventData data)
     {
-        //Debug.Log("OnConnectionEvent," + " " + manager.name + " " + data.EventType);
         if (isServer)
             return;
 
@@ -382,7 +381,12 @@ public class MultiplayerMenuHelper : MonoBehaviour
                 else if (boatPanel.activeSelf)
                     menuAnimator.SetTrigger("Back");
 
+                Debug.Log("OnConnectionEvent,  " + data.EventType);
+
                 NetworkManager.Singleton.OnConnectionEvent -= OnConnectionEvent;
+
+                if (!isOffline)
+                    PollLobbies();
                 break;
         }
     }
@@ -444,6 +448,16 @@ public class MultiplayerMenuHelper : MonoBehaviour
                 if (!isConnected || lobbyFull)
                 {
                     Notification.ShowText(lobbyFull ? "Lobby Is Full" : "No Game Found To Join", notificationWaitSeconds);
+                    NetworkManager.Singleton.Shutdown();
+                    return;
+                }
+            }
+            else {
+                await Task.Delay(1500);
+                bool isConnected = NetworkManager.Singleton.IsConnectedClient;
+                Debug.Log("Connected " + isConnected);
+                if (!isConnected) {
+                    Notification.ShowText("COULD NOT JOIN GAME, RETRY...", notificationWaitSeconds);
                     NetworkManager.Singleton.Shutdown();
                     return;
                 }
