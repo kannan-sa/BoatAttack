@@ -1281,7 +1281,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 49e23fd3254b25045bbb2bd42206bc94,
+    m_HighlightedSprite: {fileID: 21300000, guid: f53920b8b6e16a24a8b19d3305684bab,
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: cca23dc6d66471f4ba5c0b2fda74a1e8, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 49e23fd3254b25045bbb2bd42206bc94, type: 3}
@@ -1424,7 +1424,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: eaadc5c2dd1e4c24bab0731ff1353f4b,
+    m_HighlightedSprite: {fileID: 21300000, guid: 2964c6fdbb2a62a429e36caa97b236c9,
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 7d75beed75f2a9648a27d35ba385ad3b, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: eaadc5c2dd1e4c24bab0731ff1353f4b, type: 3}
@@ -2249,7 +2249,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 355d30df28d71994ca9e31d3fbc2f12e,
+    m_HighlightedSprite: {fileID: 21300000, guid: 2c975ad6924596646a00c475eebcef42,
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: fa112bc66e4ab62478c1b983bc8b3a7f, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 355d30df28d71994ca9e31d3fbc2f12e, type: 3}
@@ -3195,6 +3195,7 @@ GameObject:
   - component: {fileID: 3300335164659556536}
   - component: {fileID: 8803882710196166548}
   - component: {fileID: 5085794017186567176}
+  - component: {fileID: 2754938362784074175}
   m_Layer: 0
   m_Name: MainMenuUI
   m_TagString: Untagged
@@ -3313,7 +3314,23 @@ MonoBehaviour:
   boatHullSelector: {fileID: 6986721006967331224}
   boatPrimaryColorSelector: {fileID: 845302771883566743}
   boatTrimColorSelector: {fileID: 2298344930740223530}
-  modeScreen: {fileID: 0}
+  modeScreen: {fileID: 2754938362784074175}
+--- !u!114 &2754938362784074175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7907029380085608248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d4cefbf25c28c48b3bb2aaa28e7b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onlineModeButton: {fileID: 2312639687326514157}
+  offlineModeButton: {fileID: 1696883896534186541}
+  backModeButton: {fileID: 4439491054862747655}
+  multiplayerMenuHelper: {fileID: 5085794017186567176}
 --- !u!1 &7925877595142671143
 GameObject:
   m_ObjectHideFlags: 0
@@ -4167,7 +4184,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 2e9a0752fc226984387de037304a2624,
+    m_HighlightedSprite: {fileID: 21300000, guid: 2fcbbcadff0b77f4a9b7a386fa56179c,
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: cce8fc00637ef2f47a7492d3c7811708, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 2e9a0752fc226984387de037304a2624, type: 3}
@@ -4769,6 +4786,12 @@ PrefabInstance:
       objectReference: {fileID: 1634262893035328574}
     - target: {fileID: 4707068379526570284, guid: fabf9e43689482648995aaf41bb8227c,
         type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 51d42a5563b013e499dc998137edd2d9,
+        type: 3}
+    - target: {fileID: 4707068379526570284, guid: fabf9e43689482648995aaf41bb8227c,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5085794017186567176}
@@ -5172,7 +5195,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: ad6cbf4c8c610264192e6f85bf996dfd,
+      objectReference: {fileID: 21300000, guid: 94acc5180e15a7946922bf4aaaef6520,
         type: 3}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
@@ -5371,6 +5394,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseButton_Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 6326883774926846000, guid: b717b98e22d5a724ca9a455e113108a1,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4764fb82fe905645970a8ddfb91faa6,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5767,6 +5796,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 7814493712638288705}
+    - target: {fileID: 3566701962967900120, guid: 6312e4271f86843a59d483d5e26cbe7f,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a68e43604e782c43b0faf667eea47af,
+        type: 3}
     - target: {fileID: 4310061526176766886, guid: 6312e4271f86843a59d483d5e26cbe7f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -5977,6 +6012,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 3371953641163705134}
+    - target: {fileID: 8342432126243846071, guid: 6312e4271f86843a59d483d5e26cbe7f,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd7a10c24b8186841af8b510f4ed72bd,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6202,7 +6243,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: decc73daff07b6947bc9e0e2331e89ca,
+      objectReference: {fileID: 21300000, guid: 881398ed71535bc4ca2ca09795dd0015,
         type: 3}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
@@ -6517,6 +6558,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 8652906889831107142}
+    - target: {fileID: 2024960119168052921, guid: e641672c17c8e4fa598ae375d62f92d0,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a68e43604e782c43b0faf667eea47af,
+        type: 3}
     - target: {fileID: 3919690998112318380, guid: e641672c17c8e4fa598ae375d62f92d0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6589,6 +6636,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 4227879086348313129}
+    - target: {fileID: 6819337312425068246, guid: e641672c17c8e4fa598ae375d62f92d0,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd7a10c24b8186841af8b510f4ed72bd,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6878,7 +6931,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 83f1be22e2659804fbf351507d6ceced,
+      objectReference: {fileID: 21300000, guid: c6c82678bed16024aa518c13db0042ba,
         type: 3}
     - target: {fileID: 3483432873453881459, guid: 3aa15030c01b44e1981a625cc3f1ec72,
         type: 3}
@@ -7227,7 +7280,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: b00ab61af532948448e01ae2390b027f,
+      objectReference: {fileID: 21300000, guid: d59e75f0db19ad347a3fd6e0a2924762,
         type: 3}
     - target: {fileID: 4707068379526570284, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
         type: 3}
@@ -7357,6 +7410,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 5398104330638932851}
+    - target: {fileID: 4559009680229237706, guid: 6849ec929aa994895a25cfcfcae2527f,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd7a10c24b8186841af8b510f4ed72bd,
+        type: 3}
     - target: {fileID: 5725683357886330248, guid: 6849ec929aa994895a25cfcfcae2527f,
         type: 3}
       propertyPath: m_textInfo.lineCount
@@ -7622,6 +7681,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 599214121187726108}
+    - target: {fileID: 9078665852962761637, guid: 6849ec929aa994895a25cfcfcae2527f,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a68e43604e782c43b0faf667eea47af,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7747,6 +7812,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 5368263081858987967}
+    - target: {fileID: 4559009680229237706, guid: 6849ec929aa994895a25cfcfcae2527f,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd7a10c24b8186841af8b510f4ed72bd,
+        type: 3}
     - target: {fileID: 5725683357886330248, guid: 6849ec929aa994895a25cfcfcae2527f,
         type: 3}
       propertyPath: m_textInfo.lineCount
@@ -8017,6 +8088,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 632434196110745552}
+    - target: {fileID: 9078665852962761637, guid: 6849ec929aa994895a25cfcfcae2527f,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a68e43604e782c43b0faf667eea47af,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8210,6 +8287,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 8818773915373219137}
+    - target: {fileID: 4707068379526570284, guid: 2502a494a72ab364a903875476f3a458,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b062a1d35aaced842804e6cecebdb01b,
+        type: 3}
     - target: {fileID: 4707068379526570284, guid: 2502a494a72ab364a903875476f3a458,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -8417,6 +8500,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 1988895169099641158}
+    - target: {fileID: 1809843838468929593, guid: f6fa26ee1af1c43ccb777b80eb7e8a02,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a68e43604e782c43b0faf667eea47af,
+        type: 3}
     - target: {fileID: 3702604496979977516, guid: f6fa26ee1af1c43ccb777b80eb7e8a02,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8467,6 +8556,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 6422349424191428905}
+    - target: {fileID: 6603656088387539030, guid: f6fa26ee1af1c43ccb777b80eb7e8a02,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd7a10c24b8186841af8b510f4ed72bd,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8582,7 +8677,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 83f1be22e2659804fbf351507d6ceced,
+      objectReference: {fileID: 21300000, guid: c6c82678bed16024aa518c13db0042ba,
         type: 3}
     - target: {fileID: 3483432873453881459, guid: 3aa15030c01b44e1981a625cc3f1ec72,
         type: 3}
@@ -9000,6 +9095,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 4094260446335115740}
+    - target: {fileID: 7432334212835591532, guid: 6be23062448f8f545b9915fe68e8ff67,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd7a10c24b8186841af8b510f4ed72bd,
+        type: 3}
     - target: {fileID: 8812791328443910853, guid: 6be23062448f8f545b9915fe68e8ff67,
         type: 3}
       propertyPath: m_Color.b
@@ -9035,6 +9136,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 2420245550010250464}
+    - target: {fileID: 9107184687128006736, guid: 6be23062448f8f545b9915fe68e8ff67,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a68e43604e782c43b0faf667eea47af,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9269,6 +9376,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 1404599810866656217}
+    - target: {fileID: 1809843838468929593, guid: f6fa26ee1af1c43ccb777b80eb7e8a02,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a68e43604e782c43b0faf667eea47af,
+        type: 3}
     - target: {fileID: 3702604496979977516, guid: f6fa26ee1af1c43ccb777b80eb7e8a02,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -9319,6 +9432,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 5892706461841644470}
+    - target: {fileID: 6603656088387539030, guid: f6fa26ee1af1c43ccb777b80eb7e8a02,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd7a10c24b8186841af8b510f4ed72bd,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9545,6 +9664,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2425107218383815748, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4764fb82fe905645970a8ddfb91faa6,
+        type: 3}
     - target: {fileID: 2450013487644584049, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_Pivot.x
@@ -9650,6 +9775,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4765384070033176941, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c81f8ae81c87b1147972ff9b4cc7d042,
+        type: 3}
     - target: {fileID: 4782200077121372656, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -9665,6 +9796,24 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6585889101290531921, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c1ed280b1d9294549b680db8761ffafa,
+        type: 3}
+    - target: {fileID: 7411083089073817418, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c1ed280b1d9294549b680db8761ffafa,
+        type: 3}
+    - target: {fileID: 7412674542635272555, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c6c82678bed16024aa518c13db0042ba,
+        type: 3}
     - target: {fileID: 7412674542635272555, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -9675,6 +9824,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -72.55078
       objectReference: {fileID: 0}
+    - target: {fileID: 9195990228656870006, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c81f8ae81c87b1147972ff9b4cc7d042,
+        type: 3}
     - target: {fileID: 9214780803975080683, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -9916,6 +10071,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 3211065172348008801}
+    - target: {fileID: 7432334212835591532, guid: 0ab1d5871b666de4e870c1d8ba986492,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd7a10c24b8186841af8b510f4ed72bd,
+        type: 3}
     - target: {fileID: 8812791328443910853, guid: 0ab1d5871b666de4e870c1d8ba986492,
         type: 3}
       propertyPath: m_Color.b
@@ -9951,6 +10112,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 3875402922284444765}
+    - target: {fileID: 9107184687128006736, guid: 0ab1d5871b666de4e870c1d8ba986492,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a68e43604e782c43b0faf667eea47af,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10160,6 +10327,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 4439491054862747655}
+    - target: {fileID: 4707068379526570284, guid: 80b9e12bab886b5429fe330318406188,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1ebd40a307aec7745a92374e1a1bfaab,
+        type: 3}
     - target: {fileID: 4707068379526570284, guid: 80b9e12bab886b5429fe330318406188,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -10382,6 +10555,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseButton_Join
       objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: a05a1cf0bfce70c41b85f021a0516c32,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a84db565a65228e48a90f02bff110567,
+        type: 3}
     - target: {fileID: 4707068379526570284, guid: a05a1cf0bfce70c41b85f021a0516c32,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -10625,7 +10804,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: ad6cbf4c8c610264192e6f85bf996dfd,
+      objectReference: {fileID: 21300000, guid: 94acc5180e15a7946922bf4aaaef6520,
         type: 3}
     - target: {fileID: 6326883774926846000, guid: 7d74b45c74ce64ef1b66ab68a9d5be51,
         type: 3}
@@ -10900,6 +11079,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseButton_Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 6326883774926846000, guid: b717b98e22d5a724ca9a455e113108a1,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4764fb82fe905645970a8ddfb91faa6,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11134,6 +11319,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 3276505755346072634}
+    - target: {fileID: 3566701962967900120, guid: 6312e4271f86843a59d483d5e26cbe7f,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a68e43604e782c43b0faf667eea47af,
+        type: 3}
     - target: {fileID: 4310061526176766886, guid: 6312e4271f86843a59d483d5e26cbe7f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -11339,6 +11530,12 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 8052789934456380501}
+    - target: {fileID: 8342432126243846071, guid: 6312e4271f86843a59d483d5e26cbe7f,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd7a10c24b8186841af8b510f4ed72bd,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11499,6 +11696,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseButton_Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 6326883774926846000, guid: b717b98e22d5a724ca9a455e113108a1,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4764fb82fe905645970a8ddfb91faa6,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11658,6 +11861,12 @@ PrefabInstance:
       propertyPath: m_SpriteState.m_DisabledSprite
       value: 
       objectReference: {fileID: 21300000, guid: b3dd1d5f7c14ad145bff484c040b76d1,
+        type: 3}
+    - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cd5a5ef125c869c48a5674edf4d07362,
         type: 3}
     - target: {fileID: 4707068379526570284, guid: 8a4ff6a2e14d26f4586fb5dbdd10892b,
         type: 3}
@@ -11933,6 +12142,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 4707068379526570284, guid: 531e2fd49c1284242aa43b2770737700,
         type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2d9f87d2c172b75439bb6944a23a1299,
+        type: 3}
+    - target: {fileID: 4707068379526570284, guid: 531e2fd49c1284242aa43b2770737700,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -12128,6 +12343,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseButton_Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 6326883774926846000, guid: b717b98e22d5a724ca9a455e113108a1,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4764fb82fe905645970a8ddfb91faa6,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12252,6 +12473,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseButton_Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 6326883774926846000, guid: b717b98e22d5a724ca9a455e113108a1,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4764fb82fe905645970a8ddfb91faa6,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12343,7 +12570,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 83f1be22e2659804fbf351507d6ceced,
+      objectReference: {fileID: 21300000, guid: c6c82678bed16024aa518c13db0042ba,
         type: 3}
     - target: {fileID: 3483432873453881459, guid: 3aa15030c01b44e1981a625cc3f1ec72,
         type: 3}
@@ -12849,7 +13076,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: b00ab61af532948448e01ae2390b027f,
+      objectReference: {fileID: 21300000, guid: d59e75f0db19ad347a3fd6e0a2924762,
         type: 3}
     - target: {fileID: 4707068379526570284, guid: 090065c98bcabb04ca6cda3ca6bc2b41,
         type: 3}
