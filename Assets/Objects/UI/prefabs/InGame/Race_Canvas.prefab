@@ -3224,7 +3224,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 32f863d96800dff49bdc369f2e85ff23,
+      objectReference: {fileID: 21300000, guid: f952240f326123e409a74d30cae6ed5e,
         type: 3}
     - target: {fileID: 4712021978443144402, guid: 2e802695a225e48efb842122e2423314,
         type: 3}
@@ -3632,7 +3632,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8188de8d9798e9b4cb21cd46aa50a137,
+      objectReference: {fileID: 21300000, guid: c698a7df67753f84c9ac40f01786c624,
         type: 3}
     - target: {fileID: 4712021978443144402, guid: 2e802695a225e48efb842122e2423314,
         type: 3}
@@ -3847,11 +3847,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3729364706964102653, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2964c6fdbb2a62a429e36caa97b236c9,
+        type: 3}
     - target: {fileID: 4111707213802966325, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4765384070033176941, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c81f8ae81c87b1147972ff9b4cc7d042,
+        type: 3}
     - target: {fileID: 4782200077121372656, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3867,11 +3879,35 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6585889101290531921, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c1ed280b1d9294549b680db8761ffafa,
+        type: 3}
+    - target: {fileID: 7411083089073817418, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c1ed280b1d9294549b680db8761ffafa,
+        type: 3}
     - target: {fileID: 7412674542635272555, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 2109659256147971783}
+    - target: {fileID: 7412674542635272555, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c6c82678bed16024aa518c13db0042ba,
+        type: 3}
+    - target: {fileID: 9195990228656870006, guid: 960f1f94a20b50e4daad2fe6842d5272,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c81f8ae81c87b1147972ff9b4cc7d042,
+        type: 3}
     - target: {fileID: 9214780803975080683, guid: 960f1f94a20b50e4daad2fe6842d5272,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4086,7 +4122,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 15e2f46c4e7ee684d9b3ab94083e0efd,
+      objectReference: {fileID: 21300000, guid: 1684678e53c5f1049ae81338b692427e,
         type: 3}
     - target: {fileID: 4712021978443144402, guid: 2e802695a225e48efb842122e2423314,
         type: 3}
@@ -4675,7 +4711,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: f71989ad5b4991948b44503ddeec3fd4,
+      objectReference: {fileID: 21300000, guid: 20eddeada56bd8343b102f69f43a8377,
         type: 3}
     - target: {fileID: 4712021978443144402, guid: 2e802695a225e48efb842122e2423314,
         type: 3}
@@ -5132,7 +5168,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: c8ad72e15eaa92b4e80ae14159c9fc84,
+      objectReference: {fileID: 21300000, guid: de5400d26c029004fb37c4b1911fbbc7,
         type: 3}
     - target: {fileID: 4712021978443144402, guid: 2e802695a225e48efb842122e2423314,
         type: 3}
@@ -5421,7 +5457,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1a908dd44d44af040ac821e4307063d1,
+      objectReference: {fileID: 21300000, guid: 5c9c85064227ee04dbfb02a94164f4e6,
         type: 3}
     - target: {fileID: 4712021978443144402, guid: 2e802695a225e48efb842122e2423314,
         type: 3}
@@ -5626,6 +5662,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseButton_Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 6326883774926846000, guid: b717b98e22d5a724ca9a455e113108a1,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2964c6fdbb2a62a429e36caa97b236c9,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
