@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
 using System;
+using System.Linq;
 
 public class PlayerStatus : NetworkBehaviour
 {
@@ -57,12 +58,28 @@ public class PlayerStatus : NetworkBehaviour
             playerBoat = boat;
             current = this;
             index = RaceManager.RaceData.boats.IndexOf(boat);
-            boatName.Value = MultiplayerMenuHelper.playerName;
+            boatName.Value = GetPlayerName(); // MultiplayerMenuHelper.playerName;
             onSetPlayerName.AddListener(OnSetPlayerName);
             onSelectBoatType.AddListener(OnSelectBoatType);
             onSelectPrimaryColor.AddListener(OnSelectPrimaryColor);
             onSelectTrimColor.AddListener(OnSelectTrimColor);
         }
+    }
+
+    private string GetPlayerName() {
+        string name = "Player " + selfIndex;
+
+        string[] names = NetworkRaceManager.playerStats.Select(p => p.boatName.Value.ToString()).ToArray();
+
+        for (int i = 0; i < NetworkRaceManager.playerStats.Count; i++) {
+            name = "Player " + (i + 1);
+            
+            if(!names.Contains(name)) {
+                break;
+            }
+        }
+
+        return name;
     }
 
     private void OnStatusUpade(bool previousValue, bool newValue)
