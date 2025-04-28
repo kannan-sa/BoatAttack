@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace BoatAttack.UI
 {
@@ -23,6 +24,7 @@ namespace BoatAttack.UI
         
         private InputControls _controls;
 
+        public Button SinglePlayer_BoatScreen_Colors_Right,BoatScreen_RaceButton, BoatScreen_PrimaryColorRightButton, BoatScreen_SecondaryColorLeftButton;
 
         private void Awake()
         {
@@ -171,6 +173,26 @@ namespace BoatAttack.UI
                     rend.material.SetColor(primary ? "_Color1" : "_Color2", color);
                 }
             }
+        }
+
+        /// <summary>
+        /// This function is for the bug where when you go up from race button (to the colors-right button), you are not able to return back to race button.
+        /// This was happening because we have hard coded the ui navigation to the "Next" button which this animation will deactivate.
+        /// </summary>
+        public void SinglePlayer_ColorsRightButton_Dynamic_UINavigation()
+        {
+            print("dynamic nav called?");
+            //dynamic ui nav for "SinglePlayer_BoatScreen_Colors_Right" button
+            Navigation colorsRightNavigation = SinglePlayer_BoatScreen_Colors_Right.navigation;
+            colorsRightNavigation.mode = Navigation.Mode.Explicit;
+
+            colorsRightNavigation.selectOnDown = BoatScreen_RaceButton;
+            colorsRightNavigation.selectOnUp = BoatScreen_PrimaryColorRightButton;
+            colorsRightNavigation.selectOnRight = BoatScreen_SecondaryColorLeftButton;
+            colorsRightNavigation.selectOnLeft = BoatScreen_SecondaryColorLeftButton;
+
+            // reassign the struct data to the button
+            SinglePlayer_BoatScreen_Colors_Right.navigation = colorsRightNavigation;
         }
     }
 }

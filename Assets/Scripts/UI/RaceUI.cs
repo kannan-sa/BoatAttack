@@ -191,12 +191,14 @@ namespace BoatAttack.UI
 
         public void SetGameStats(bool enable)
         {
+            Debug.Log("SetGameStats called, bool: " + enable);
             raceStat.SetActive(enable);
             StartCoroutine(CreateGameStats());
         }
 
         public void MatchEnd()
         {
+            print("Match end");
             BoatData playerBoat = RaceData.game == GameType.Singleplayer ? RaceData.boats[0] : PlayerStatus.playerBoat;
             Debug.Log("Boat place: " + playerBoat.Boat.Place);
             //int index = RaceData.game == GameType.Singleplayer ? 0 : PlayerStatus.index;
@@ -205,12 +207,17 @@ namespace BoatAttack.UI
             //Debug.Log($"player position {RaceData.boats[index].Boat.Place}");
 
             bool canShowVictory = playerPlace < victoryDetails.Length;
+            print("playerPlace : " + playerPlace);
+            print("victoryDetails.Length: " + victoryDetails.Length);
+            print("canShowVictory: " + canShowVictory);
             victoryPanel.SetActive(canShowVictory);
             if (canShowVictory) {
                 victoryImage.sprite = Resources.Load<Sprite>(victoryDetails[playerPlace]);
                 StartCoroutine(HideVictory(4));
+                print("Player won");
             }
             else {
+                print("Player lost, calling SetGameStats(true)");
                 SetGameStats(true);
             }
 
@@ -219,26 +226,34 @@ namespace BoatAttack.UI
 
         private IEnumerator HideVictory(int time)
         {
+            print("Inside HideVictory cr");
             yield return new WaitForSeconds(time);
 
             if (RaceData.game == GameType.Multiplayer)
             {
+                
                 //NetworkRaceManager.playerStats[PlayerStatus.index].finished.Value = true;
                 PlayerStatus.current.finished.Value = true;
                 yield return new WaitWhile(() => NetworkRaceManager.playerStats.Any(p => !p.finished.Value));
 
                 finishButton.SetActive(false);
                 lobbyButton.SetActive(true);
-                SetGameStats(true);
+                print("RaceData.game == GameType.Multiplayer, SetGameStats(true) called");
+                
+
             }
             else
             {
+
+                print("RaceData.game IS NOT EQUAL TO GameType.Multiplayer, might need to call SetGameStats here");
                 finishButton.SetActive(true);
                 lobbyButton.SetActive(false);
+
             }
 
-
+            SetGameStats(true);
             victoryPanel.SetActive(false);
+            print("Hide victory CR ends");
         }
 
         public void OnResumeGame()

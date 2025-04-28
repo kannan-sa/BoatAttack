@@ -3293,6 +3293,10 @@ MonoBehaviour:
   OptionPanel: {fileID: 509996392137310139}
   menuAnimator: {fileID: 3300335164659556536}
   playerIndex: 0
+  SinglePlayer_BoatScreen_Colors_Right: {fileID: 3875402922284444765}
+  BoatScreen_RaceButton: {fileID: 8450743389908791407}
+  BoatScreen_PrimaryColorRightButton: {fileID: 2420245550010250464}
+  BoatScreen_SecondaryColorLeftButton: {fileID: 3211065172348008801}
 --- !u!114 &5085794017186567176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5706,6 +5710,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa85b7179dd981043828ba3a73d63dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5074834408772668756 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5287182830872184991, guid: ae72c756897d51d4b865dcf61967323a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1095139713800291787}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1245687942537473104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7441,7 +7457,7 @@ PrefabInstance:
     - target: {fileID: 3483432873453881459, guid: 3aa15030c01b44e1981a625cc3f1ec72,
         type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3483432873453881459, guid: 3aa15030c01b44e1981a625cc3f1ec72,
         type: 3}
@@ -8052,7 +8068,7 @@ PrefabInstance:
     - target: {fileID: 4707068379526570284, guid: fabf9e43689482648995aaf41bb8227c,
         type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4707068379526570284, guid: fabf9e43689482648995aaf41bb8227c,
         type: 3}
@@ -8068,12 +8084,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Navigation.m_SelectOnLeft
       value: 
-      objectReference: {fileID: 3395003701394301076}
+      objectReference: {fileID: 2179087277760628487}
     - target: {fileID: 4707068379526570284, guid: fabf9e43689482648995aaf41bb8227c,
         type: 3}
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
-      objectReference: {fileID: 2179087277760628487}
+      objectReference: {fileID: 3395003701394301076}
     - target: {fileID: 4707068379526570284, guid: fabf9e43689482648995aaf41bb8227c,
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
@@ -9817,7 +9833,7 @@ PrefabInstance:
     - target: {fileID: 2429123655643503151, guid: 6be23062448f8f545b9915fe68e8ff67,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2650392528529535786, guid: 6be23062448f8f545b9915fe68e8ff67,
         type: 3}
@@ -10037,7 +10053,7 @@ PrefabInstance:
     - target: {fileID: 6550350793095534314, guid: 6be23062448f8f545b9915fe68e8ff67,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6550350793095534314, guid: 6be23062448f8f545b9915fe68e8ff67,
         type: 3}
@@ -11453,7 +11469,7 @@ PrefabInstance:
     - target: {fileID: 2429123655643503151, guid: 0ab1d5871b666de4e870c1d8ba986492,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2650392528529535786, guid: 0ab1d5871b666de4e870c1d8ba986492,
         type: 3}
@@ -11738,7 +11754,7 @@ PrefabInstance:
     - target: {fileID: 6550350793095534314, guid: 0ab1d5871b666de4e870c1d8ba986492,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6550350793095534314, guid: 0ab1d5871b666de4e870c1d8ba986492,
         type: 3}
@@ -13692,6 +13708,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseButton_Join
       objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: a05a1cf0bfce70c41b85f021a0516c32,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707068379526570284, guid: a05a1cf0bfce70c41b85f021a0516c32,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 5074834408772668756}
+    - target: {fileID: 4707068379526570284, guid: a05a1cf0bfce70c41b85f021a0516c32,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 5074834408772668756}
+    - target: {fileID: 4707068379526570284, guid: a05a1cf0bfce70c41b85f021a0516c32,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 8406287380731357855}
+    - target: {fileID: 4707068379526570284, guid: a05a1cf0bfce70c41b85f021a0516c32,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 2179087277760628487}
     - target: {fileID: 4707068379526570284, guid: a05a1cf0bfce70c41b85f021a0516c32,
         type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite

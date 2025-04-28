@@ -452,11 +452,13 @@ public class MultiplayerMenuHelper : MonoBehaviour
                     return;
                 }
             }
-            else {
-                await Task.Delay(1500);
+            else
+            {
+                await Task.Delay(6000);//and explicit nav
                 bool isConnected = NetworkManager.Singleton.IsConnectedClient;
                 Debug.Log("Connected " + isConnected);
-                if (!isConnected) {
+                if (!isConnected)
+                {
                     Notification.ShowText("COULD NOT JOIN GAME, RETRY...", notificationWaitSeconds);
                     NetworkManager.Singleton.Shutdown();
                     return;
